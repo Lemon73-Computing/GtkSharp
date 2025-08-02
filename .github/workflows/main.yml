@@ -1,36 +1,45 @@
 name: Build
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-24.04
     permissions:
       packages: write
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        dotnet-version: ['8.0.x']
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
         with:
-          submodules: recursive
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '8.0.x'
+          dotnet-version: ${{ matrix.dotnet-version }}
+
       - name: Restore dotnet tools
         run: dotnet tool restore
+
       - name: Run build.cake
         run: dotnet cake build.cake
         env:
           GITHUB_ACTIONS: true
-      - uses: actions/upload-artifact@main
+
+      - name: Publish Nuget Packages
+        uses: actions/upload-artifact@v4
         with:
-          name: NuGet Packages
+          name: Nuget Packages
           path: |
             BuildOutput/NugetPackages/**/*.nupkg
           if-no-files-found: error
-      - name: Push NuGet to GitHub packages
+
+      - name: Push Nuget to GitHub packages
         run: dotnet nuget push BuildOutput/NugetPackages/**/*.nupkg --source https://nuget.pkg.github.com/$GITHUB_REPOSITORY_OWNER/index.json --api-key ${GITHUB_TOKEN}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
