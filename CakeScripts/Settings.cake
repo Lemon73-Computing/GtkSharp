@@ -6,7 +6,7 @@ class Settings
     public static string BuildTarget { get; set; }
     public static string Assembly { get; set; }
     public static List<GAssembly> AssemblyList { get; set; }
-    
+
     public static void Init()
     {
         AssemblyList = new List<GAssembly>()
