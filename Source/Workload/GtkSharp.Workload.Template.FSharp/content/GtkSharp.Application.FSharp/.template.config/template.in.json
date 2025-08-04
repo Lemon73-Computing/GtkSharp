@@ -24,6 +24,8 @@
     }
   },
   "primaryOutputs": [
-    { "path": "GtkNamespace.fsproj" }
+    {
+      "path": "GtkNamespace.fsproj"
+    }
   ]
 }

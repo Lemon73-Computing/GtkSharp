@@ -24,6 +24,8 @@
     }
   },
   "primaryOutputs": [
-    { "path": "GtkNamespace.csproj" }
+    {
+      "path": "GtkNamespace.csproj"
+    }
   ]
 }
