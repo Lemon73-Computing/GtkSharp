@@ -18,32 +18,35 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
-	
-	public partial class VScale {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_vscale_new_with_range(double min, double max, double step);
-		static d_gtk_vscale_new_with_range gtk_vscale_new_with_range = FuncLoader.LoadFunction<d_gtk_vscale_new_with_range>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_vscale_new_with_range"));
+    using System;
+    using System.Runtime.InteropServices;
 
-		[Obsolete]
-		public VScale (double min, double max, double step) : base (IntPtr.Zero)
-		{
-			if (GetType() != typeof (VScale)) {
-				Adjustment adj = new Adjustment (min, min, max, step, 10 * step, 0);
-				string[] names = new string [1];
-				GLib.Value[] vals = new GLib.Value [1];
-				names [0] = "adjustment";
-				vals [0] = new GLib.Value (adj);
-				CreateNativeObject (names, vals);
-				vals [0].Dispose ();
-				return;
-			}
+    public partial class VScale
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_vscale_new_with_range(double min, double max, double step);
+        static d_gtk_vscale_new_with_range gtk_vscale_new_with_range = FuncLoader.LoadFunction<d_gtk_vscale_new_with_range>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_vscale_new_with_range"));
 
-			Raw = gtk_vscale_new_with_range (min, max, step);
-		}
-	}
+        [Obsolete]
+        public VScale(double min, double max, double step) : base(IntPtr.Zero)
+        {
+            if (GetType() != typeof(VScale))
+            {
+                Adjustment adj = new Adjustment(min, min, max, step, 10 * step, 0);
+                string[] names = new string[1];
+                GLib.Value[] vals = new GLib.Value[1];
+                names[0] = "adjustment";
+                vals[0] = new GLib.Value(adj);
+                CreateNativeObject(names, vals);
+                vals[0].Dispose();
+                return;
+            }
+
+            Raw = gtk_vscale_new_with_range(min, max, step);
+        }
+    }
 }
 

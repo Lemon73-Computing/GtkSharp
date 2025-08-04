@@ -16,25 +16,29 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrLetterSpacing : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_letter_spacing_new(int letter_spacing);
-		static d_pango_attr_letter_spacing_new pango_attr_letter_spacing_new = FuncLoader.LoadFunction<d_pango_attr_letter_spacing_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_letter_spacing_new"));
+    public class AttrLetterSpacing : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_letter_spacing_new(int letter_spacing);
+        static d_pango_attr_letter_spacing_new pango_attr_letter_spacing_new = FuncLoader.LoadFunction<d_pango_attr_letter_spacing_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_letter_spacing_new"));
 
-		public AttrLetterSpacing (int letter_spacing) : this (pango_attr_letter_spacing_new (letter_spacing)) {}
+        public AttrLetterSpacing(int letter_spacing) : this(pango_attr_letter_spacing_new(letter_spacing)) { }
 
-		internal AttrLetterSpacing (IntPtr raw) : base (raw) {}
+        internal AttrLetterSpacing(IntPtr raw) : base(raw) { }
 
-		public int LetterSpacing {
-			get {
-				return AttrInt.New (Handle).Value;
-			}
-		}
-	}
+        public int LetterSpacing
+        {
+            get
+            {
+                return AttrInt.New(Handle).Value;
+            }
+        }
+    }
 }
 

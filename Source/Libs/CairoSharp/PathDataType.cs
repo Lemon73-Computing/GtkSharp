@@ -2,12 +2,12 @@ using System;
 
 namespace Cairo
 {
-	[Serializable]
-	public enum PathDataType
-	{
-		MoveTo,
-		LineTo,
-		CurveTo,
-		ClosePath
-	}
+    [Serializable]
+    public enum PathDataType
+    {
+        MoveTo,
+        LineTo,
+        CurveTo,
+        ClosePath
+    }
 }

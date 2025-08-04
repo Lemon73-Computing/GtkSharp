@@ -22,7 +22,7 @@ namespace Samples
                     btn.Label = "Untoggle Me";
                 else
                     btn.Label = "Toglle Me";
-                
+
                 ApplicationOutput.WriteLine(sender, "Buton Toggled");
             };
 

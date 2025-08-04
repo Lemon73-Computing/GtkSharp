@@ -21,27 +21,30 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gdk {
+namespace Gdk
+{
 
-	using System.Runtime.InteropServices;
+    using System.Runtime.InteropServices;
 
-	public partial struct Color {
+    public partial struct Color
+    {
 
-		public Color (byte r, byte g, byte b)
-		{
-			Red = (ushort) (r << 8 | r);
-			Green = (ushort) (g << 8 | g);
-			Blue = (ushort) (b << 8 | b);
-			Pixel = 0;
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate uint d_gdk_color_hash(ref Gdk.Color raw);
-		static d_gdk_color_hash gdk_color_hash = FuncLoader.LoadFunction<d_gdk_color_hash>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_color_hash"));
+        public Color(byte r, byte g, byte b)
+        {
+            Red = (ushort)(r << 8 | r);
+            Green = (ushort)(g << 8 | g);
+            Blue = (ushort)(b << 8 | b);
+            Pixel = 0;
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate uint d_gdk_color_hash(ref Gdk.Color raw);
+        static d_gdk_color_hash gdk_color_hash = FuncLoader.LoadFunction<d_gdk_color_hash>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_color_hash"));
 
-		public override int GetHashCode() {
-			return (int) gdk_color_hash(ref this);
-		}
-	}
+        public override int GetHashCode()
+        {
+            return (int)gdk_color_hash(ref this);
+        }
+    }
 }
 
 

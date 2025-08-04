@@ -18,36 +18,40 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class CheckMenuItem {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_check_menu_item_new_with_mnemonic(IntPtr label);
-		static d_gtk_check_menu_item_new_with_mnemonic gtk_check_menu_item_new_with_mnemonic = FuncLoader.LoadFunction<d_gtk_check_menu_item_new_with_mnemonic>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_check_menu_item_new_with_mnemonic"));
+    public partial class CheckMenuItem
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_check_menu_item_new_with_mnemonic(IntPtr label);
+        static d_gtk_check_menu_item_new_with_mnemonic gtk_check_menu_item_new_with_mnemonic = FuncLoader.LoadFunction<d_gtk_check_menu_item_new_with_mnemonic>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_check_menu_item_new_with_mnemonic"));
 
-		public CheckMenuItem (string label) : base (IntPtr.Zero)
-		{
-			if (GetType() != typeof (CheckMenuItem)) {
-				CreateNativeObject (new string [0], new GLib.Value [0]);
-				AccelLabel al = new AccelLabel ("");
-				al.TextWithMnemonic = label;
-				al.SetAlignment (0.0f, 0.5f);
-				Add (al);
-				al.AccelWidget = this;
-				return;
-			}
+        public CheckMenuItem(string label) : base(IntPtr.Zero)
+        {
+            if (GetType() != typeof(CheckMenuItem))
+            {
+                CreateNativeObject(new string[0], new GLib.Value[0]);
+                AccelLabel al = new AccelLabel("");
+                al.TextWithMnemonic = label;
+                al.SetAlignment(0.0f, 0.5f);
+                Add(al);
+                al.AccelWidget = this;
+                return;
+            }
 
-			IntPtr native = GLib.Marshaller.StringToPtrGStrdup (label);
-			Raw = gtk_check_menu_item_new_with_mnemonic (native);
-			GLib.Marshaller.Free (native);
-		}
+            IntPtr native = GLib.Marshaller.StringToPtrGStrdup(label);
+            Raw = gtk_check_menu_item_new_with_mnemonic(native);
+            GLib.Marshaller.Free(native);
+        }
 
-		public void Toggle() {
-			Active = !Active;
-		}
-	}
+        public void Toggle()
+        {
+            Active = !Active;
+        }
+    }
 }
 

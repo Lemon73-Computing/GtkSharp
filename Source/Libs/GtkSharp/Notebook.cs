@@ -19,26 +19,30 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class Notebook {
+    public partial class Notebook
+    {
 
-		public Widget CurrentPageWidget {
-			get {
-				return GetNthPage (CurrentPage);
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate int d_gtk_notebook_page_num(IntPtr handle, IntPtr child);
-		static d_gtk_notebook_page_num gtk_notebook_page_num = FuncLoader.LoadFunction<d_gtk_notebook_page_num>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_notebook_page_num"));
+        public Widget CurrentPageWidget
+        {
+            get
+            {
+                return GetNthPage(CurrentPage);
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate int d_gtk_notebook_page_num(IntPtr handle, IntPtr child);
+        static d_gtk_notebook_page_num gtk_notebook_page_num = FuncLoader.LoadFunction<d_gtk_notebook_page_num>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_notebook_page_num"));
 
-		public int PageNum (Widget child)
-		{
-			return gtk_notebook_page_num (Handle, child.Handle);
-		}
-	}
+        public int PageNum(Widget child)
+        {
+            return gtk_notebook_page_num(Handle, child.Handle);
+        }
+    }
 }
 

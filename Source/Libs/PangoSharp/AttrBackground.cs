@@ -16,27 +16,31 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrBackground : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_background_new(ushort red, ushort green, ushort blue);
-		static d_pango_attr_background_new pango_attr_background_new = FuncLoader.LoadFunction<d_pango_attr_background_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_background_new"));
+    public class AttrBackground : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_background_new(ushort red, ushort green, ushort blue);
+        static d_pango_attr_background_new pango_attr_background_new = FuncLoader.LoadFunction<d_pango_attr_background_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_background_new"));
 
-		public AttrBackground (ushort red, ushort green, ushort blue) : this (pango_attr_background_new (red, green, blue)) {}
+        public AttrBackground(ushort red, ushort green, ushort blue) : this(pango_attr_background_new(red, green, blue)) { }
 
-		public AttrBackground (Pango.Color color) : this (pango_attr_background_new (color.Red, color.Green, color.Blue)) {}
+        public AttrBackground(Pango.Color color) : this(pango_attr_background_new(color.Red, color.Green, color.Blue)) { }
 
-		internal AttrBackground (IntPtr raw) : base (raw) {}
+        internal AttrBackground(IntPtr raw) : base(raw) { }
 
-		public Pango.Color Color {
-			get {
-				return AttrColor.New (Handle).Color;
-			}
-		}
-	}
+        public Pango.Color Color
+        {
+            get
+            {
+                return AttrColor.New(Handle).Color;
+            }
+        }
+    }
 }
 

@@ -19,84 +19,86 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class SList : ListBase {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_slist_copy(IntPtr l);
-		static d_g_slist_copy g_slist_copy = FuncLoader.LoadFunction<d_g_slist_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_copy"));
-		
-		public override object Clone ()
-		{
-			return new SList (g_slist_copy (Handle));
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate int d_g_slist_length(IntPtr l);
-		static d_g_slist_length g_slist_length = FuncLoader.LoadFunction<d_g_slist_length>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_length"));
-		
-		internal override int Length (IntPtr list)
-		{
-			return g_slist_length (list);
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_slist_free(IntPtr l);
-		static d_g_slist_free g_slist_free = FuncLoader.LoadFunction<d_g_slist_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_free"));
+    public class SList : ListBase
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_slist_copy(IntPtr l);
+        static d_g_slist_copy g_slist_copy = FuncLoader.LoadFunction<d_g_slist_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_copy"));
 
-		internal override void Free (IntPtr list)
-		{
-			if (list != IntPtr.Zero)
-				g_slist_free (list);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_slist_append(IntPtr l, IntPtr raw);
-		static d_g_slist_append g_slist_append = FuncLoader.LoadFunction<d_g_slist_append>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_append"));
+        public override object Clone()
+        {
+            return new SList(g_slist_copy(Handle));
+        }
 
-		internal override IntPtr Append (IntPtr list, IntPtr raw)
-		{
-			return g_slist_append (list, raw);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_slist_prepend(IntPtr l, IntPtr raw);
-		static d_g_slist_prepend g_slist_prepend = FuncLoader.LoadFunction<d_g_slist_prepend>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_prepend"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate int d_g_slist_length(IntPtr l);
+        static d_g_slist_length g_slist_length = FuncLoader.LoadFunction<d_g_slist_length>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_length"));
 
-		internal override IntPtr Prepend (IntPtr list, IntPtr raw)
-		{
-			return g_slist_prepend (list, raw);
-		}
+        internal override int Length(IntPtr list)
+        {
+            return g_slist_length(list);
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_slist_nth_data(IntPtr l, uint n);
-		static d_g_slist_nth_data g_slist_nth_data = FuncLoader.LoadFunction<d_g_slist_nth_data>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_nth_data"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_slist_free(IntPtr l);
+        static d_g_slist_free g_slist_free = FuncLoader.LoadFunction<d_g_slist_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_free"));
 
-		internal override IntPtr NthData (uint n)
-		{
-			return g_slist_nth_data (Handle, n);
-		}
+        internal override void Free(IntPtr list)
+        {
+            if (list != IntPtr.Zero)
+                g_slist_free(list);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_slist_append(IntPtr l, IntPtr raw);
+        static d_g_slist_append g_slist_append = FuncLoader.LoadFunction<d_g_slist_append>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_append"));
 
-		public SList (IntPtr raw) : this (raw, null) {}
+        internal override IntPtr Append(IntPtr list, IntPtr raw)
+        {
+            return g_slist_append(list, raw);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_slist_prepend(IntPtr l, IntPtr raw);
+        static d_g_slist_prepend g_slist_prepend = FuncLoader.LoadFunction<d_g_slist_prepend>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_prepend"));
 
-		public SList (System.Type element_type) : this (IntPtr.Zero, element_type) {}
+        internal override IntPtr Prepend(IntPtr list, IntPtr raw)
+        {
+            return g_slist_prepend(list, raw);
+        }
 
-		public SList (IntPtr raw, System.Type element_type) : this (raw, element_type, false, false) {}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_slist_nth_data(IntPtr l, uint n);
+        static d_g_slist_nth_data g_slist_nth_data = FuncLoader.LoadFunction<d_g_slist_nth_data>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_slist_nth_data"));
 
-		public SList (IntPtr raw, System.Type element_type, bool owned, bool elements_owned) : base (raw, element_type, owned, elements_owned) {}
+        internal override IntPtr NthData(uint n)
+        {
+            return g_slist_nth_data(Handle, n);
+        }
 
-		public SList (object[] members, System.Type element_type, bool owned, bool elements_owned) : this (IntPtr.Zero, element_type, owned, elements_owned)
-		{
-			foreach (object o in members)
-				Append (o);
-		}
+        public SList(IntPtr raw) : this(raw, null) { }
 
-		public SList (Array members, System.Type element_type, bool owned, bool elements_owned) : this (IntPtr.Zero, element_type, owned, elements_owned)
-		{
-			foreach (object o in members)
-				Append (o);
-		}
-	}
+        public SList(System.Type element_type) : this(IntPtr.Zero, element_type) { }
+
+        public SList(IntPtr raw, System.Type element_type) : this(raw, element_type, false, false) { }
+
+        public SList(IntPtr raw, System.Type element_type, bool owned, bool elements_owned) : base(raw, element_type, owned, elements_owned) { }
+
+        public SList(object[] members, System.Type element_type, bool owned, bool elements_owned) : this(IntPtr.Zero, element_type, owned, elements_owned)
+        {
+            foreach (object o in members)
+                Append(o);
+        }
+
+        public SList(Array members, System.Type element_type, bool owned, bool elements_owned) : this(IntPtr.Zero, element_type, owned, elements_owned)
+        {
+            foreach (object o in members)
+                Append(o);
+        }
+    }
 }
 

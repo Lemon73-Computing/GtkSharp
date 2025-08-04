@@ -19,27 +19,30 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class TextView {
-				
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_text_view_new_with_buffer(IntPtr buffer);
-		static d_gtk_text_view_new_with_buffer gtk_text_view_new_with_buffer = FuncLoader.LoadFunction<d_gtk_text_view_new_with_buffer>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_text_view_new_with_buffer"));
+    public partial class TextView
+    {
 
-		public TextView (TextBuffer buffer) : base (IntPtr.Zero)
-		{
-			if (GetType() != typeof (TextView)) {
-				CreateNativeObject (new string [0], new GLib.Value [0]);
-				Buffer = buffer;
-				return;
-			}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_text_view_new_with_buffer(IntPtr buffer);
+        static d_gtk_text_view_new_with_buffer gtk_text_view_new_with_buffer = FuncLoader.LoadFunction<d_gtk_text_view_new_with_buffer>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_text_view_new_with_buffer"));
 
-			Raw = gtk_text_view_new_with_buffer (buffer.Handle);
-		}
-	}
+        public TextView(TextBuffer buffer) : base(IntPtr.Zero)
+        {
+            if (GetType() != typeof(TextView))
+            {
+                CreateNativeObject(new string[0], new GLib.Value[0]);
+                Buffer = buffer;
+                return;
+            }
+
+            Raw = gtk_text_view_new_with_buffer(buffer.Handle);
+        }
+    }
 }
 

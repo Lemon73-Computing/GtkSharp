@@ -18,36 +18,41 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace GLib {
-	using System;
-	using System.Runtime.InteropServices;
-	
-	public partial class FileAdapter {
-		public override string ToString ()
-		{
-			return Uri.ToString ();
-		}
-		
-		public bool Exists {
-			get { return QueryExists (null); }
-		}
-		
-		public bool Delete ()
-		{
-			return Delete (null);
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_file_get_uri(IntPtr raw);
-		static d_g_file_get_uri g_file_get_uri = FuncLoader.LoadFunction<d_g_file_get_uri>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gio), "g_file_get_uri"));
-		
-		public System.Uri Uri {
-			get {
-				IntPtr raw_ret = g_file_get_uri(Handle);
-				string ret = GLib.Marshaller.PtrToStringGFree(raw_ret);
-				return new System.Uri (ret);
-			}
-		}
-	}
+namespace GLib
+{
+    using System;
+    using System.Runtime.InteropServices;
+
+    public partial class FileAdapter
+    {
+        public override string ToString()
+        {
+            return Uri.ToString();
+        }
+
+        public bool Exists
+        {
+            get { return QueryExists(null); }
+        }
+
+        public bool Delete()
+        {
+            return Delete(null);
+        }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_file_get_uri(IntPtr raw);
+        static d_g_file_get_uri g_file_get_uri = FuncLoader.LoadFunction<d_g_file_get_uri>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gio), "g_file_get_uri"));
+
+        public System.Uri Uri
+        {
+            get
+            {
+                IntPtr raw_ret = g_file_get_uri(Handle);
+                string ret = GLib.Marshaller.PtrToStringGFree(raw_ret);
+                return new System.Uri(ret);
+            }
+        }
+    }
 }
 

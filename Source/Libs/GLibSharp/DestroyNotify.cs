@@ -18,56 +18,63 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-	public delegate void DestroyNotify (IntPtr data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void DestroyNotify(IntPtr data);
 
-	public class DestroyHelper {
+    public class DestroyHelper
+    {
 
-		private DestroyHelper () {}
-		
-		static void ReleaseGCHandle (IntPtr data)
-		{
-			if (data == IntPtr.Zero)
-				return;
-			GCHandle gch = (GCHandle) data;
-			gch.Free ();
-		}
+        private DestroyHelper() { }
 
-		static DestroyNotify release_gchandle;
+        static void ReleaseGCHandle(IntPtr data)
+        {
+            if (data == IntPtr.Zero)
+                return;
+            GCHandle gch = (GCHandle)data;
+            gch.Free();
+        }
 
-		public static DestroyNotify NotifyHandler {
-			get {
-				if (release_gchandle == null)
-					release_gchandle = new DestroyNotify (ReleaseGCHandle);
-				return release_gchandle;
-			}
-		}
+        static DestroyNotify release_gchandle;
 
-		static void ReleaseSourceProxy (IntPtr data)
-		{
-			if (data == IntPtr.Zero)
-				return;
-			GCHandle gch = (GCHandle)data;
-			if (gch.Target is SourceProxy proxy) {
-				lock (proxy)
-					proxy.Dispose ();
-			}
-			gch.Free();
-		}
+        public static DestroyNotify NotifyHandler
+        {
+            get
+            {
+                if (release_gchandle == null)
+                    release_gchandle = new DestroyNotify(ReleaseGCHandle);
+                return release_gchandle;
+            }
+        }
 
-		static DestroyNotify release_sourceproxy;
+        static void ReleaseSourceProxy(IntPtr data)
+        {
+            if (data == IntPtr.Zero)
+                return;
+            GCHandle gch = (GCHandle)data;
+            if (gch.Target is SourceProxy proxy)
+            {
+                lock (proxy)
+                    proxy.Dispose();
+            }
+            gch.Free();
+        }
 
-		public static DestroyNotify SourceProxyNotifyHandler {
-			get {
-				if (release_sourceproxy == null)
-					release_sourceproxy = new DestroyNotify (ReleaseSourceProxy);
-				return release_sourceproxy;
-			}
-		}
-	}
+        static DestroyNotify release_sourceproxy;
+
+        public static DestroyNotify SourceProxyNotifyHandler
+        {
+            get
+            {
+                if (release_sourceproxy == null)
+                    release_sourceproxy = new DestroyNotify(ReleaseSourceProxy);
+                return release_sourceproxy;
+            }
+        }
+    }
 }

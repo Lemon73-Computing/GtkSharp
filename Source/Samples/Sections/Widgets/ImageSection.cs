@@ -11,20 +11,20 @@ using Gtk;
 
 namespace Samples
 {
-	[Section(ContentType = typeof(ImageBox), Category = Category.Widgets)]
-	class ImageSection : ListSection
-	{
-		public ImageSection()
-		{
-			AddItem(CreateContainer());
-		}
+    [Section(ContentType = typeof(ImageBox), Category = Category.Widgets)]
+    class ImageSection : ListSection
+    {
+        public ImageSection()
+        {
+            AddItem(CreateContainer());
+        }
 
-		public (string, Widget) CreateContainer()
-		{
-			var image = new Pixbuf(typeof(ImageSection).Assembly, "Testpic");
-			var container = new ImageBox(image);
+        public (string, Widget) CreateContainer()
+        {
+            var image = new Pixbuf(typeof(ImageSection).Assembly, "Testpic");
+            var container = new ImageBox(image);
 
-			return ($"{nameof(ImageBox)}:", container);
-		}
-	}
+            return ($"{nameof(ImageBox)}:", container);
+        }
+    }
 }

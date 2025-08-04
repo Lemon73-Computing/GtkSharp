@@ -32,107 +32,108 @@ using System;
 using System.Runtime.InteropServices;
 using Cairo;
 
-namespace Cairo {
+namespace Cairo
+{
 
-	public class Path : IDisposable
-	{
-		[StructLayout(LayoutKind.Sequential)]
-		struct PathStruct
-		{
-			public Status Status;
-			public IntPtr Data;
-			public int NumData;
-		}
+    public class Path : IDisposable
+    {
+        [StructLayout(LayoutKind.Sequential)]
+        struct PathStruct
+        {
+            public Status Status;
+            public IntPtr Data;
+            public int NumData;
+        }
 
-		IntPtr handle = IntPtr.Zero;
-		Status status;
-		PathData[] data;
+        IntPtr handle = IntPtr.Zero;
+        Status status;
+        PathData[] data;
 
-		internal Path (IntPtr handle)
-		{
-			if (handle == IntPtr.Zero)
-				throw new ArgumentException ("handle should not be NULL", "handle");
+        internal Path(IntPtr handle)
+        {
+            if (handle == IntPtr.Zero)
+                throw new ArgumentException("handle should not be NULL", "handle");
 
-			this.handle = handle;
-			if (CairoDebug.Enabled)
-				CairoDebug.OnAllocated (handle);
-		}
+            this.handle = handle;
+            if (CairoDebug.Enabled)
+                CairoDebug.OnAllocated(handle);
+        }
 
-		~Path ()
-		{
-			Dispose (false);
-		}
+        ~Path()
+        {
+            Dispose(false);
+        }
 
-		public IntPtr Handle { get { return handle; } }
+        public IntPtr Handle { get { return handle; } }
 
-		public void Dispose ()
-		{
-			Dispose (true);
-			GC.SuppressFinalize (this);
-		}
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-		protected virtual void Dispose (bool disposing)
-		{
-			if (!disposing || CairoDebug.Enabled)
-				CairoDebug.OnDisposed<Path> (handle, disposing);
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing || CairoDebug.Enabled)
+                CairoDebug.OnDisposed<Path>(handle, disposing);
 
-			if (handle == IntPtr.Zero)
-				return;
+            if (handle == IntPtr.Zero)
+                return;
 
-			NativeMethods.cairo_path_destroy (handle);
-			handle = IntPtr.Zero;
-		}
+            NativeMethods.cairo_path_destroy(handle);
+            handle = IntPtr.Zero;
+        }
 
-		void CheckDisposed ()
-		{
-			if (handle == IntPtr.Zero)
-				throw new ObjectDisposedException ("Object has already been disposed");
-		}
+        void CheckDisposed()
+        {
+            if (handle == IntPtr.Zero)
+                throw new ObjectDisposedException("Object has already been disposed");
+        }
 
-		void MarshalData ()
-		{
-			if (data == null)
-			{
-				var rawStruct = Marshal.PtrToStructure<PathStruct>(handle);
-				status = rawStruct.Status;
-				data = new PathData[rawStruct.NumData];
-				int oneDataSize = Marshal.SizeOf<PathData>();
-				for (int i = 0; i < rawStruct.NumData; i++)
-				{
-					IntPtr iPtr = new IntPtr(rawStruct.Data.ToInt64() + i * oneDataSize);
-					data[i] = Marshal.PtrToStructure<PathData>(iPtr);
-				}
-			}
-		}
+        void MarshalData()
+        {
+            if (data == null)
+            {
+                var rawStruct = Marshal.PtrToStructure<PathStruct>(handle);
+                status = rawStruct.Status;
+                data = new PathData[rawStruct.NumData];
+                int oneDataSize = Marshal.SizeOf<PathData>();
+                for (int i = 0; i < rawStruct.NumData; i++)
+                {
+                    IntPtr iPtr = new IntPtr(rawStruct.Data.ToInt64() + i * oneDataSize);
+                    data[i] = Marshal.PtrToStructure<PathData>(iPtr);
+                }
+            }
+        }
 
-		public Status Status
-		{
-			get
-			{
-				CheckDisposed ();
-				MarshalData ();
-				return status;
-			}
-		}
+        public Status Status
+        {
+            get
+            {
+                CheckDisposed();
+                MarshalData();
+                return status;
+            }
+        }
 
-		public int NumData
-		{
-			get
-			{
-				CheckDisposed ();
-				MarshalData ();
-				return data.Length;
-			}
-		}
+        public int NumData
+        {
+            get
+            {
+                CheckDisposed();
+                MarshalData();
+                return data.Length;
+            }
+        }
 
-		public PathData[] Data
-		{
-			get
-			{
-				CheckDisposed ();
-				MarshalData ();
-				return data;
-			}
-		}
-	}
+        public PathData[] Data
+        {
+            get
+            {
+                CheckDisposed();
+                MarshalData();
+                return data;
+            }
+        }
+    }
 }

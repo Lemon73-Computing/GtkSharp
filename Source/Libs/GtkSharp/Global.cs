@@ -16,22 +16,24 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	public partial class Global {
+    public partial class Global
+    {
 
-		public static bool ShowUri (string uri)
-		{
-			return ShowUri (null, uri);
-		}
+        public static bool ShowUri(string uri)
+        {
+            return ShowUri(null, uri);
+        }
 
-		public static bool ShowUri (Gdk.Screen screen, string uri)
-		{
-			return ShowUri (screen, uri, Gtk.Global.CurrentEventTime);
-		}
+        public static bool ShowUri(Gdk.Screen screen, string uri)
+        {
+            return ShowUri(screen, uri, Gtk.Global.CurrentEventTime);
+        }
 
-		public static bool IsSupported => GLibrary.IsSupported(Library.Gtk);
+        public static bool IsSupported => GLibrary.IsSupported(Library.Gtk);
 
-	}
+    }
 }
 

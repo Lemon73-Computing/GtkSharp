@@ -18,96 +18,112 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class TreeModelAdapter {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_gtk_tree_model_iter_children2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent);
-		static d_gtk_tree_model_iter_children2 gtk_tree_model_iter_children2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_children2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_children"));
-		public bool IterChildren (out Gtk.TreeIter iter) {
-			bool raw_ret = gtk_tree_model_iter_children2 (Handle, out iter, IntPtr.Zero);
-			bool ret = raw_ret;
-			return ret;
-		}
+    public partial class TreeModelAdapter
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_gtk_tree_model_iter_children2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent);
+        static d_gtk_tree_model_iter_children2 gtk_tree_model_iter_children2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_children2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_children"));
+        public bool IterChildren(out Gtk.TreeIter iter)
+        {
+            bool raw_ret = gtk_tree_model_iter_children2(Handle, out iter, IntPtr.Zero);
+            bool ret = raw_ret;
+            return ret;
+        }
 
-		public int IterNChildren () {
-			int raw_ret = gtk_tree_model_iter_n_children (Handle, IntPtr.Zero);
-			int ret = raw_ret;
-			return ret;
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_gtk_tree_model_iter_nth_child2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent, int n);
-		static d_gtk_tree_model_iter_nth_child2 gtk_tree_model_iter_nth_child2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_nth_child2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_nth_child"));
-		public bool IterNthChild (out Gtk.TreeIter iter, int n) {
-			bool raw_ret = gtk_tree_model_iter_nth_child2 (Handle, out iter, IntPtr.Zero, n);
-			bool ret = raw_ret;
-			return ret;
-		}
+        public int IterNChildren()
+        {
+            int raw_ret = gtk_tree_model_iter_n_children(Handle, IntPtr.Zero);
+            int ret = raw_ret;
+            return ret;
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_gtk_tree_model_iter_nth_child2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent, int n);
+        static d_gtk_tree_model_iter_nth_child2 gtk_tree_model_iter_nth_child2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_nth_child2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_nth_child"));
+        public bool IterNthChild(out Gtk.TreeIter iter, int n)
+        {
+            bool raw_ret = gtk_tree_model_iter_nth_child2(Handle, out iter, IntPtr.Zero, n);
+            bool ret = raw_ret;
+            return ret;
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, bool value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, bool value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, double value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, double value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, int value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, int value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, string value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, string value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, float value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, float value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void SetValue (Gtk.TreeIter iter, int column, uint value) {
-			throw new NotImplementedException ();
-		}
-		
-		public void SetValue (Gtk.TreeIter iter, int column, object value) {
-			throw new NotImplementedException ();
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, uint value)
+        {
+            throw new NotImplementedException();
+        }
 
-		public object GetValue (Gtk.TreeIter iter, int column) {
-			GLib.Value val = GLib.Value.Empty;
-			GetValue (iter, column, ref val);
-			object ret = val.Val;
-			val.Dispose ();
-			return ret;
-		}
+        public void SetValue(Gtk.TreeIter iter, int column, object value)
+        {
+            throw new NotImplementedException();
+        }
 
-		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-		delegate void RowsReorderedSignalDelegate (IntPtr arg0, IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr gch);
+        public object GetValue(Gtk.TreeIter iter, int column)
+        {
+            GLib.Value val = GLib.Value.Empty;
+            GetValue(iter, column, ref val);
+            object ret = val.Val;
+            val.Dispose();
+            return ret;
+        }
 
-		static void RowsReorderedSignalCallback (IntPtr arg0, IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr gch)
-		{
-			Gtk.RowsReorderedArgs args = new Gtk.RowsReorderedArgs ();
-			try {
-				GLib.Signal sig = ((GCHandle) gch).Target as GLib.Signal;
-				if (sig == null)
-					throw new Exception("Unknown signal GC handle received " + gch);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void RowsReorderedSignalDelegate(IntPtr arg0, IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr gch);
 
-				TreeModelFilter sender = GLib.Object.GetObject (arg0) as TreeModelFilter;
-				args.Args = new object[3];
-				args.Args[0] = arg1 == IntPtr.Zero ? null : (Gtk.TreePath) GLib.Opaque.GetOpaque (arg1, typeof (Gtk.TreePath), false);
-				args.Args[1] = Gtk.TreeIter.New (arg2);
-				int child_cnt = arg2 == IntPtr.Zero ? sender.IterNChildren () : sender.IterNChildren ((TreeIter)args.Args[1]);
-				int[] new_order = new int [child_cnt];
-				Marshal.Copy (arg3, new_order, 0, child_cnt);
-				args.Args[2] = new_order;
-				Gtk.RowsReorderedHandler handler = (Gtk.RowsReorderedHandler) sig.Handler;
-				handler (sender, args);
-			} catch (Exception e) {
-				GLib.ExceptionManager.RaiseUnhandledException (e, false);
-			}
-		}
+        static void RowsReorderedSignalCallback(IntPtr arg0, IntPtr arg1, IntPtr arg2, IntPtr arg3, IntPtr gch)
+        {
+            Gtk.RowsReorderedArgs args = new Gtk.RowsReorderedArgs();
+            try
+            {
+                GLib.Signal sig = ((GCHandle)gch).Target as GLib.Signal;
+                if (sig == null)
+                    throw new Exception("Unknown signal GC handle received " + gch);
+
+                TreeModelFilter sender = GLib.Object.GetObject(arg0) as TreeModelFilter;
+                args.Args = new object[3];
+                args.Args[0] = arg1 == IntPtr.Zero ? null : (Gtk.TreePath)GLib.Opaque.GetOpaque(arg1, typeof(Gtk.TreePath), false);
+                args.Args[1] = Gtk.TreeIter.New(arg2);
+                int child_cnt = arg2 == IntPtr.Zero ? sender.IterNChildren() : sender.IterNChildren((TreeIter)args.Args[1]);
+                int[] new_order = new int[child_cnt];
+                Marshal.Copy(arg3, new_order, 0, child_cnt);
+                args.Args[2] = new_order;
+                Gtk.RowsReorderedHandler handler = (Gtk.RowsReorderedHandler)sig.Handler;
+                handler(sender, args);
+            }
+            catch (Exception e)
+            {
+                GLib.ExceptionManager.RaiseUnhandledException(e, false);
+            }
+        }
 
 #if false
 		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -173,15 +189,18 @@ namespace Gtk {
 		}
 
 #endif
-		[GLib.Signal("rows_reordered")]
-		public event Gtk.RowsReorderedHandler RowsReordered {
-			add {
-				GLib.Object.GetObject (Handle).AddSignalHandler ("rows_reordered", value, new RowsReorderedSignalDelegate(RowsReorderedSignalCallback));
-			}
-			remove {
-				GLib.Object.GetObject (Handle).RemoveSignalHandler ("rows_reordered", value);
-			}
-		}
-	}
+        [GLib.Signal("rows_reordered")]
+        public event Gtk.RowsReorderedHandler RowsReordered
+        {
+            add
+            {
+                GLib.Object.GetObject(Handle).AddSignalHandler("rows_reordered", value, new RowsReorderedSignalDelegate(RowsReorderedSignalCallback));
+            }
+            remove
+            {
+                GLib.Object.GetObject(Handle).RemoveSignalHandler("rows_reordered", value);
+            }
+        }
+    }
 }
 

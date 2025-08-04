@@ -23,43 +23,46 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Collections.Generic;
-	using System.Reflection;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
 
-	public partial class Widget {
+    public partial class Widget
+    {
 
-		[Obsolete ("Replaced by Window property.")]
-		public Gdk.Window GdkWindow {
-			get { return Window; }
-			set { Window = value; }
-		}
+        [Obsolete("Replaced by Window property.")]
+        public Gdk.Window GdkWindow
+        {
+            get { return Window; }
+            set { Window = value; }
+        }
 
-		struct TemplateData
-		{
-			public Dictionary<FieldInfo, string> FieldBindings;
-			public SignalConnector SignalConnector;
-			public bool ThrowOnUnknownChild;
+        struct TemplateData
+        {
+            public Dictionary<FieldInfo, string> FieldBindings;
+            public SignalConnector SignalConnector;
+            public bool ThrowOnUnknownChild;
 
-			public static TemplateData Create()
-			{
-				var res = new TemplateData();
-				res.FieldBindings = new Dictionary<FieldInfo, string>();
-				return res;
-			}
-		}
+            public static TemplateData Create()
+            {
+                var res = new TemplateData();
+                res.FieldBindings = new Dictionary<FieldInfo, string>();
+                return res;
+            }
+        }
 
-		private static Dictionary<Type, TemplateData> Templates = new Dictionary<Type, TemplateData>();
+        private static Dictionary<Type, TemplateData> Templates = new Dictionary<Type, TemplateData>();
 
-		public void AddAccelerator (string accel_signal, AccelGroup accel_group, AccelKey accel_key)
-		{
-			this.AddAccelerator (accel_signal, accel_group, (uint) accel_key.Key, accel_key.AccelMods, (Gtk.AccelFlags) accel_key.AccelFlags);
-		}
+        public void AddAccelerator(string accel_signal, AccelGroup accel_group, AccelKey accel_key)
+        {
+            this.AddAccelerator(accel_signal, accel_group, (uint)accel_key.Key, accel_key.AccelMods, (Gtk.AccelFlags)accel_key.AccelFlags);
+        }
 
-		/*
+        /*
 		public int FocusLineWidth {
 			get {
 				return (int) StyleGetProperty ("focus-line-width");
@@ -67,533 +70,574 @@ namespace Gtk {
 		}
 		*/
 
-		struct GClosure {
-			long fields;
-			IntPtr marshaler;
-			IntPtr data;
-			IntPtr notifiers;
-		}
+        struct GClosure
+        {
+            long fields;
+            IntPtr marshaler;
+            IntPtr data;
+            IntPtr notifiers;
+        }
 
-		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-		delegate void ClosureMarshal (IntPtr closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data);
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_closure_new_simple(int closure_size, IntPtr dummy);
-		static d_g_closure_new_simple g_closure_new_simple = FuncLoader.LoadFunction<d_g_closure_new_simple>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_closure_new_simple"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_closure_set_marshal(IntPtr closure, ClosureMarshal marshaler);
-		static d_g_closure_set_marshal g_closure_set_marshal = FuncLoader.LoadFunction<d_g_closure_set_marshal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_closure_set_marshal"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void ClosureMarshal(IntPtr closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_closure_new_simple(int closure_size, IntPtr dummy);
+        static d_g_closure_new_simple g_closure_new_simple = FuncLoader.LoadFunction<d_g_closure_new_simple>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_closure_new_simple"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_closure_set_marshal(IntPtr closure, ClosureMarshal marshaler);
+        static d_g_closure_set_marshal g_closure_set_marshal = FuncLoader.LoadFunction<d_g_closure_set_marshal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_closure_set_marshal"));
 
-		static IntPtr CreateClosure (ClosureMarshal marshaler) {
-			IntPtr raw_closure = g_closure_new_simple (Marshal.SizeOf<GClosure> (), IntPtr.Zero);
-			g_closure_set_marshal (raw_closure, marshaler);
-			return raw_closure;
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate uint d_g_signal_newv(IntPtr signal_name, IntPtr gtype, GLib.Signal.Flags signal_flags, IntPtr closure, IntPtr accumulator, IntPtr accu_data, IntPtr c_marshaller, IntPtr return_type, uint n_params, [MarshalAs (UnmanagedType.LPArray)] IntPtr[] param_types);
-		static d_g_signal_newv g_signal_newv = FuncLoader.LoadFunction<d_g_signal_newv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_signal_newv"));
+        static IntPtr CreateClosure(ClosureMarshal marshaler)
+        {
+            IntPtr raw_closure = g_closure_new_simple(Marshal.SizeOf<GClosure>(), IntPtr.Zero);
+            g_closure_set_marshal(raw_closure, marshaler);
+            return raw_closure;
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate uint d_g_signal_newv(IntPtr signal_name, IntPtr gtype, GLib.Signal.Flags signal_flags, IntPtr closure, IntPtr accumulator, IntPtr accu_data, IntPtr c_marshaller, IntPtr return_type, uint n_params, [MarshalAs(UnmanagedType.LPArray)] IntPtr[] param_types);
+        static d_g_signal_newv g_signal_newv = FuncLoader.LoadFunction<d_g_signal_newv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_signal_newv"));
 
-		static uint RegisterSignal (string signal_name, GLib.GType gtype, GLib.Signal.Flags signal_flags, GLib.GType return_type, GLib.GType[] param_types, ClosureMarshal marshaler)
-		{
-			IntPtr[] native_param_types = new IntPtr [param_types.Length];
-			for (int parm_idx = 0; parm_idx < param_types.Length; parm_idx++)
-				native_param_types [parm_idx] = param_types [parm_idx].Val;
+        static uint RegisterSignal(string signal_name, GLib.GType gtype, GLib.Signal.Flags signal_flags, GLib.GType return_type, GLib.GType[] param_types, ClosureMarshal marshaler)
+        {
+            IntPtr[] native_param_types = new IntPtr[param_types.Length];
+            for (int parm_idx = 0; parm_idx < param_types.Length; parm_idx++)
+                native_param_types[parm_idx] = param_types[parm_idx].Val;
 
-			IntPtr native_signal_name = GLib.Marshaller.StringToPtrGStrdup (signal_name);
-			try {
-				return g_signal_newv (native_signal_name, gtype.Val, signal_flags, CreateClosure (marshaler), IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, return_type.Val, (uint) param_types.Length, native_param_types);
-			} finally {
-				GLib.Marshaller.Free (native_signal_name);
-			}
-		}
+            IntPtr native_signal_name = GLib.Marshaller.StringToPtrGStrdup(signal_name);
+            try
+            {
+                return g_signal_newv(native_signal_name, gtype.Val, signal_flags, CreateClosure(marshaler), IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, return_type.Val, (uint)param_types.Length, native_param_types);
+            }
+            finally
+            {
+                GLib.Marshaller.Free(native_signal_name);
+            }
+        }
 
-		static void ActivateMarshal_cb (IntPtr raw_closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data)
-		{
-			try {
-				GLib.Value inst_val = (GLib.Value) Marshal.PtrToStructure (param_values, typeof (GLib.Value));
-				Widget inst;
-				try {
-					inst = inst_val.Val as Widget;
-				} catch (GLib.MissingIntPtrCtorException) {
-					return;
-				}
-				inst.OnActivate ();
-			} catch (Exception e) {
-				GLib.ExceptionManager.RaiseUnhandledException (e, false);
-			}
-		}
+        static void ActivateMarshal_cb(IntPtr raw_closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data)
+        {
+            try
+            {
+                GLib.Value inst_val = (GLib.Value)Marshal.PtrToStructure(param_values, typeof(GLib.Value));
+                Widget inst;
+                try
+                {
+                    inst = inst_val.Val as Widget;
+                }
+                catch (GLib.MissingIntPtrCtorException)
+                {
+                    return;
+                }
+                inst.OnActivate();
+            }
+            catch (Exception e)
+            {
+                GLib.ExceptionManager.RaiseUnhandledException(e, false);
+            }
+        }
 
-		static ClosureMarshal ActivateMarshalCallback;
+        static ClosureMarshal ActivateMarshalCallback;
 
-		static void ConnectActivate (GLib.GType gtype)
-		{
-			if (ActivateMarshalCallback == null)
-				ActivateMarshalCallback = new ClosureMarshal (ActivateMarshal_cb);
+        static void ConnectActivate(GLib.GType gtype)
+        {
+            if (ActivateMarshalCallback == null)
+                ActivateMarshalCallback = new ClosureMarshal(ActivateMarshal_cb);
 
-			unsafe {
-				uint* raw_ptr = (uint*)(((long) gtype.GetClassPtr()) + (long) class_abi.GetFieldOffset("activate_signal"));
+            unsafe
+            {
+                uint* raw_ptr = (uint*)(((long)gtype.GetClassPtr()) + (long)class_abi.GetFieldOffset("activate_signal"));
 
-				*raw_ptr = RegisterSignal ("activate_signal", gtype, GLib.Signal.Flags.RunLast, GLib.GType.None,
-						new GLib.GType [0], ActivateMarshalCallback);
-			}
-		}
+                *raw_ptr = RegisterSignal("activate_signal", gtype, GLib.Signal.Flags.RunLast, GLib.GType.None,
+                        new GLib.GType[0], ActivateMarshalCallback);
+            }
+        }
 
-		[GLib.DefaultSignalHandler (Type=typeof (Gtk.Widget), ConnectionMethod="ConnectActivate")]
-		protected virtual void OnActivate ()
-		{
-		}
+        [GLib.DefaultSignalHandler(Type = typeof(Gtk.Widget), ConnectionMethod = "ConnectActivate")]
+        protected virtual void OnActivate()
+        {
+        }
 
-		private class BindingInvoker {
-			System.Reflection.MethodInfo mi;
-			object[] parms;
+        private class BindingInvoker
+        {
+            System.Reflection.MethodInfo mi;
+            object[] parms;
 
-			public BindingInvoker (System.Reflection.MethodInfo mi, object[] parms)
-			{
-				this.mi = mi;
-				this.parms = parms;
-			}
+            public BindingInvoker(System.Reflection.MethodInfo mi, object[] parms)
+            {
+                this.mi = mi;
+                this.parms = parms;
+            }
 
-			public void Invoke (Widget w)
-			{
-				mi.Invoke (w, parms);
-			}
-		}
+            public void Invoke(Widget w)
+            {
+                mi.Invoke(w, parms);
+            }
+        }
 
-		/* As gtk_binding_entry_add_signall only allows passing long, double and string parameters
+        /* As gtk_binding_entry_add_signall only allows passing long, double and string parameters
 		 * to the specified signal, we cannot pass a pointer to the BindingInvoker directly to the signal.
 		 * Instead, the signal takes the index of the BindingInvoker in binding_invokers.
 		 */
-		static IList<BindingInvoker> binding_invokers;
+        static IList<BindingInvoker> binding_invokers;
 
-		static void BindingMarshal_cb (IntPtr raw_closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data)
-		{
-			try {
-				GLib.Value[] inst_and_params = new GLib.Value [n_param_vals];
-				int gvalue_size = Marshal.SizeOf<GLib.Value> ();
-				for (int idx = 0; idx < n_param_vals; idx++)
-					inst_and_params [idx] = (GLib.Value) Marshal.PtrToStructure (new IntPtr (param_values.ToInt64 () + idx * gvalue_size), typeof (GLib.Value));
+        static void BindingMarshal_cb(IntPtr raw_closure, IntPtr return_val, uint n_param_vals, IntPtr param_values, IntPtr invocation_hint, IntPtr marshal_data)
+        {
+            try
+            {
+                GLib.Value[] inst_and_params = new GLib.Value[n_param_vals];
+                int gvalue_size = Marshal.SizeOf<GLib.Value>();
+                for (int idx = 0; idx < n_param_vals; idx++)
+                    inst_and_params[idx] = (GLib.Value)Marshal.PtrToStructure(new IntPtr(param_values.ToInt64() + idx * gvalue_size), typeof(GLib.Value));
 
-				Widget w = inst_and_params [0].Val as Widget;
-				BindingInvoker invoker = binding_invokers [(int) (long) inst_and_params [1]];
-				invoker.Invoke (w);
-			} catch (Exception e) {
-				GLib.ExceptionManager.RaiseUnhandledException (e, false);
-			}
-		}
+                Widget w = inst_and_params[0].Val as Widget;
+                BindingInvoker invoker = binding_invokers[(int)(long)inst_and_params[1]];
+                invoker.Invoke(w);
+            }
+            catch (Exception e)
+            {
+                GLib.ExceptionManager.RaiseUnhandledException(e, false);
+            }
+        }
 
-		static ClosureMarshal binding_delegate;
-		static ClosureMarshal BindingDelegate {
-			get {
-				if (binding_delegate == null)
-					binding_delegate = new ClosureMarshal (BindingMarshal_cb);
-				return binding_delegate;
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_binding_set_by_class(IntPtr class_ptr);
-		static d_gtk_binding_set_by_class gtk_binding_set_by_class = FuncLoader.LoadFunction<d_gtk_binding_set_by_class>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_binding_set_by_class"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_binding_entry_add_signall(IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers, IntPtr signal_name, IntPtr binding_args);
-		static d_gtk_binding_entry_add_signall gtk_binding_entry_add_signall = FuncLoader.LoadFunction<d_gtk_binding_entry_add_signall>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_binding_entry_add_signall"));
+        static ClosureMarshal binding_delegate;
+        static ClosureMarshal BindingDelegate
+        {
+            get
+            {
+                if (binding_delegate == null)
+                    binding_delegate = new ClosureMarshal(BindingMarshal_cb);
+                return binding_delegate;
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_binding_set_by_class(IntPtr class_ptr);
+        static d_gtk_binding_set_by_class gtk_binding_set_by_class = FuncLoader.LoadFunction<d_gtk_binding_set_by_class>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_binding_set_by_class"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_binding_entry_add_signall(IntPtr binding_set, uint keyval, Gdk.ModifierType modifiers, IntPtr signal_name, IntPtr binding_args);
+        static d_gtk_binding_entry_add_signall gtk_binding_entry_add_signall = FuncLoader.LoadFunction<d_gtk_binding_entry_add_signall>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_binding_entry_add_signall"));
 
-		[StructLayout(LayoutKind.Sequential)]
-		struct GtkBindingArg {
-			public IntPtr arg_type;
-			public GtkBindingArgData data;
-		}
+        [StructLayout(LayoutKind.Sequential)]
+        struct GtkBindingArg
+        {
+            public IntPtr arg_type;
+            public GtkBindingArgData data;
+        }
 
-		[StructLayout(LayoutKind.Explicit)]
-		struct GtkBindingArgData {
-		#if WIN64LONGS
+        [StructLayout(LayoutKind.Explicit)]
+        struct GtkBindingArgData
+        {
+#if WIN64LONGS
 			[FieldOffset (0)] public int long_data;
-		#else
-			[FieldOffset (0)] public IntPtr long_data;
-		#endif
-			[FieldOffset (0)] public double double_data;
-			[FieldOffset (0)] public IntPtr string_data;
-		}
+#else
+            [FieldOffset(0)] public IntPtr long_data;
+#endif
+            [FieldOffset(0)] public double double_data;
+            [FieldOffset(0)] public IntPtr string_data;
+        }
 
-		static void ClassInit (GLib.GType gtype, Type t)
-		{
-			InitBindings (gtype, t);
-			InitTemplateForType (gtype, t);
-			InitCssName (gtype, t);
-		}
+        static void ClassInit(GLib.GType gtype, Type t)
+        {
+            InitBindings(gtype, t);
+            InitTemplateForType(gtype, t);
+            InitCssName(gtype, t);
+        }
 
-		static void InitBindings (GLib.GType gtype, Type t)
-		{
-			object[] attrs = t.GetCustomAttributes (typeof (BindingAttribute), true);
-			if (attrs.Length == 0) return;
+        static void InitBindings(GLib.GType gtype, Type t)
+        {
+            object[] attrs = t.GetCustomAttributes(typeof(BindingAttribute), true);
+            if (attrs.Length == 0) return;
 
-			string signame = t.Name.Replace (".", "_") + "_bindings";
-			IntPtr native_signame = GLib.Marshaller.StringToPtrGStrdup (signame);
-			RegisterSignal (signame, gtype, GLib.Signal.Flags.RunLast | GLib.Signal.Flags.Action, GLib.GType.None, new GLib.GType[] {GLib.GType.Long}, BindingDelegate);
+            string signame = t.Name.Replace(".", "_") + "_bindings";
+            IntPtr native_signame = GLib.Marshaller.StringToPtrGStrdup(signame);
+            RegisterSignal(signame, gtype, GLib.Signal.Flags.RunLast | GLib.Signal.Flags.Action, GLib.GType.None, new GLib.GType[] { GLib.GType.Long }, BindingDelegate);
 
-			if (binding_invokers == null)
-				binding_invokers = new List<BindingInvoker> ();
+            if (binding_invokers == null)
+                binding_invokers = new List<BindingInvoker>();
 
-			foreach (BindingAttribute attr in attrs) {
-				System.Reflection.MethodInfo mi = t.GetMethod (attr.Handler, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
-				if (mi == null)
-					throw new Exception ("Instance method " + attr.Handler + " not found in " + t);
+            foreach (BindingAttribute attr in attrs)
+            {
+                System.Reflection.MethodInfo mi = t.GetMethod(attr.Handler, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+                if (mi == null)
+                    throw new Exception("Instance method " + attr.Handler + " not found in " + t);
 
-				GtkBindingArg arg = new GtkBindingArg ();
-				arg.arg_type = GLib.GType.Long.Val;
+                GtkBindingArg arg = new GtkBindingArg();
+                arg.arg_type = GLib.GType.Long.Val;
 
-				var bi = new BindingInvoker (mi, attr.Parms);
-				binding_invokers.Add (bi);
-				int binding_invoker_idx = binding_invokers.IndexOf (bi);
+                var bi = new BindingInvoker(mi, attr.Parms);
+                binding_invokers.Add(bi);
+                int binding_invoker_idx = binding_invokers.IndexOf(bi);
 #if WIN64LONGS
 				arg.data.long_data = binding_invoker_idx;
 #else
-				arg.data.long_data = new IntPtr (binding_invoker_idx);
+                arg.data.long_data = new IntPtr(binding_invoker_idx);
 #endif
 
-				GLib.SList binding_args = new GLib.SList (new object[] {arg}, typeof (GtkBindingArg), false, false);
-				gtk_binding_entry_add_signall (gtk_binding_set_by_class (gtype.GetClassPtr ()), (uint) attr.Key, attr.Mod, native_signame, binding_args.Handle);
-				binding_args.Dispose ();
-			}
-			GLib.Marshaller.Free (native_signame);
-		}
+                GLib.SList binding_args = new GLib.SList(new object[] { arg }, typeof(GtkBindingArg), false, false);
+                gtk_binding_entry_add_signall(gtk_binding_set_by_class(gtype.GetClassPtr()), (uint)attr.Key, attr.Mod, native_signame, binding_args.Handle);
+                binding_args.Dispose();
+            }
+            GLib.Marshaller.Free(native_signame);
+        }
 
-		static void InitTemplateForType (GLib.GType gtype, Type type)
-		{
-			var attr = type.GetCustomAttribute<TemplateAttribute> (true);
-			if (attr == null) return;
+        static void InitTemplateForType(GLib.GType gtype, Type type)
+        {
+            var attr = type.GetCustomAttribute<TemplateAttribute>(true);
+            if (attr == null) return;
 
-			var data = TemplateData.Create ();
-			data.ThrowOnUnknownChild = attr.ThrowOnUnknownChild;
-			var resource_name = attr.Ui;
-			var resource_stream = type.Assembly.GetManifestResourceStream (resource_name);
+            var data = TemplateData.Create();
+            data.ThrowOnUnknownChild = attr.ThrowOnUnknownChild;
+            var resource_name = attr.Ui;
+            var resource_stream = type.Assembly.GetManifestResourceStream(resource_name);
 
-			if (resource_stream == null)
-				throw new Exception ("Template resource '" + resource_name + "' not found");
+            if (resource_stream == null)
+                throw new Exception("Template resource '" + resource_name + "' not found");
 
-			SetTemplateFromStream (gtype, resource_stream);
-			BindTemplateChildren (gtype, type, data.FieldBindings);
-			
-			data.SignalConnector = new SignalConnector (type);
-			data.SignalConnector.ConnectSignals (gtype);
-			Templates[type] = data;
-		}
+            SetTemplateFromStream(gtype, resource_stream);
+            BindTemplateChildren(gtype, type, data.FieldBindings);
 
-		delegate IntPtr d_gtk_widget_class_set_template(IntPtr class_ptr, IntPtr template_bytes);
-		static d_gtk_widget_class_set_template gtk_widget_class_set_template = FuncLoader.LoadFunction<d_gtk_widget_class_set_template>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_set_template"));
+            data.SignalConnector = new SignalConnector(type);
+            data.SignalConnector.ConnectSignals(gtype);
+            Templates[type] = data;
+        }
 
-		static void SetTemplateFromStream (GLib.GType gtype, System.IO.Stream resource)
-		{
-			var buffer = new byte[(int)resource.Length];
-			resource.Read (buffer, 0, buffer.Length);
-			resource.Dispose ();
+        delegate IntPtr d_gtk_widget_class_set_template(IntPtr class_ptr, IntPtr template_bytes);
+        static d_gtk_widget_class_set_template gtk_widget_class_set_template = FuncLoader.LoadFunction<d_gtk_widget_class_set_template>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_set_template"));
 
-			var bytes = new GLib.Bytes (buffer);
-			gtk_widget_class_set_template (gtype.GetClassPtr (), bytes.Handle);
-			bytes.Dispose ();
-		}
+        static void SetTemplateFromStream(GLib.GType gtype, System.IO.Stream resource)
+        {
+            var buffer = new byte[(int)resource.Length];
+            resource.Read(buffer, 0, buffer.Length);
+            resource.Dispose();
 
-		delegate IntPtr d_gtk_widget_class_bind_template_child_full(IntPtr class_ptr, IntPtr name, bool internal_child, IntPtr struct_offset);
-		static d_gtk_widget_class_bind_template_child_full gtk_widget_class_bind_template_child_full = FuncLoader.LoadFunction<d_gtk_widget_class_bind_template_child_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_bind_template_child_full"));
+            var bytes = new GLib.Bytes(buffer);
+            gtk_widget_class_set_template(gtype.GetClassPtr(), bytes.Handle);
+            bytes.Dispose();
+        }
 
-		static void BindTemplateChildren (GLib.GType gtype, Type type, Dictionary<FieldInfo, string> fields)
-		{
-			const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance;
+        delegate IntPtr d_gtk_widget_class_bind_template_child_full(IntPtr class_ptr, IntPtr name, bool internal_child, IntPtr struct_offset);
+        static d_gtk_widget_class_bind_template_child_full gtk_widget_class_bind_template_child_full = FuncLoader.LoadFunction<d_gtk_widget_class_bind_template_child_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_bind_template_child_full"));
 
-			foreach (var field in type.GetFields (flags))
-			{
-				var attr = field.GetCustomAttribute<ChildAttribute> (true);
+        static void BindTemplateChildren(GLib.GType gtype, Type type, Dictionary<FieldInfo, string> fields)
+        {
+            const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance;
 
-				if (attr == null)
-					continue;
+            foreach (var field in type.GetFields(flags))
+            {
+                var attr = field.GetCustomAttribute<ChildAttribute>(true);
 
-				var name = attr.Name ?? field.Name;
+                if (attr == null)
+                    continue;
 
-				var native_name = GLib.Marshaller.StringToPtrGStrdup (name);
-				gtk_widget_class_bind_template_child_full (gtype.GetClassPtr (), native_name, attr.Internal, new IntPtr ((long)0));
-				GLib.Marshaller.Free (native_name);
+                var name = attr.Name ?? field.Name;
 
-				fields[field] = name;
-			}
-		}
+                var native_name = GLib.Marshaller.StringToPtrGStrdup(name);
+                gtk_widget_class_bind_template_child_full(gtype.GetClassPtr(), native_name, attr.Internal, new IntPtr((long)0));
+                GLib.Marshaller.Free(native_name);
 
-		static void InitCssName (GLib.GType gtype, Type t)
-		{
-			CssNameAttribute attr = t.GetCustomAttribute<CssNameAttribute>(true);
-			if (attr != null)
-				SetCssName (gtype, attr.Name);
-		}
+                fields[field] = name;
+            }
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_widget_init_template(IntPtr raw);
-		static d_gtk_widget_init_template gtk_widget_init_template = FuncLoader.LoadFunction<d_gtk_widget_init_template>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_init_template"));
+        static void InitCssName(GLib.GType gtype, Type t)
+        {
+            CssNameAttribute attr = t.GetCustomAttribute<CssNameAttribute>(true);
+            if (attr != null)
+                SetCssName(gtype, attr.Name);
+        }
 
-		void InitTemplateForInstance ()
-		{
-			var type = GetType ();
-			if (Templates.TryGetValue(type, out TemplateData data))
-			{
-				GLib.GType gtype = LookupGType (type);
-				data.SignalConnector.template_object_instance = this;
-				gtk_widget_init_template (Handle);
-				data.SignalConnector.template_object_instance = null;
-				foreach (KeyValuePair<FieldInfo, string> pair in data.FieldBindings)
-				{
-					FieldInfo field = pair.Key;
-					string name = pair.Value;
-					GLib.Object child = GetTemplateChild (gtype, name);
-					
-					if (child != null)
-					{
-						const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance;
-						field.SetValue (this, child, flags, null, null);
-					}
-					else if (data.ThrowOnUnknownChild)
-					{
-						throw new Exception ("Unknown child in template for type '" + type + "'");
-					}
-				}
-			}
-		}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_widget_init_template(IntPtr raw);
+        static d_gtk_widget_init_template gtk_widget_init_template = FuncLoader.LoadFunction<d_gtk_widget_init_template>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_init_template"));
 
-		public object StyleGetProperty (string property_name)
-		{
-			GLib.Value value;
-			try {
-				value = StyleGetPropertyValue (property_name);
-			} catch (ArgumentException) {
-				return null;
-			}
-			object ret = value.Val;
-			value.Dispose ();
-			return ret;
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_widget_class_find_style_property(IntPtr class_ptr, IntPtr property_name);
-		static d_gtk_widget_class_find_style_property gtk_widget_class_find_style_property = FuncLoader.LoadFunction<d_gtk_widget_class_find_style_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_find_style_property"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_widget_style_get_property(IntPtr inst, IntPtr property_name, ref GLib.Value value);
-		static d_gtk_widget_style_get_property gtk_widget_style_get_property = FuncLoader.LoadFunction<d_gtk_widget_style_get_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_style_get_property"));
+        void InitTemplateForInstance()
+        {
+            var type = GetType();
+            if (Templates.TryGetValue(type, out TemplateData data))
+            {
+                GLib.GType gtype = LookupGType(type);
+                data.SignalConnector.template_object_instance = this;
+                gtk_widget_init_template(Handle);
+                data.SignalConnector.template_object_instance = null;
+                foreach (KeyValuePair<FieldInfo, string> pair in data.FieldBindings)
+                {
+                    FieldInfo field = pair.Key;
+                    string name = pair.Value;
+                    GLib.Object child = GetTemplateChild(gtype, name);
 
-		internal GLib.Value StyleGetPropertyValue (string property_name)
-		{
-			IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (property_name);
-			try {
-				IntPtr pspec_ptr = gtk_widget_class_find_style_property (this.LookupGType ().GetClassPtr (), native_name);
-				if (pspec_ptr == IntPtr.Zero)
-					throw new ArgumentException (String.Format ("Cannot find style property \"{0}\"", property_name));
+                    if (child != null)
+                    {
+                        const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Instance;
+                        field.SetValue(this, child, flags, null, null);
+                    }
+                    else if (data.ThrowOnUnknownChild)
+                    {
+                        throw new Exception("Unknown child in template for type '" + type + "'");
+                    }
+                }
+            }
+        }
 
-				GLib.Value value = new GLib.Value ((new GLib.ParamSpec (pspec_ptr)).ValueType);
-				gtk_widget_style_get_property (Handle, native_name, ref value);
-				return value;
-			} finally {
-				GLib.Marshaller.Free (native_name);
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_widget_list_mnemonic_labels(IntPtr raw);
-		static d_gtk_widget_list_mnemonic_labels gtk_widget_list_mnemonic_labels = FuncLoader.LoadFunction<d_gtk_widget_list_mnemonic_labels>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_list_mnemonic_labels"));
+        public object StyleGetProperty(string property_name)
+        {
+            GLib.Value value;
+            try
+            {
+                value = StyleGetPropertyValue(property_name);
+            }
+            catch (ArgumentException)
+            {
+                return null;
+            }
+            object ret = value.Val;
+            value.Dispose();
+            return ret;
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_widget_class_find_style_property(IntPtr class_ptr, IntPtr property_name);
+        static d_gtk_widget_class_find_style_property gtk_widget_class_find_style_property = FuncLoader.LoadFunction<d_gtk_widget_class_find_style_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_find_style_property"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_widget_style_get_property(IntPtr inst, IntPtr property_name, ref GLib.Value value);
+        static d_gtk_widget_style_get_property gtk_widget_style_get_property = FuncLoader.LoadFunction<d_gtk_widget_style_get_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_style_get_property"));
 
-		public Widget[] ListMnemonicLabels ()
-		{
-			IntPtr raw_ret = gtk_widget_list_mnemonic_labels (Handle);
-			if (raw_ret == IntPtr.Zero)
-				return new Widget [0];
-			GLib.List list = new GLib.List(raw_ret);
-			Widget[] result = new Widget [list.Count];
-			for (int i = 0; i < list.Count; i++)
-				result [i] = list [i] as Widget;
-			return result;
-		}
+        internal GLib.Value StyleGetPropertyValue(string property_name)
+        {
+            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup(property_name);
+            try
+            {
+                IntPtr pspec_ptr = gtk_widget_class_find_style_property(this.LookupGType().GetClassPtr(), native_name);
+                if (pspec_ptr == IntPtr.Zero)
+                    throw new ArgumentException(String.Format("Cannot find style property \"{0}\"", property_name));
 
-		/*
+                GLib.Value value = new GLib.Value((new GLib.ParamSpec(pspec_ptr)).ValueType);
+                gtk_widget_style_get_property(Handle, native_name, ref value);
+                return value;
+            }
+            finally
+            {
+                GLib.Marshaller.Free(native_name);
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_widget_list_mnemonic_labels(IntPtr raw);
+        static d_gtk_widget_list_mnemonic_labels gtk_widget_list_mnemonic_labels = FuncLoader.LoadFunction<d_gtk_widget_list_mnemonic_labels>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_list_mnemonic_labels"));
+
+        public Widget[] ListMnemonicLabels()
+        {
+            IntPtr raw_ret = gtk_widget_list_mnemonic_labels(Handle);
+            if (raw_ret == IntPtr.Zero)
+                return new Widget[0];
+            GLib.List list = new GLib.List(raw_ret);
+            Widget[] result = new Widget[list.Count];
+            for (int i = 0; i < list.Count; i++)
+                result[i] = list[i] as Widget;
+            return result;
+        }
+
+        /*
 		public void ModifyBase (Gtk.StateType state)
 		{
 			gtk_widget_modify_base (Handle, (int) state, IntPtr.Zero);
 		}
 		*/
 
-		public void ModifyBg (Gtk.StateType state)
-		{
-			gtk_widget_modify_bg (Handle, (int) state, IntPtr.Zero);
-		}
+        public void ModifyBg(Gtk.StateType state)
+        {
+            gtk_widget_modify_bg(Handle, (int)state, IntPtr.Zero);
+        }
 
-		public void ModifyFg (Gtk.StateType state)
-		{
-			gtk_widget_modify_fg (Handle, (int) state, IntPtr.Zero);
-		}
+        public void ModifyFg(Gtk.StateType state)
+        {
+            gtk_widget_modify_fg(Handle, (int)state, IntPtr.Zero);
+        }
 
-		/*
+        /*
 		public void ModifyText (Gtk.StateType state)
 		{
 			gtk_widget_modify_text (Handle, (int) state, IntPtr.Zero);
 		}
 		*/
 
-		public void Path (out string path, out string path_reversed)
-		{
-			uint len;
-			Path (out len, out path, out path_reversed);
-		}
+        public void Path(out string path, out string path_reversed)
+        {
+            uint len;
+            Path(out len, out path, out path_reversed);
+        }
 
-		static IDictionary<IntPtr, Delegate> destroy_handlers;
-		static IDictionary<IntPtr, Delegate> DestroyHandlers {
-			get {
-				if (destroy_handlers == null)
-					destroy_handlers = new Dictionary<IntPtr, Delegate> ();
-				return destroy_handlers;
-			}
-		}
+        static IDictionary<IntPtr, Delegate> destroy_handlers;
+        static IDictionary<IntPtr, Delegate> DestroyHandlers
+        {
+            get
+            {
+                if (destroy_handlers == null)
+                    destroy_handlers = new Dictionary<IntPtr, Delegate>();
+                return destroy_handlers;
+            }
+        }
 
-		private static void OverrideDestroyed (GLib.GType gtype)
-		{
-			// Do Nothing.  We don't want to hook into the native vtable.
-			// We will manually invoke the VM on signal invocation. The signal
-			// always raises before the default handler because this signal
-			// is RUN_CLEANUP.
-		}
+        private static void OverrideDestroyed(GLib.GType gtype)
+        {
+            // Do Nothing.  We don't want to hook into the native vtable.
+            // We will manually invoke the VM on signal invocation. The signal
+            // always raises before the default handler because this signal
+            // is RUN_CLEANUP.
+        }
 
-		[GLib.DefaultSignalHandler(Type=typeof(Gtk.Widget), ConnectionMethod="OverrideDestroyed")]
-		protected virtual void OnDestroyed ()
-		{
-			if (DestroyHandlers.ContainsKey (Handle)) {
-				EventHandler handler = (EventHandler) DestroyHandlers [Handle];
-				handler (this, EventArgs.Empty);
-				DestroyHandlers.Remove (Handle);
-			}
-		}
+        [GLib.DefaultSignalHandler(Type = typeof(Gtk.Widget), ConnectionMethod = "OverrideDestroyed")]
+        protected virtual void OnDestroyed()
+        {
+            if (DestroyHandlers.ContainsKey(Handle))
+            {
+                EventHandler handler = (EventHandler)DestroyHandlers[Handle];
+                handler(this, EventArgs.Empty);
+                DestroyHandlers.Remove(Handle);
+            }
+        }
 
-		[GLib.Signal("destroy")]
-		public event EventHandler Destroyed {
-			add {
-				Delegate delegate_handler;
-				DestroyHandlers.TryGetValue (Handle, out delegate_handler);
-				var handler = delegate_handler as EventHandler;
-				DestroyHandlers [Handle] = Delegate.Combine (handler, value);
-			}
-			remove {
-				Delegate delegate_handler;
-				DestroyHandlers.TryGetValue (Handle, out delegate_handler);
-				var handler = delegate_handler as EventHandler;
-				handler = (EventHandler) Delegate.Remove (handler, value);
-				if (handler != null)
-					DestroyHandlers [Handle] = handler;
-				else
-					DestroyHandlers.Remove (Handle);
-			}
-		}
+        [GLib.Signal("destroy")]
+        public event EventHandler Destroyed
+        {
+            add
+            {
+                Delegate delegate_handler;
+                DestroyHandlers.TryGetValue(Handle, out delegate_handler);
+                var handler = delegate_handler as EventHandler;
+                DestroyHandlers[Handle] = Delegate.Combine(handler, value);
+            }
+            remove
+            {
+                Delegate delegate_handler;
+                DestroyHandlers.TryGetValue(Handle, out delegate_handler);
+                var handler = delegate_handler as EventHandler;
+                handler = (EventHandler)Delegate.Remove(handler, value);
+                if (handler != null)
+                    DestroyHandlers[Handle] = handler;
+                else
+                    DestroyHandlers.Remove(Handle);
+            }
+        }
 
-		event EventHandler InternalDestroyed {
-			add {
-				AddSignalHandler ("destroy", value);
-			}
-			remove {
-				RemoveSignalHandler ("destroy", value);
-			}
-		}
+        event EventHandler InternalDestroyed
+        {
+            add
+            {
+                AddSignalHandler("destroy", value);
+            }
+            remove
+            {
+                RemoveSignalHandler("destroy", value);
+            }
+        }
 
-		static void NativeDestroy (object o, EventArgs args)
-		{
-			Gtk.Widget widget = o as Gtk.Widget;
-			if (widget == null)
-				return;
+        static void NativeDestroy(object o, EventArgs args)
+        {
+            Gtk.Widget widget = o as Gtk.Widget;
+            if (widget == null)
+                return;
 
-			widget.OnDestroyed ();
-		}
-		
-		static EventHandler native_destroy_handler;
-		static EventHandler NativeDestroyHandler {
-			get {
-				if (native_destroy_handler == null)
-					native_destroy_handler = new EventHandler (NativeDestroy);
-				return native_destroy_handler;
-			}
-		}
+            widget.OnDestroyed();
+        }
 
-		protected override void CreateNativeObject (string[] names, GLib.Value[] vals)
-		{
-			base.CreateNativeObject (names, vals);
-			InitTemplateForInstance ();
-		}
+        static EventHandler native_destroy_handler;
+        static EventHandler NativeDestroyHandler
+        {
+            get
+            {
+                if (native_destroy_handler == null)
+                    native_destroy_handler = new EventHandler(NativeDestroy);
+                return native_destroy_handler;
+            }
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_object_ref(IntPtr raw);
-		static d_g_object_ref g_object_ref = FuncLoader.LoadFunction<d_g_object_ref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_object_ref"));
+        protected override void CreateNativeObject(string[] names, GLib.Value[] vals)
+        {
+            base.CreateNativeObject(names, vals);
+            InitTemplateForInstance();
+        }
 
-		private bool destroyed;
-		protected override void Dispose (bool disposing)
-		{
-			if (Handle == IntPtr.Zero)
-				return;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_object_ref(IntPtr raw);
+        static d_g_object_ref g_object_ref = FuncLoader.LoadFunction<d_g_object_ref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_object_ref"));
 
-			if (disposing && !destroyed && IsToplevel)
-			{
-				//If this is a TopLevel widget, then we do not hold a ref, only a toggle ref.
-				//Freeing our toggle ref expects a normal ref to exist, and therefore does not check if the object still exists.
-				//Take a ref here and let our toggle ref unref it.
-				g_object_ref (Handle);
-				gtk_widget_destroy (Handle);
-				destroyed = true;
-			}
+        private bool destroyed;
+        protected override void Dispose(bool disposing)
+        {
+            if (Handle == IntPtr.Zero)
+                return;
 
-			InternalDestroyed -= NativeDestroyHandler;
+            if (disposing && !destroyed && IsToplevel)
+            {
+                //If this is a TopLevel widget, then we do not hold a ref, only a toggle ref.
+                //Freeing our toggle ref expects a normal ref to exist, and therefore does not check if the object still exists.
+                //Take a ref here and let our toggle ref unref it.
+                g_object_ref(Handle);
+                gtk_widget_destroy(Handle);
+                destroyed = true;
+            }
 
-			base.Dispose (disposing);
-		}
+            InternalDestroyed -= NativeDestroyHandler;
 
-		protected override IntPtr Raw {
-			get {
-				return base.Raw;
-			}
-			set {
-				if (Handle == value)
-					return;
+            base.Dispose(disposing);
+        }
 
-				base.Raw = value;
+        protected override IntPtr Raw
+        {
+            get
+            {
+                return base.Raw;
+            }
+            set
+            {
+                if (Handle == value)
+                    return;
 
-				if (value != IntPtr.Zero)
-					InternalDestroyed += NativeDestroyHandler;
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_widget_destroy(IntPtr raw);
-		static d_gtk_widget_destroy gtk_widget_destroy = FuncLoader.LoadFunction<d_gtk_widget_destroy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_destroy"));
+                base.Raw = value;
+
+                if (value != IntPtr.Zero)
+                    InternalDestroyed += NativeDestroyHandler;
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_widget_destroy(IntPtr raw);
+        static d_gtk_widget_destroy gtk_widget_destroy = FuncLoader.LoadFunction<d_gtk_widget_destroy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_destroy"));
 
 
-		public virtual void Destroy ()
-		{
-			if (Handle == IntPtr.Zero)
-				return;
+        public virtual void Destroy()
+        {
+            if (Handle == IntPtr.Zero)
+                return;
 
-			if (destroyed)
-				return;
+            if (destroyed)
+                return;
 
-			gtk_widget_destroy (Handle);
-			destroyed = true;
+            gtk_widget_destroy(Handle);
+            destroyed = true;
 
-			InternalDestroyed -= NativeDestroyHandler;
-		}
+            InternalDestroyed -= NativeDestroyHandler;
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_widget_class_get_css_name(IntPtr widget_class);
-		static d_gtk_widget_class_get_css_name gtk_widget_class_get_css_name = FuncLoader.LoadFunction<d_gtk_widget_class_get_css_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_get_css_name"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_widget_class_get_css_name(IntPtr widget_class);
+        static d_gtk_widget_class_get_css_name gtk_widget_class_get_css_name = FuncLoader.LoadFunction<d_gtk_widget_class_get_css_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_get_css_name"));
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_widget_class_set_css_name(IntPtr widget_class, IntPtr name);
-		static d_gtk_widget_class_set_css_name gtk_widget_class_set_css_name = FuncLoader.LoadFunction<d_gtk_widget_class_set_css_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_set_css_name"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_widget_class_set_css_name(IntPtr widget_class, IntPtr name);
+        static d_gtk_widget_class_set_css_name gtk_widget_class_set_css_name = FuncLoader.LoadFunction<d_gtk_widget_class_set_css_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_widget_class_set_css_name"));
 
-		public static string GetCssName (GLib.GType widget_type)
-		{
-			IntPtr class_ptr = widget_type.GetClassPtr ();
-			IntPtr native_name = gtk_widget_class_get_css_name (class_ptr);
-			string name = GLib.Marshaller.Utf8PtrToString (native_name);
-			return name;
-		}
+        public static string GetCssName(GLib.GType widget_type)
+        {
+            IntPtr class_ptr = widget_type.GetClassPtr();
+            IntPtr native_name = gtk_widget_class_get_css_name(class_ptr);
+            string name = GLib.Marshaller.Utf8PtrToString(native_name);
+            return name;
+        }
 
-		protected static void SetCssName (GLib.GType widget_type, string name)
-		{
-			IntPtr class_ptr = widget_type.GetClassPtr ();
-			IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
-			gtk_widget_class_set_css_name (class_ptr, native_name);
-			GLib.Marshaller.Free (native_name);
-		}
-	}
+        protected static void SetCssName(GLib.GType widget_type, string name)
+        {
+            IntPtr class_ptr = widget_type.GetClassPtr();
+            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup(name);
+            gtk_widget_class_set_css_name(class_ptr, native_name);
+            GLib.Marshaller.Free(native_name);
+        }
+    }
 }
 

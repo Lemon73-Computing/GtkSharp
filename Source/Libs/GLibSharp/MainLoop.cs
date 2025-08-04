@@ -21,81 +21,87 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GLib {
-	public class MainLoop {
-		private IntPtr handle;
-	
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_main_loop_new(IntPtr context, bool isRunning);
-		static d_g_main_loop_new g_main_loop_new = FuncLoader.LoadFunction<d_g_main_loop_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_new"));
+namespace GLib
+{
+    public class MainLoop
+    {
+        private IntPtr handle;
 
-		public MainLoop () : this (MainContext.Default) { }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_main_loop_new(IntPtr context, bool isRunning);
+        static d_g_main_loop_new g_main_loop_new = FuncLoader.LoadFunction<d_g_main_loop_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_new"));
 
-		public MainLoop (MainContext context) : this (context, false) { }
+        public MainLoop() : this(MainContext.Default) { }
 
-		public MainLoop (MainContext context, bool is_running)
-		{
-			handle = g_main_loop_new (context.Handle, is_running);
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_main_loop_unref(IntPtr loop);
-		static d_g_main_loop_unref g_main_loop_unref = FuncLoader.LoadFunction<d_g_main_loop_unref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_unref"));
+        public MainLoop(MainContext context) : this(context, false) { }
 
-		~MainLoop ()
-		{
-			g_main_loop_unref (handle);
-			handle = IntPtr.Zero;
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_g_main_loop_is_running(IntPtr loop);
-		static d_g_main_loop_is_running g_main_loop_is_running = FuncLoader.LoadFunction<d_g_main_loop_is_running>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_is_running"));
+        public MainLoop(MainContext context, bool is_running)
+        {
+            handle = g_main_loop_new(context.Handle, is_running);
+        }
 
-		public bool IsRunning {
-			get {
-				return g_main_loop_is_running (handle);
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_main_loop_run(IntPtr loop);
-		static d_g_main_loop_run g_main_loop_run = FuncLoader.LoadFunction<d_g_main_loop_run>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_run"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_main_loop_unref(IntPtr loop);
+        static d_g_main_loop_unref g_main_loop_unref = FuncLoader.LoadFunction<d_g_main_loop_unref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_unref"));
 
-		public void Run ()
-		{
-			g_main_loop_run (handle);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_main_loop_quit(IntPtr loop);
-		static d_g_main_loop_quit g_main_loop_quit = FuncLoader.LoadFunction<d_g_main_loop_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_quit"));
+        ~MainLoop()
+        {
+            g_main_loop_unref(handle);
+            handle = IntPtr.Zero;
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_g_main_loop_is_running(IntPtr loop);
+        static d_g_main_loop_is_running g_main_loop_is_running = FuncLoader.LoadFunction<d_g_main_loop_is_running>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_is_running"));
 
-		public void Quit ()
-		{
-			g_main_loop_quit (handle);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_main_loop_get_context(IntPtr loop);
-		static d_g_main_loop_get_context g_main_loop_get_context = FuncLoader.LoadFunction<d_g_main_loop_get_context>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_get_context"));
+        public bool IsRunning
+        {
+            get
+            {
+                return g_main_loop_is_running(handle);
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_main_loop_run(IntPtr loop);
+        static d_g_main_loop_run g_main_loop_run = FuncLoader.LoadFunction<d_g_main_loop_run>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_run"));
 
-		public MainContext Context {
-			get {
-				return new MainContext (g_main_loop_get_context (handle));
-			}
-		}
+        public void Run()
+        {
+            g_main_loop_run(handle);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_main_loop_quit(IntPtr loop);
+        static d_g_main_loop_quit g_main_loop_quit = FuncLoader.LoadFunction<d_g_main_loop_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_quit"));
+
+        public void Quit()
+        {
+            g_main_loop_quit(handle);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_main_loop_get_context(IntPtr loop);
+        static d_g_main_loop_get_context g_main_loop_get_context = FuncLoader.LoadFunction<d_g_main_loop_get_context>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_main_loop_get_context"));
+
+        public MainContext Context
+        {
+            get
+            {
+                return new MainContext(g_main_loop_get_context(handle));
+            }
+        }
 
 
-		public override bool Equals (object o)
-		{
-			if (!(o is MainLoop))
-				return false;
+        public override bool Equals(object o)
+        {
+            if (!(o is MainLoop))
+                return false;
 
-			return handle == (o as MainLoop).handle;
-		}
+            return handle == (o as MainLoop).handle;
+        }
 
-		public override int GetHashCode ()
-		{
-			return handle.GetHashCode ();
-		}
-	}
+        public override int GetHashCode()
+        {
+            return handle.GetHashCode();
+        }
+    }
 }
 
 

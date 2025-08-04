@@ -18,13 +18,15 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class Box {
+    public partial class Box
+    {
 
-		protected Box() : base() { }
-	}
+        protected Box() : base() { }
+    }
 }

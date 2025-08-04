@@ -3,7 +3,7 @@ using Gtk;
 
 namespace Samples
 {
-    [Section(ContentType=typeof(SeatDemo), Category = Category.Miscellaneous)]
+    [Section(ContentType = typeof(SeatDemo), Category = Category.Miscellaneous)]
     class SeatSection : ListSection
     {
         public SeatSection()

@@ -23,26 +23,28 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GLib {
+namespace GLib
+{
 
 
-	public class Markup {
-		private Markup () {}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_markup_escape_text(IntPtr text, int len);
-		static d_g_markup_escape_text g_markup_escape_text = FuncLoader.LoadFunction<d_g_markup_escape_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_markup_escape_text"));
-		
-		static public string EscapeText (string s)
-		{
-			if (s == null)
-				return String.Empty;
+    public class Markup
+    {
+        private Markup() { }
 
-			IntPtr native = Marshaller.StringToPtrGStrdup (s);
-			string result = Marshaller.PtrToStringGFree (g_markup_escape_text (native, -1));
-			Marshaller.Free (native);
-			return result;
-		}
-	}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_markup_escape_text(IntPtr text, int len);
+        static d_g_markup_escape_text g_markup_escape_text = FuncLoader.LoadFunction<d_g_markup_escape_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_markup_escape_text"));
+
+        static public string EscapeText(string s)
+        {
+            if (s == null)
+                return String.Empty;
+
+            IntPtr native = Marshaller.StringToPtrGStrdup(s);
+            string result = Marshaller.PtrToStringGFree(g_markup_escape_text(native, -1));
+            Marshaller.Free(native);
+            return result;
+        }
+    }
 }
 

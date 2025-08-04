@@ -16,25 +16,29 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrScale : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_scale_new(double scale);
-		static d_pango_attr_scale_new pango_attr_scale_new = FuncLoader.LoadFunction<d_pango_attr_scale_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_scale_new"));
+    public class AttrScale : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_scale_new(double scale);
+        static d_pango_attr_scale_new pango_attr_scale_new = FuncLoader.LoadFunction<d_pango_attr_scale_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_scale_new"));
 
-		public AttrScale (double scale) : this (pango_attr_scale_new (scale)) {}
+        public AttrScale(double scale) : this(pango_attr_scale_new(scale)) { }
 
-		internal AttrScale (IntPtr raw) : base (raw) {}
+        internal AttrScale(IntPtr raw) : base(raw) { }
 
-		public double Scale {
-			get {
-				return AttrFloat.New (Handle).Value;
-			}
-		}
-	}
+        public double Scale
+        {
+            get
+            {
+                return AttrFloat.New(Handle).Value;
+            }
+        }
+    }
 }
 

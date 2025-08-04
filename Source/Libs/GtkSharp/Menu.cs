@@ -18,42 +18,48 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class Menu {
+    public partial class Menu
+    {
 
-		[Obsolete("Replaced by overload without IntPtr argument")]
-		public void Popup (Gtk.Widget parent_menu_shell, Gtk.Widget parent_menu_item, Gtk.MenuPositionFunc func, IntPtr data, uint button, uint activate_time) {
-			Popup (parent_menu_shell, parent_menu_item, func, button, activate_time);
-		}
+        [Obsolete("Replaced by overload without IntPtr argument")]
+        public void Popup(Gtk.Widget parent_menu_shell, Gtk.Widget parent_menu_item, Gtk.MenuPositionFunc func, IntPtr data, uint button, uint activate_time)
+        {
+            Popup(parent_menu_shell, parent_menu_item, func, button, activate_time);
+        }
 
-		public void Popup ()
-		{
-			PopupAtPointer (null);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_menu_set_screen(IntPtr raw, IntPtr screen);
-		static d_gtk_menu_set_screen gtk_menu_set_screen = FuncLoader.LoadFunction<d_gtk_menu_set_screen>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_menu_set_screen"));
+        public void Popup()
+        {
+            PopupAtPointer(null);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_menu_set_screen(IntPtr raw, IntPtr screen);
+        static d_gtk_menu_set_screen gtk_menu_set_screen = FuncLoader.LoadFunction<d_gtk_menu_set_screen>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_menu_set_screen"));
 
-		public new Gdk.Screen Screen {
-			get {
-				return base.Screen;
-			}
-			set {
-				gtk_menu_set_screen (Handle, value.Handle);
-			}
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_menu_set_active(IntPtr raw, uint index_);
-		static d_gtk_menu_set_active gtk_menu_set_active = FuncLoader.LoadFunction<d_gtk_menu_set_active>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_menu_set_active"));
+        public new Gdk.Screen Screen
+        {
+            get
+            {
+                return base.Screen;
+            }
+            set
+            {
+                gtk_menu_set_screen(Handle, value.Handle);
+            }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_menu_set_active(IntPtr raw, uint index_);
+        static d_gtk_menu_set_active gtk_menu_set_active = FuncLoader.LoadFunction<d_gtk_menu_set_active>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_menu_set_active"));
 
-		public void SetActive (uint index_)
-		{
-			gtk_menu_set_active (Handle, index_);
-		}
-	}
+        public void SetActive(uint index_)
+        {
+            gtk_menu_set_active(Handle, index_);
+        }
+    }
 }
 

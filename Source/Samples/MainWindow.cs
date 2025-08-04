@@ -96,8 +96,8 @@ namespace Samples
                         _items[s] = item = (item.type, Activator.CreateInstance(item.type) as Widget);
 
                     using (var stream = typeof(ListSection).Assembly.GetManifestResourceStream("GtkSharp.Samples." + item.type.Name + ".cs"))
-                        using (var reader = new StreamReader(stream))
-                            _textViewCode.Buffer.Text = reader.ReadToEnd();
+                    using (var reader = new StreamReader(stream))
+                        _textViewCode.Buffer.Text = reader.ReadToEnd();
 
                     _boxContent.PackStart(item.widget, true, true, 0);
                     _boxContent.ShowAll();

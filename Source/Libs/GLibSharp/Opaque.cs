@@ -24,116 +24,134 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
+    using System;
 
-	public class Opaque : IWrapper, IDisposable {
+    public class Opaque : IWrapper, IDisposable
+    {
 
-		IntPtr _obj;
-		bool owned;
+        IntPtr _obj;
+        bool owned;
 
-		public static Opaque GetOpaque (IntPtr o, Type type, bool owned)
-		{
-			if (o == IntPtr.Zero)
-				return null;
+        public static Opaque GetOpaque(IntPtr o, Type type, bool owned)
+        {
+            if (o == IntPtr.Zero)
+                return null;
 
-			Opaque opaque = (Opaque)Activator.CreateInstance (type, new object[] { o });
-			if (owned) {
-				if (opaque.owned) {
-					// The constructor took a Ref it shouldn't have, so undo it
-					opaque.Unref (o);
-				}
-				opaque.owned = true;
-			} else 
-				opaque = opaque.Copy (o);
+            Opaque opaque = (Opaque)Activator.CreateInstance(type, new object[] { o });
+            if (owned)
+            {
+                if (opaque.owned)
+                {
+                    // The constructor took a Ref it shouldn't have, so undo it
+                    opaque.Unref(o);
+                }
+                opaque.owned = true;
+            }
+            else
+                opaque = opaque.Copy(o);
 
-			return opaque;
-  		}
-  
-		public Opaque ()
-		{
-			owned = true;
-		}
+            return opaque;
+        }
 
-		public Opaque (IntPtr raw)
-		{
-			owned = false;
-			Raw = raw;
-		}
+        public Opaque()
+        {
+            owned = true;
+        }
 
-		protected IntPtr Raw {
-			get {
-				return _obj;
-			}
-			set {
-				if (_obj == value) {
-					return;
-				}
+        public Opaque(IntPtr raw)
+        {
+            owned = false;
+            Raw = raw;
+        }
 
-				if (_obj != IntPtr.Zero) {
-					Unref (_obj);
-					if (owned)
-						Free (_obj);
-				}
-				_obj = value;
-				if (_obj != IntPtr.Zero) {
-					Ref (_obj);
-				}
-			}
-		}       
+        protected IntPtr Raw
+        {
+            get
+            {
+                return _obj;
+            }
+            set
+            {
+                if (_obj == value)
+                {
+                    return;
+                }
 
-		public virtual void Dispose ()
-		{
-			Raw = IntPtr.Zero;
-			GC.SuppressFinalize (this);
-		}
+                if (_obj != IntPtr.Zero)
+                {
+                    Unref(_obj);
+                    if (owned)
+                        Free(_obj);
+                }
+                _obj = value;
+                if (_obj != IntPtr.Zero)
+                {
+                    Ref(_obj);
+                }
+            }
+        }
 
-		// These take an IntPtr arg so we don't get conflicts if we need
-		// to have an "[Obsolete] public void Ref ()"
+        public virtual void Dispose()
+        {
+            Raw = IntPtr.Zero;
+            GC.SuppressFinalize(this);
+        }
 
-		protected virtual void Ref (IntPtr raw) {}
-		protected virtual void Unref (IntPtr raw) {}
-		protected virtual void Free (IntPtr raw) {}
-		protected virtual Opaque Copy (IntPtr raw) 
-		{
-			return this;
-		}
+        // These take an IntPtr arg so we don't get conflicts if we need
+        // to have an "[Obsolete] public void Ref ()"
 
-		public IntPtr Handle {
-			get {
-				return _obj;
-			}
-		}
+        protected virtual void Ref(IntPtr raw) { }
+        protected virtual void Unref(IntPtr raw) { }
+        protected virtual void Free(IntPtr raw) { }
+        protected virtual Opaque Copy(IntPtr raw)
+        {
+            return this;
+        }
 
-		public IntPtr OwnedCopy {
-			get {
-				Opaque result = Copy (Handle);
-				result.Owned = false;
-				return result.Handle;
-			}
-		}
+        public IntPtr Handle
+        {
+            get
+            {
+                return _obj;
+            }
+        }
 
-		public bool Owned {
-			get {
-				return owned;
-			}
-			set {
-				owned = value;
-			}
-		}
+        public IntPtr OwnedCopy
+        {
+            get
+            {
+                Opaque result = Copy(Handle);
+                result.Owned = false;
+                return result.Handle;
+            }
+        }
 
-		public override bool Equals (object o)
-		{
-			if (!(o is Opaque))
-				return false;
+        public bool Owned
+        {
+            get
+            {
+                return owned;
+            }
+            set
+            {
+                owned = value;
+            }
+        }
 
-			return (Handle == ((Opaque) o).Handle);
-		}
+        public override bool Equals(object o)
+        {
+            if (!(o is Opaque))
+                return false;
 
-		public override int GetHashCode ()
-		{
-			return Handle.GetHashCode ();
-		}
-	}
+            return (Handle == ((Opaque)o).Handle);
+        }
+
+        public override int GetHashCode()
+        {
+            return Handle.GetHashCode();
+        }
+    }
 }

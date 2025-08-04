@@ -18,25 +18,27 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class Printer {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_enumerate_printers(GtkSharp.PrinterFuncNative func, IntPtr func_data, GLib.DestroyNotify destroy, bool wait);
-		static d_gtk_enumerate_printers gtk_enumerate_printers = FuncLoader.LoadFunction<d_gtk_enumerate_printers>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_enumerate_printers"));
+    public partial class Printer
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_enumerate_printers(GtkSharp.PrinterFuncNative func, IntPtr func_data, GLib.DestroyNotify destroy, bool wait);
+        static d_gtk_enumerate_printers gtk_enumerate_printers = FuncLoader.LoadFunction<d_gtk_enumerate_printers>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_enumerate_printers"));
 
-		public static void EnumeratePrinters (Gtk.PrinterFunc func, bool wait) 
-		{
-			if (func == null)
-				return;
+        public static void EnumeratePrinters(Gtk.PrinterFunc func, bool wait)
+        {
+            if (func == null)
+                return;
 
-			GtkSharp.PrinterFuncWrapper func_wrapper = new GtkSharp.PrinterFuncWrapper (func);
-			IntPtr func_data = (IntPtr) GCHandle.Alloc (func_wrapper);
-			GLib.DestroyNotify destroy = GLib.DestroyHelper.NotifyHandler;
-			gtk_enumerate_printers (func_wrapper.NativeDelegate, func_data, destroy, wait);
-		}
-	}
+            GtkSharp.PrinterFuncWrapper func_wrapper = new GtkSharp.PrinterFuncWrapper(func);
+            IntPtr func_data = (IntPtr)GCHandle.Alloc(func_wrapper);
+            GLib.DestroyNotify destroy = GLib.DestroyHelper.NotifyHandler;
+            gtk_enumerate_printers(func_wrapper.NativeDelegate, func_data, destroy, wait);
+        }
+    }
 }

@@ -18,99 +18,101 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Gtk {
+namespace Gtk
+{
 
-	public partial class StyleContext {
+    public partial class StyleContext
+    {
 
-		public void RenderActivity (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Activity (this, cr, x, y, width, height);
-		}
+        public void RenderActivity(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Activity(this, cr, x, y, width, height);
+        }
 
-		public void RenderArrow (Cairo.Context cr, double angle, double x, double y, double size)
-		{
-			Render.Arrow (this, cr, angle, x, y, size);
-		}
+        public void RenderArrow(Cairo.Context cr, double angle, double x, double y, double size)
+        {
+            Render.Arrow(this, cr, angle, x, y, size);
+        }
 
-		public void RenderBackground (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Background (this, cr, x, y, width, height);
-		}
+        public void RenderBackground(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Background(this, cr, x, y, width, height);
+        }
 
-		public void RenderCheck (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Check (this, cr, x, y, width, height);
-		}
+        public void RenderCheck(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Check(this, cr, x, y, width, height);
+        }
 
-		public void RenderExtension (Cairo.Context cr, double x, double y, double width, double height, Gtk.PositionType gap_side)
-		{
-			Render.Extension (this, cr, x, y, width, height, gap_side);
-		}
+        public void RenderExtension(Cairo.Context cr, double x, double y, double width, double height, Gtk.PositionType gap_side)
+        {
+            Render.Extension(this, cr, x, y, width, height, gap_side);
+        }
 
-		public void RenderExpander (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Expander (this, cr, x, y, width, height);
-		}
+        public void RenderExpander(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Expander(this, cr, x, y, width, height);
+        }
 
-		public void RenderFocus (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Focus (this, cr, x, y, width, height);
-		}
+        public void RenderFocus(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Focus(this, cr, x, y, width, height);
+        }
 
-		public void RenderFrame (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Frame (this, cr, x, y, width, height);
-		}
+        public void RenderFrame(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Frame(this, cr, x, y, width, height);
+        }
 
-		public void RenderFrameGap (Cairo.Context cr, double x, double y, double width, double height, Gtk.PositionType gap_side, double xy0_gap, double xy1_gap)
-		{
-			Render.FrameGap (this, cr, x, y, width, height, gap_side, xy0_gap, xy1_gap);
-		}
+        public void RenderFrameGap(Cairo.Context cr, double x, double y, double width, double height, Gtk.PositionType gap_side, double xy0_gap, double xy1_gap)
+        {
+            Render.FrameGap(this, cr, x, y, width, height, gap_side, xy0_gap, xy1_gap);
+        }
 
-		public void RenderHandle (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Handle (this, cr, x, y, width, height);
-		}
+        public void RenderHandle(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Handle(this, cr, x, y, width, height);
+        }
 
-		public Gdk.Pixbuf RenderIconPixbuf (Gtk.IconSource source, Gtk.IconSize size)
-		{
-			return Render.IconPixbuf (this, source, size);
-		}
+        public Gdk.Pixbuf RenderIconPixbuf(Gtk.IconSource source, Gtk.IconSize size)
+        {
+            return Render.IconPixbuf(this, source, size);
+        }
 
-		public void RenderLayout (Cairo.Context cr, double x, double y, Pango.Layout layout)
-		{
-			Render.Layout (this, cr, x, y, layout);
-		}
+        public void RenderLayout(Cairo.Context cr, double x, double y, Pango.Layout layout)
+        {
+            Render.Layout(this, cr, x, y, layout);
+        }
 
-		public void RenderLine (Cairo.Context cr, double x0, double y0, double x1, double y1)
-		{
-			Render.Line (this, cr, x0, y0, x1, y1);
-		}
+        public void RenderLine(Cairo.Context cr, double x0, double y0, double x1, double y1)
+        {
+            Render.Line(this, cr, x0, y0, x1, y1);
+        }
 
-		public void RenderOption (Cairo.Context cr, double x, double y, double width, double height)
-		{
-			Render.Option (this, cr, x, y, width, height);
-		}
+        public void RenderOption(Cairo.Context cr, double x, double y, double width, double height)
+        {
+            Render.Option(this, cr, x, y, width, height);
+        }
 
-		public void RenderSlider (Cairo.Context cr, double x, double y, double width, double height, Gtk.Orientation orientation)
-		{
-			Render.Slider (this, cr, x, y, width, height, orientation);
-		}
+        public void RenderSlider(Cairo.Context cr, double x, double y, double width, double height, Gtk.Orientation orientation)
+        {
+            Render.Slider(this, cr, x, y, width, height, orientation);
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		unsafe delegate void d_gtk_style_context_get_property(IntPtr raw, IntPtr property, int state, GLib.Value* value);
-		static d_gtk_style_context_get_property gtk_style_context_get_property = FuncLoader.LoadFunction<d_gtk_style_context_get_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_style_context_get_property"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        unsafe delegate void d_gtk_style_context_get_property(IntPtr raw, IntPtr property, int state, GLib.Value* value);
+        static d_gtk_style_context_get_property gtk_style_context_get_property = FuncLoader.LoadFunction<d_gtk_style_context_get_property>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_style_context_get_property"));
 
-		public GLib.Value GetProperty(string property, Gtk.StateFlags state)
-		{
-			var value = new GLib.Value();
-			IntPtr native_property = GLib.Marshaller.StringToPtrGStrdup(property);
-			unsafe
-			{
-				gtk_style_context_get_property(Handle, native_property, (int)state, &value);
-			}
-			GLib.Marshaller.Free(native_property);
-			return value;
-		}
-	}
+        public GLib.Value GetProperty(string property, Gtk.StateFlags state)
+        {
+            var value = new GLib.Value();
+            IntPtr native_property = GLib.Marshaller.StringToPtrGStrdup(property);
+            unsafe
+            {
+                gtk_style_context_get_property(Handle, native_property, (int)state, &value);
+            }
+            GLib.Marshaller.Free(native_property);
+            return value;
+        }
+    }
 }

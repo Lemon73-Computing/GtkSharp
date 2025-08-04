@@ -16,25 +16,29 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrUnderline : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_underline_new(Pango.Underline underline);
-		static d_pango_attr_underline_new pango_attr_underline_new = FuncLoader.LoadFunction<d_pango_attr_underline_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_underline_new"));
+    public class AttrUnderline : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_underline_new(Pango.Underline underline);
+        static d_pango_attr_underline_new pango_attr_underline_new = FuncLoader.LoadFunction<d_pango_attr_underline_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_underline_new"));
 
-		public AttrUnderline (Pango.Underline underline) : this (pango_attr_underline_new (underline)) {}
+        public AttrUnderline(Pango.Underline underline) : this(pango_attr_underline_new(underline)) { }
 
-		internal AttrUnderline (IntPtr raw) : base (raw) {}
+        internal AttrUnderline(IntPtr raw) : base(raw) { }
 
-		public Pango.Underline Underline {
-			get {
-				return (Pango.Underline) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Pango.Underline Underline
+        {
+            get
+            {
+                return (Pango.Underline)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
 

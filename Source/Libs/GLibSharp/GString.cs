@@ -19,43 +19,47 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
-	using System;
-	using System.Runtime.InteropServices;
-	
-	public class GString : GLib.IWrapper {
+namespace GLib
+{
+    using System;
+    using System.Runtime.InteropServices;
 
-		IntPtr handle;
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_string_free(IntPtr mem, bool free_segments);
-		static d_g_string_free g_string_free = FuncLoader.LoadFunction<d_g_string_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_string_free"));
+    public class GString : GLib.IWrapper
+    {
 
-		~GString ()
-		{
-			g_string_free (handle, true);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_string_new(IntPtr text);
-		static d_g_string_new g_string_new = FuncLoader.LoadFunction<d_g_string_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_string_new"));
+        IntPtr handle;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_string_free(IntPtr mem, bool free_segments);
+        static d_g_string_free g_string_free = FuncLoader.LoadFunction<d_g_string_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_string_free"));
 
-		public GString (string text) 
-		{
-			IntPtr native_text = Marshaller.StringToPtrGStrdup (text);
-			handle = g_string_new (native_text);
-			Marshaller.Free (native_text);
-		}
+        ~GString()
+        {
+            g_string_free(handle, true);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_string_new(IntPtr text);
+        static d_g_string_new g_string_new = FuncLoader.LoadFunction<d_g_string_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_string_new"));
 
-		public IntPtr Handle {
-			get {
-				return handle;
-			}
-		}
-		
-		public static string PtrToString (IntPtr ptr) 
-		{
-			return Marshaller.Utf8PtrToString (ptr);
-		}
-	}
+        public GString(string text)
+        {
+            IntPtr native_text = Marshaller.StringToPtrGStrdup(text);
+            handle = g_string_new(native_text);
+            Marshaller.Free(native_text);
+        }
+
+        public IntPtr Handle
+        {
+            get
+            {
+                return handle;
+            }
+        }
+
+        public static string PtrToString(IntPtr ptr)
+        {
+            return Marshaller.Utf8PtrToString(ptr);
+        }
+    }
 }
 
 

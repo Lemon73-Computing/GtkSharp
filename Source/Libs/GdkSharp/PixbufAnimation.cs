@@ -18,51 +18,55 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gdk {
+namespace Gdk
+{
 
-	using System;
-	using System.Runtime.CompilerServices;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.CompilerServices;
+    using System.Runtime.InteropServices;
 
-	public partial class PixbufAnimation {
+    public partial class PixbufAnimation
+    {
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gdk_pixbuf_animation_new_from_file(IntPtr filename, out IntPtr error);
-		static d_gdk_pixbuf_animation_new_from_file gdk_pixbuf_animation_new_from_file = FuncLoader.LoadFunction<d_gdk_pixbuf_animation_new_from_file>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GdkPixbuf), 
-			FuncLoader.IsWindows ? "gdk_pixbuf_animation_new_from_file_utf8" : "gdk_pixbuf_animation_new_from_file"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gdk_pixbuf_animation_new_from_file(IntPtr filename, out IntPtr error);
+        static d_gdk_pixbuf_animation_new_from_file gdk_pixbuf_animation_new_from_file = FuncLoader.LoadFunction<d_gdk_pixbuf_animation_new_from_file>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GdkPixbuf),
+            FuncLoader.IsWindows ? "gdk_pixbuf_animation_new_from_file_utf8" : "gdk_pixbuf_animation_new_from_file"));
 
-		public PixbufAnimation(string filename) : base(IntPtr.Zero)
-		{
-			IntPtr native_filename = GLib.Marshaller.StringToPtrGStrdup(filename);
-			IntPtr error = IntPtr.Zero;
-			Raw = gdk_pixbuf_animation_new_from_file(native_filename, out error);
-			GLib.Marshaller.Free(native_filename);
-			if (error != IntPtr.Zero) throw new GLib.GException(error);
-		}
+        public PixbufAnimation(string filename) : base(IntPtr.Zero)
+        {
+            IntPtr native_filename = GLib.Marshaller.StringToPtrGStrdup(filename);
+            IntPtr error = IntPtr.Zero;
+            Raw = gdk_pixbuf_animation_new_from_file(native_filename, out error);
+            GLib.Marshaller.Free(native_filename);
+            if (error != IntPtr.Zero) throw new GLib.GException(error);
+        }
 
-		public PixbufAnimation (System.IO.Stream stream) : base (IntPtr.Zero)
-		{
-			using (var pl = new PixbufLoader (stream)) {
-				Raw = pl.AnimationHandle;
-			}
-		}
+        public PixbufAnimation(System.IO.Stream stream) : base(IntPtr.Zero)
+        {
+            using (var pl = new PixbufLoader(stream))
+            {
+                Raw = pl.AnimationHandle;
+            }
+        }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		public PixbufAnimation (System.Reflection.Assembly assembly, string resource) : base (IntPtr.Zero)
-		{
-			if (assembly == null)
-				assembly = System.Reflection.Assembly.GetCallingAssembly ();
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public PixbufAnimation(System.Reflection.Assembly assembly, string resource) : base(IntPtr.Zero)
+        {
+            if (assembly == null)
+                assembly = System.Reflection.Assembly.GetCallingAssembly();
 
-			using (var pl = new PixbufLoader (assembly, resource)) {
-				Raw = pl.AnimationHandle;
-			}
-		}
+            using (var pl = new PixbufLoader(assembly, resource))
+            {
+                Raw = pl.AnimationHandle;
+            }
+        }
 
-		[MethodImpl(MethodImplOptions.NoInlining)]
-		static public PixbufAnimation LoadFromResource (string resource)
-		{
-			return new PixbufAnimation (System.Reflection.Assembly.GetCallingAssembly (), resource);
-		}
-	}
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        static public PixbufAnimation LoadFromResource(string resource)
+        {
+            return new PixbufAnimation(System.Reflection.Assembly.GetCallingAssembly(), resource);
+        }
+    }
 }
 
