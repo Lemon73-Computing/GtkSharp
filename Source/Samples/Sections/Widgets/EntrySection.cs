@@ -146,7 +146,7 @@ namespace Samples
             completion.TextColumn = 0;
 
 
-            return ("Completion Entry:",entry);
+            return ("Completion Entry:", entry);
         }
 
         public (string, Widget) CreateInsensitiveEntry()
@@ -158,6 +158,6 @@ namespace Samples
 
             return ("Insensitive entry:", entry);
         }
-    
+
     }
 }

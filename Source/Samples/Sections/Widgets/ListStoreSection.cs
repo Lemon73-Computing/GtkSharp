@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+
 using Gtk;
 
 namespace Samples
 {
-	[Section(ContentType = typeof(ListStore), Category = Category.Widgets)]
-	class ListStoreSection : Box
-	{
-		private readonly TreeView _tree;
-		private ListStore _model;
+    [Section(ContentType = typeof(ListStore), Category = Category.Widgets)]
+    class ListStoreSection : Box
+    {
+        private readonly TreeView _tree;
+        private ListStore _model;
         private readonly List<Bug> _data = new List<Bug>
         {
               new Bug ( false, 60482, "Normal",      "scrollable notebooks and hidden tabs" ),
@@ -43,7 +44,7 @@ namespace Samples
             GLib.Timeout.Add(100, SpinerTimeout);
         }
 
-		private enum Column
+        private enum Column
         {
             Fixed,
             Number,
@@ -57,19 +58,19 @@ namespace Samples
         };
 
         private readonly struct Bug
-		{
+        {
             public bool Fixed { get; }
             public int Number { get; }
             public string Severity { get; }
             public string Description { get; }
 
             public Bug(bool isFixed, int number, string severity, string description)
-			{
+            {
                 Fixed = isFixed;
                 Number = number;
                 Severity = severity;
                 Description = description;
-			}
+            }
         }
 
         private void CreateModel()
@@ -178,7 +179,7 @@ namespace Samples
                 return false;
             }
 
-			_model.GetIterFirst(out TreeIter iter);
+            _model.GetIterFirst(out TreeIter iter);
             int pulse = (int)_model.GetValue(iter, (int)Column.Pulse);
             if (pulse == int.MaxValue)
                 pulse = 0;
@@ -190,5 +191,5 @@ namespace Samples
 
             return true;
         }
-	}
+    }
 }

@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrStyle : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_style_new(Pango.Style style);
-		static d_pango_attr_style_new pango_attr_style_new = FuncLoader.LoadFunction<d_pango_attr_style_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_style_new"));
+    public class AttrStyle : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_style_new(Pango.Style style);
+        static readonly d_pango_attr_style_new pango_attr_style_new = FuncLoader.LoadFunction<d_pango_attr_style_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_style_new"));
 
-		public AttrStyle (Pango.Style style) : this (pango_attr_style_new (style)) {}
+        public AttrStyle(Pango.Style style) : this(pango_attr_style_new(style)) { }
 
-		internal AttrStyle (IntPtr raw) : base (raw) {}
+        internal AttrStyle(IntPtr raw) : base(raw) { }
 
-		public Pango.Style Style {
-			get {
-				return (Pango.Style) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Pango.Style Style
+        {
+            get
+            {
+                return (Pango.Style)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-

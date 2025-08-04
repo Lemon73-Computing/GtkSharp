@@ -13,48 +13,51 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class TreePath {
+    public partial class TreePath
+    {
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_tree_path_get_indices_with_depth(IntPtr raw, out int depth);
-		static d_gtk_tree_path_get_indices_with_depth gtk_tree_path_get_indices_with_depth = FuncLoader.LoadFunction<d_gtk_tree_path_get_indices_with_depth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_get_indices_with_depth"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_tree_path_get_indices_with_depth(IntPtr raw, out int depth);
+        static readonly d_gtk_tree_path_get_indices_with_depth gtk_tree_path_get_indices_with_depth = FuncLoader.LoadFunction<d_gtk_tree_path_get_indices_with_depth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_get_indices_with_depth"));
 
-		public int [] Indices { 
-			get {
-				IntPtr arrPtr = gtk_tree_path_get_indices_with_depth(Handle, out int depth);
-				int[] arr = new int[depth];
-				if (arrPtr != IntPtr.Zero)
-					Marshal.Copy(arrPtr, arr, 0, depth);
-				return arr;
-			}
-		}
+        public int[] Indices
+        {
+            get
+            {
+                IntPtr arrPtr = gtk_tree_path_get_indices_with_depth(Handle, out int depth);
+                int[] arr = new int[depth];
+                if (arrPtr != IntPtr.Zero)
+                    Marshal.Copy(arrPtr, arr, 0, depth);
+                return arr;
+            }
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_tree_path_new_from_indicesv(int[] indices, UIntPtr length);
-		static d_gtk_tree_path_new_from_indicesv gtk_tree_path_new_from_indicesv = FuncLoader.LoadFunction<d_gtk_tree_path_new_from_indicesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_new_from_indicesv"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_tree_path_new_from_indicesv(int[] indices, UIntPtr length);
+        static readonly d_gtk_tree_path_new_from_indicesv gtk_tree_path_new_from_indicesv = FuncLoader.LoadFunction<d_gtk_tree_path_new_from_indicesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_new_from_indicesv"));
 
-		public TreePath (int[] indices)
-		{
-			Raw = gtk_tree_path_new_from_indicesv(indices, (UIntPtr)indices.Length);
-		}
+        public TreePath(int[] indices)
+        {
+            Raw = gtk_tree_path_new_from_indicesv(indices, (UIntPtr)indices.Length);
+        }
 
-		public override bool Equals (object o)
-		{
-			if (!(o is TreePath))
-				return false;
+        public override bool Equals(object o)
+        {
+            if (!(o is TreePath))
+                return false;
 
-			return (Compare (o as TreePath) == 0);
-		}
+            return (Compare(o as TreePath) == 0);
+        }
 
-		public override int GetHashCode ()
-		{
-			return ToString ().GetHashCode ();
-		}
-	}
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
+    }
 }
-

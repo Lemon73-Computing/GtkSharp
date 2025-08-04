@@ -18,20 +18,22 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace GLib {
-	using System;
-	using System.Runtime.InteropServices;
-	
-	public partial class AppInfoAdapter {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_app_info_get_all();
-		static d_g_app_info_get_all g_app_info_get_all = FuncLoader.LoadFunction<d_g_app_info_get_all>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gio), "g_app_info_get_all"));
+namespace GLib
+{
+    using System;
+    using System.Runtime.InteropServices;
 
-		public static GLib.IAppInfo[] GetAll () {
-			IntPtr raw_ret = g_app_info_get_all();
-			GLib.IAppInfo[] ret = (GLib.IAppInfo[]) GLib.Marshaller.ListPtrToArray (raw_ret, typeof (GLib.List), true, false, typeof (GLib.IAppInfo));
-			return ret;
-		}
-	}
+    public partial class AppInfoAdapter
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_app_info_get_all();
+        static readonly d_g_app_info_get_all g_app_info_get_all = FuncLoader.LoadFunction<d_g_app_info_get_all>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gio), "g_app_info_get_all"));
+
+        public static GLib.IAppInfo[] GetAll()
+        {
+            IntPtr raw_ret = g_app_info_get_all();
+            GLib.IAppInfo[] ret = (GLib.IAppInfo[])GLib.Marshaller.ListPtrToArray(raw_ret, typeof(GLib.List), true, false, typeof(GLib.IAppInfo));
+            return ret;
+        }
+    }
 }
-

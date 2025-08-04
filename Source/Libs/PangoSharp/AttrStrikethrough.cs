@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrStrikethrough : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_strikethrough_new(bool strikethrough);
-		static d_pango_attr_strikethrough_new pango_attr_strikethrough_new = FuncLoader.LoadFunction<d_pango_attr_strikethrough_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_strikethrough_new"));
+    public class AttrStrikethrough : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_strikethrough_new(bool strikethrough);
+        static readonly d_pango_attr_strikethrough_new pango_attr_strikethrough_new = FuncLoader.LoadFunction<d_pango_attr_strikethrough_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_strikethrough_new"));
 
-		public AttrStrikethrough (bool strikethrough) : this (pango_attr_strikethrough_new (strikethrough)) {}
+        public AttrStrikethrough(bool strikethrough) : this(pango_attr_strikethrough_new(strikethrough)) { }
 
-		internal AttrStrikethrough (IntPtr raw) : base (raw) {}
+        internal AttrStrikethrough(IntPtr raw) : base(raw) { }
 
-		public bool Strikethrough {
-			get {
-				return AttrInt.New (Handle).Value != 0;
-			}
-		}
-	}
+        public bool Strikethrough
+        {
+            get
+            {
+                return AttrInt.New(Handle).Value != 0;
+            }
+        }
+    }
 }
-

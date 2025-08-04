@@ -22,7 +22,7 @@
 namespace Gtk
 {
     using System;
-    
+
     [AttributeUsage(AttributeTargets.Field)]
     public class ChildAttribute : Attribute
     {

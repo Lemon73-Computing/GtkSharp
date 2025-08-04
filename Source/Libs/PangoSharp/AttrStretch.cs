@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrStretch : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_stretch_new(Pango.Stretch stretch);
-		static d_pango_attr_stretch_new pango_attr_stretch_new = FuncLoader.LoadFunction<d_pango_attr_stretch_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_stretch_new"));
+    public class AttrStretch : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_stretch_new(Pango.Stretch stretch);
+        static readonly d_pango_attr_stretch_new pango_attr_stretch_new = FuncLoader.LoadFunction<d_pango_attr_stretch_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_stretch_new"));
 
-		public AttrStretch (Pango.Stretch stretch) : this (pango_attr_stretch_new (stretch)) {}
+        public AttrStretch(Pango.Stretch stretch) : this(pango_attr_stretch_new(stretch)) { }
 
-		internal AttrStretch (IntPtr raw) : base (raw) {}
+        internal AttrStretch(IntPtr raw) : base(raw) { }
 
-		public Pango.Stretch Stretch {
-			get {
-				return (Pango.Stretch) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Pango.Stretch Stretch
+        {
+            get
+            {
+                return (Pango.Stretch)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-

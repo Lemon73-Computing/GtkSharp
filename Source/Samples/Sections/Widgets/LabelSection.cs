@@ -22,7 +22,7 @@ namespace Samples
             label.LabelProp = "This is a label";
 
             // right align text, center is default
-            label.Xalign = 1f; 
+            label.Xalign = 1f;
 
             return ("Label :", label);
         }

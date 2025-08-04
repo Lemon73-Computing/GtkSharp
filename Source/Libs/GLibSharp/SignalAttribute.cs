@@ -20,28 +20,30 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
+    using System;
 
-	[Serializable]
-	[AttributeUsage (AttributeTargets.Event, Inherited=false)]
-	public sealed class SignalAttribute : Attribute 
-	{
-		private string cname;
+    [Serializable]
+    [AttributeUsage(AttributeTargets.Event, Inherited = false)]
+    public sealed class SignalAttribute : Attribute
+    {
+        private readonly string cname;
 
-		public SignalAttribute (string cname)
-		{
-			this.cname = cname;
-		}
+        public SignalAttribute(string cname)
+        {
+            this.cname = cname;
+        }
 
-		private SignalAttribute () {}
+        private SignalAttribute() { }
 
-		public string CName 
-		{
-			get {
-				return cname;
-			}
-		}
-	}
+        public string CName
+        {
+            get
+            {
+                return cname;
+            }
+        }
+    }
 }

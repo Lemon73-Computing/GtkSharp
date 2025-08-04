@@ -22,98 +22,104 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Collections.Generic;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
 
-	public delegate bool TimeoutHandler ();
+    public delegate bool TimeoutHandler();
 
-	public class Timeout {
+    public class Timeout
+    {
 
-		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-		delegate bool TimeoutHandlerInternal ();
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool TimeoutHandlerInternal();
 
-		internal class TimeoutProxy : SourceProxy {
-			public TimeoutProxy (TimeoutHandler real)
-			{
-				real_handler = real;
-				proxy_handler = new TimeoutHandlerInternal (Handler);
-			}
+        internal class TimeoutProxy : SourceProxy
+        {
+            public TimeoutProxy(TimeoutHandler real)
+            {
+                real_handler = real;
+                proxy_handler = new TimeoutHandlerInternal(Handler);
+            }
 
-			public bool Handler ()
-			{
-				try {
-					TimeoutHandler timeout_handler = (TimeoutHandler) real_handler;
-					bool cont = timeout_handler ();
-					return cont;
-				} catch (Exception e) {
-					ExceptionManager.RaiseUnhandledException (e, false);
-				}
-				return false;
-			}
-		}
+            public bool Handler()
+            {
+                try
+                {
+                    TimeoutHandler timeout_handler = (TimeoutHandler)real_handler;
+                    bool cont = timeout_handler();
+                    return cont;
+                }
+                catch (Exception e)
+                {
+                    ExceptionManager.RaiseUnhandledException(e, false);
+                }
+                return false;
+            }
+        }
 
-		private Timeout () {}
+        private Timeout() { }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate uint d_g_timeout_add_full(int priority, uint interval, TimeoutHandlerInternal d, IntPtr data, DestroyNotify notify);
-		static d_g_timeout_add_full g_timeout_add_full = FuncLoader.LoadFunction<d_g_timeout_add_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_timeout_add_full"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate uint d_g_timeout_add_full(int priority, uint interval, TimeoutHandlerInternal d, IntPtr data, DestroyNotify notify);
+        static readonly d_g_timeout_add_full g_timeout_add_full = FuncLoader.LoadFunction<d_g_timeout_add_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_timeout_add_full"));
 
-		public static uint Add (uint interval, TimeoutHandler hndlr, int priority)
-		{
-			TimeoutProxy p = new TimeoutProxy (hndlr);
-			lock (p)
-			{
-				var gch = GCHandle.Alloc(p);
-				var userData = GCHandle.ToIntPtr(gch);
-				p.ID = g_timeout_add_full (priority, interval, (TimeoutHandlerInternal) p.proxy_handler, userData, DestroyHelper.SourceProxyNotifyHandler);
-			}
+        public static uint Add(uint interval, TimeoutHandler hndlr, int priority)
+        {
+            TimeoutProxy p = new TimeoutProxy(hndlr);
+            lock (p)
+            {
+                var gch = GCHandle.Alloc(p);
+                var userData = GCHandle.ToIntPtr(gch);
+                p.ID = g_timeout_add_full(priority, interval, (TimeoutHandlerInternal)p.proxy_handler, userData, DestroyHelper.SourceProxyNotifyHandler);
+            }
 
-			return p.ID;
-		}
+            return p.ID;
+        }
 
-		public static uint Add (uint interval, TimeoutHandler hndlr, Priority priority)
-		{
-			return Add (interval, hndlr, (int)priority);
-		}
+        public static uint Add(uint interval, TimeoutHandler hndlr, Priority priority)
+        {
+            return Add(interval, hndlr, (int)priority);
+        }
 
-		public static uint Add (uint interval, TimeoutHandler hndlr)
-		{
-			return Add (interval, hndlr, (int)Priority.Default);
-		}
+        public static uint Add(uint interval, TimeoutHandler hndlr)
+        {
+            return Add(interval, hndlr, (int)Priority.Default);
+        }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate uint d_g_timeout_add_seconds_full(int priority, uint interval, TimeoutHandlerInternal d, IntPtr data, DestroyNotify notify);
-		static d_g_timeout_add_seconds_full g_timeout_add_seconds_full = FuncLoader.LoadFunction<d_g_timeout_add_seconds_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_timeout_add_seconds_full"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate uint d_g_timeout_add_seconds_full(int priority, uint interval, TimeoutHandlerInternal d, IntPtr data, DestroyNotify notify);
+        static readonly d_g_timeout_add_seconds_full g_timeout_add_seconds_full = FuncLoader.LoadFunction<d_g_timeout_add_seconds_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_timeout_add_seconds_full"));
 
-		public static uint AddSeconds (uint interval, TimeoutHandler hndlr, int priority)
-		{
-			TimeoutProxy p = new TimeoutProxy (hndlr);
-			lock (p)
-			{
-				var gch = GCHandle.Alloc(p);
-				var userData = GCHandle.ToIntPtr(gch);
-				p.ID = g_timeout_add_seconds_full (priority, interval, (TimeoutHandlerInternal) p.proxy_handler, userData, DestroyHelper.SourceProxyNotifyHandler);
-			}
+        public static uint AddSeconds(uint interval, TimeoutHandler hndlr, int priority)
+        {
+            TimeoutProxy p = new TimeoutProxy(hndlr);
+            lock (p)
+            {
+                var gch = GCHandle.Alloc(p);
+                var userData = GCHandle.ToIntPtr(gch);
+                p.ID = g_timeout_add_seconds_full(priority, interval, (TimeoutHandlerInternal)p.proxy_handler, userData, DestroyHelper.SourceProxyNotifyHandler);
+            }
 
-			return p.ID;
-		}
+            return p.ID;
+        }
 
-		public static uint AddSeconds (uint interval, TimeoutHandler hndlr, Priority priority)
-		{
-			return AddSeconds (interval, hndlr, (int)priority);
-		}
+        public static uint AddSeconds(uint interval, TimeoutHandler hndlr, Priority priority)
+        {
+            return AddSeconds(interval, hndlr, (int)priority);
+        }
 
-		public static uint AddSeconds (uint interval, TimeoutHandler hndlr)
-		{
-			return AddSeconds (interval, hndlr, (int)Priority.Default);
-		}
+        public static uint AddSeconds(uint interval, TimeoutHandler hndlr)
+        {
+            return AddSeconds(interval, hndlr, (int)Priority.Default);
+        }
 
-		public static void Remove (uint id)
-		{
-			Source.Remove (id);
-		}
-	}
+        public static void Remove(uint id)
+        {
+            Source.Remove(id);
+        }
+    }
 }

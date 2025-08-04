@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrFallback : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_fallback_new(bool fallback);
-		static d_pango_attr_fallback_new pango_attr_fallback_new = FuncLoader.LoadFunction<d_pango_attr_fallback_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_fallback_new"));
+    public class AttrFallback : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_fallback_new(bool fallback);
+        static readonly d_pango_attr_fallback_new pango_attr_fallback_new = FuncLoader.LoadFunction<d_pango_attr_fallback_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_fallback_new"));
 
-		public AttrFallback (bool fallback) : this (pango_attr_fallback_new (fallback)) {}
+        public AttrFallback(bool fallback) : this(pango_attr_fallback_new(fallback)) { }
 
-		internal AttrFallback (IntPtr raw) : base (raw) {}
+        internal AttrFallback(IntPtr raw) : base(raw) { }
 
-		public bool Fallback {
-			get {
-				return AttrInt.New (Handle).Value != 0;
-			}
-		}
-	}
+        public bool Fallback
+        {
+            get
+            {
+                return AttrInt.New(Handle).Value != 0;
+            }
+        }
+    }
 }
-

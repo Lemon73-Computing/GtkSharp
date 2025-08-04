@@ -1,53 +1,55 @@
-using Gtk;
 using System;
+
+using Gtk;
 namespace Samples
 {
 
-	[Section (ContentType = typeof(CustomCellRenderer), Category = Category.Widgets)]
-	class CellRendererSection : ListSection
-	{
-		public CellRendererSection ()
-		{
-			AddItem (CreateCellRenderer ());
-         
-		}
-		ListStore liststore;
+    [Section(ContentType = typeof(CustomCellRenderer), Category = Category.Widgets)]
+    class CellRendererSection : ListSection
+    {
+        public CellRendererSection()
+        {
+            AddItem(CreateCellRenderer());
 
-		public (string, Widget) CreateCellRenderer ()
-		{
-			liststore = new ListStore (typeof (float), typeof (string));
-			liststore.AppendValues (0.5f, "50%");
+        }
+        ListStore liststore;
 
-			TreeView view = new TreeView (liststore);
+        public (string, Widget) CreateCellRenderer()
+        {
+            liststore = new ListStore(typeof(float), typeof(string));
+            liststore.AppendValues(0.5f, "50%");
 
-			view.AppendColumn ("Progress", new CellRendererText (), "text", 1);
-			view.AppendColumn ("Progress", new CustomCellRenderer (), "percent", 0);
-			GLib.Timeout.Add (50, new GLib.TimeoutHandler (update_percent));
+            TreeView view = new TreeView(liststore);
 
-			return (nameof(CustomCellRenderer), view);
-		}
-		
-		bool increasing = true;
-		bool update_percent ()
-		{
-			TreeIter iter;
-			liststore.GetIterFirst (out iter);
-			float perc = (float) liststore.GetValue (iter, 0);
+            view.AppendColumn("Progress", new CellRendererText(), "text", 1);
+            view.AppendColumn("Progress", new CustomCellRenderer(), "percent", 0);
+            GLib.Timeout.Add(50, new GLib.TimeoutHandler(update_percent));
 
-			if ((perc > 0.99) || (perc < 0.01 && perc > 0)) {
-				increasing = !increasing;
-			}
+            return (nameof(CustomCellRenderer), view);
+        }
 
-			if (increasing)
-				perc += 0.01f;
-			else
-				perc -= 0.01f;
+        bool increasing = true;
+        bool update_percent()
+        {
+            TreeIter iter;
+            liststore.GetIterFirst(out iter);
+            float perc = (float)liststore.GetValue(iter, 0);
 
-			liststore.SetValue (iter, 0, perc);
-			liststore.SetValue (iter, 1, Convert.ToInt32 (perc * 100) + "%");
+            if ((perc > 0.99) || (perc < 0.01 && perc > 0))
+            {
+                increasing = !increasing;
+            }
 
-			return true;
-		}
-	}
+            if (increasing)
+                perc += 0.01f;
+            else
+                perc -= 0.01f;
+
+            liststore.SetValue(iter, 0, perc);
+            liststore.SetValue(iter, 1, Convert.ToInt32(perc * 100) + "%");
+
+            return true;
+        }
+    }
 
 }

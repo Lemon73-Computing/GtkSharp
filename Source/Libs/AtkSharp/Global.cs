@@ -21,28 +21,29 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Atk {
+namespace Atk
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class Global {
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate uint d_atk_add_global_event_listener(GLib.Signal.EmissionHookNative hook, IntPtr event_type);
-        static d_atk_add_global_event_listener atk_add_global_event_listener = FuncLoader.LoadFunction<d_atk_add_global_event_listener>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Atk), "atk_add_global_event_listener"));
+    public partial class Global
+    {
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate uint d_atk_add_global_event_listener(GLib.Signal.EmissionHookNative hook, IntPtr event_type);
+        static readonly d_atk_add_global_event_listener atk_add_global_event_listener = FuncLoader.LoadFunction<d_atk_add_global_event_listener>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Atk), "atk_add_global_event_listener"));
 
 
-        public static uint AddGlobalEventListener (GLib.Signal.EmissionHook hook, string event_type)
-		{
-			IntPtr native_event_type = GLib.Marshaller.StringToPtrGStrdup (event_type);
-			uint id = atk_add_global_event_listener (new GLib.Signal.EmissionHookMarshaler (hook).Callback, native_event_type);
-			GLib.Marshaller.Free (native_event_type);
-			return id;
-		}
+        public static uint AddGlobalEventListener(GLib.Signal.EmissionHook hook, string event_type)
+        {
+            IntPtr native_event_type = GLib.Marshaller.StringToPtrGStrdup(event_type);
+            uint id = atk_add_global_event_listener(new GLib.Signal.EmissionHookMarshaler(hook).Callback, native_event_type);
+            GLib.Marshaller.Free(native_event_type);
+            return id;
+        }
 
         public static bool IsSupported => GLibrary.IsSupported(Library.Atk);
 
-	}
+    }
 }
-

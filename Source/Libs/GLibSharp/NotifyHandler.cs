@@ -14,24 +14,27 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public delegate void NotifyHandler (object o, NotifyArgs args);
+    public delegate void NotifyHandler(object o, NotifyArgs args);
 
-	public class NotifyArgs : GLib.SignalArgs {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_param_spec_get_name(IntPtr pspec);
-		static d_g_param_spec_get_name g_param_spec_get_name = FuncLoader.LoadFunction<d_g_param_spec_get_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_param_spec_get_name"));
+    public class NotifyArgs : GLib.SignalArgs
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_param_spec_get_name(IntPtr pspec);
+        static readonly d_g_param_spec_get_name g_param_spec_get_name = FuncLoader.LoadFunction<d_g_param_spec_get_name>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_param_spec_get_name"));
 
-		public string Property {
-			get {
-				IntPtr raw_ret = g_param_spec_get_name ((IntPtr) Args[0]);
-				return Marshaller.Utf8PtrToString (raw_ret);
-			}
-		}
-	}
+        public string Property
+        {
+            get
+            {
+                IntPtr raw_ret = g_param_spec_get_name((IntPtr)Args[0]);
+                return Marshaller.Utf8PtrToString(raw_ret);
+            }
+        }
+    }
 }
-

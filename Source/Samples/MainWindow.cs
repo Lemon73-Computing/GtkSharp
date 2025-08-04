@@ -1,23 +1,25 @@
 // This is free and unencumbered software released into the public domain.
 // Happy coding!!! - GtkSharp Team
 
-using Gtk;
-using GtkSource;
 using System;
 using System.Collections.Generic;
 using System.IO;
+
+using Gtk;
+
+using GtkSource;
 
 namespace Samples
 {
     class MainWindow : Window
     {
         private HeaderBar _headerBar;
-        private TreeView _treeView;
-        private Box _boxContent;
+        private readonly TreeView _treeView;
+        private readonly Box _boxContent;
         private TreeStore _store;
         private Dictionary<string, (Type type, Widget widget)> _items;
-        private SourceView _textViewCode;
-        private Notebook _notebook;
+        private readonly SourceView _textViewCode;
+        private readonly Notebook _notebook;
 
         public MainWindow() : base(WindowType.Toplevel)
         {
@@ -96,8 +98,8 @@ namespace Samples
                         _items[s] = item = (item.type, Activator.CreateInstance(item.type) as Widget);
 
                     using (var stream = typeof(ListSection).Assembly.GetManifestResourceStream("GtkSharp.Samples." + item.type.Name + ".cs"))
-                        using (var reader = new StreamReader(stream))
-                            _textViewCode.Buffer.Text = reader.ReadToEnd();
+                    using (var reader = new StreamReader(stream))
+                        _textViewCode.Buffer.Text = reader.ReadToEnd();
 
                     _boxContent.PackStart(item.widget, true, true, 0);
                     _boxContent.ShowAll();

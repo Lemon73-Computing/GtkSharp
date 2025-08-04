@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrGravityHint : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_gravity_hint_new(int hint);
-		static d_pango_attr_gravity_hint_new pango_attr_gravity_hint_new = FuncLoader.LoadFunction<d_pango_attr_gravity_hint_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_hint_new"));
+    public class AttrGravityHint : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_gravity_hint_new(int hint);
+        static readonly d_pango_attr_gravity_hint_new pango_attr_gravity_hint_new = FuncLoader.LoadFunction<d_pango_attr_gravity_hint_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_hint_new"));
 
-		public AttrGravityHint (GravityHint hint) : this (pango_attr_gravity_hint_new ((int) hint)) {}
+        public AttrGravityHint(GravityHint hint) : this(pango_attr_gravity_hint_new((int)hint)) { }
 
-		internal AttrGravityHint (IntPtr raw) : base (raw) {}
+        internal AttrGravityHint(IntPtr raw) : base(raw) { }
 
-		public GravityHint GravityHint {
-			get {
-				return (GravityHint) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public GravityHint GravityHint
+        {
+            get
+            {
+                return (GravityHint)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-

@@ -18,186 +18,192 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Gtk {
+namespace Gtk
+{
 
-	using System;
-	using System.Reflection;
-	using System.Runtime.InteropServices;
-	using System.Threading;
-	using Gdk;
+    using System;
+    using System.Reflection;
+    using System.Runtime.InteropServices;
+    using System.Threading;
 
-	public partial class Application {
+    using Gdk;
 
-		const int WS_EX_TOOLWINDOW = 0x00000080;
-		const int WS_OVERLAPPEDWINDOW = 0x00CF0000;
+    public partial class Application
+    {
 
-        static Application ()
-		{
-			if (!GLib.Thread.Supported)
-				GLib.Thread.Init ();
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_init(ref int argc, ref IntPtr argv);
-		static d_gtk_init gtk_init = FuncLoader.LoadFunction<d_gtk_init>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_gtk_init_check(ref int argc, ref IntPtr argv);
-		static d_gtk_init_check gtk_init_check = FuncLoader.LoadFunction<d_gtk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init_check"));
+        const int WS_EX_TOOLWINDOW = 0x00000080;
+        const int WS_OVERLAPPEDWINDOW = 0x00CF0000;
 
-		static void SetPrgname ()
-		{
-			var args = Environment.GetCommandLineArgs ();
-			if (args != null && args.Length > 0)
-				GLib.Global.ProgramName = System.IO.Path.GetFileNameWithoutExtension (args [0]);
-		}
+        static Application()
+        {
+            if (!GLib.Thread.Supported)
+                GLib.Thread.Init();
+        }
 
-		public static void Init ()
-		{
-			SetPrgname ();
-			IntPtr argv = new IntPtr(0);
-			int argc = 0;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_init(ref int argc, ref IntPtr argv);
+        static readonly d_gtk_init gtk_init = FuncLoader.LoadFunction<d_gtk_init>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_gtk_init_check(ref int argc, ref IntPtr argv);
+        static readonly d_gtk_init_check gtk_init_check = FuncLoader.LoadFunction<d_gtk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init_check"));
 
-			gtk_init (ref argc, ref argv);
+        static void SetPrgname()
+        {
+            var args = Environment.GetCommandLineArgs();
+            if (args != null && args.Length > 0)
+                GLib.Global.ProgramName = System.IO.Path.GetFileNameWithoutExtension(args[0]);
+        }
 
-			SynchronizationContext.SetSynchronizationContext (new GLib.GLibSynchronizationContext ());
-		}
+        public static void Init()
+        {
+            SetPrgname();
+            IntPtr argv = new IntPtr(0);
+            int argc = 0;
 
-		static bool do_init (string progname, ref string[] args, bool check)
-		{
-			SetPrgname ();
-			bool res = false;
-			string[] progargs = new string[args.Length + 1];
+            gtk_init(ref argc, ref argv);
 
-			progargs[0] = progname;
-			args.CopyTo (progargs, 1);
+            SynchronizationContext.SetSynchronizationContext(new GLib.GLibSynchronizationContext());
+        }
 
-			GLib.Argv argv = new GLib.Argv (progargs);
-			IntPtr buf = argv.Handle;
-			int argc = progargs.Length;
+        static bool do_init(string progname, ref string[] args, bool check)
+        {
+            SetPrgname();
+            bool res = false;
+            string[] progargs = new string[args.Length + 1];
 
-			if (check)
-				res = gtk_init_check (ref argc, ref buf);
-			else
-				gtk_init (ref argc, ref buf);
+            progargs[0] = progname;
+            args.CopyTo(progargs, 1);
 
-			if (buf != argv.Handle)
-				throw new Exception ("init returned new argv handle");
+            GLib.Argv argv = new GLib.Argv(progargs);
+            IntPtr buf = argv.Handle;
+            int argc = progargs.Length;
 
-			// copy back the resulting argv, minus argv[0], which we're
-			// not interested in.
+            if (check)
+                res = gtk_init_check(ref argc, ref buf);
+            else
+                gtk_init(ref argc, ref buf);
 
-			if (argc <= 1)
-				args = new string[0];
-			else {
-				progargs = argv.GetArgs (argc);
-				args = new string[argc - 1];
-				Array.Copy (progargs, 1, args, 0, argc - 1);
-			}
+            if (buf != argv.Handle)
+                throw new Exception("init returned new argv handle");
 
-			return res;
-		}
+            // copy back the resulting argv, minus argv[0], which we're
+            // not interested in.
 
-		public static void Init (string progname, ref string[] args)
-		{
-			do_init (progname, ref args, false);
-		}
+            if (argc <= 1)
+                args = new string[0];
+            else
+            {
+                progargs = argv.GetArgs(argc);
+                args = new string[argc - 1];
+                Array.Copy(progargs, 1, args, 0, argc - 1);
+            }
 
-		public static bool InitCheck (string progname, ref string[] args)
-		{
-			return do_init (progname, ref args, true);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_main();
-		static d_gtk_main gtk_main = FuncLoader.LoadFunction<d_gtk_main>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main"));
+            return res;
+        }
 
-		public static void Run ()
-		{
-			gtk_main ();
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_gtk_events_pending();
-		static d_gtk_events_pending gtk_events_pending = FuncLoader.LoadFunction<d_gtk_events_pending>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_events_pending"));
+        public static void Init(string progname, ref string[] args)
+        {
+            do_init(progname, ref args, false);
+        }
+
+        public static bool InitCheck(string progname, ref string[] args)
+        {
+            return do_init(progname, ref args, true);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_main();
+        static readonly d_gtk_main gtk_main = FuncLoader.LoadFunction<d_gtk_main>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main"));
+
+        public static void Run()
+        {
+            gtk_main();
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_gtk_events_pending();
+        static readonly d_gtk_events_pending gtk_events_pending = FuncLoader.LoadFunction<d_gtk_events_pending>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_events_pending"));
 
 
-		public static bool EventsPending ()
-		{
-			return gtk_events_pending ();
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_main_iteration();
-		static d_gtk_main_iteration gtk_main_iteration = FuncLoader.LoadFunction<d_gtk_main_iteration>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate bool d_gtk_main_iteration_do(bool blocking);
-		static d_gtk_main_iteration_do gtk_main_iteration_do = FuncLoader.LoadFunction<d_gtk_main_iteration_do>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration_do"));
+        public static bool EventsPending()
+        {
+            return gtk_events_pending();
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_main_iteration();
+        static readonly d_gtk_main_iteration gtk_main_iteration = FuncLoader.LoadFunction<d_gtk_main_iteration>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate bool d_gtk_main_iteration_do(bool blocking);
+        static readonly d_gtk_main_iteration_do gtk_main_iteration_do = FuncLoader.LoadFunction<d_gtk_main_iteration_do>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration_do"));
 
-		public static void RunIteration ()
-		{
-			gtk_main_iteration ();
-		}
+        public static void RunIteration()
+        {
+            gtk_main_iteration();
+        }
 
-		public static bool RunIteration (bool blocking)
-		{
-			return gtk_main_iteration_do (blocking);
-		}
-		
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_main_quit();
-		static d_gtk_main_quit gtk_main_quit = FuncLoader.LoadFunction<d_gtk_main_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_quit"));
+        public static bool RunIteration(bool blocking)
+        {
+            return gtk_main_iteration_do(blocking);
+        }
 
-		public static void Quit ()
-		{
-			gtk_main_quit ();
-		}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_main_quit();
+        static readonly d_gtk_main_quit gtk_main_quit = FuncLoader.LoadFunction<d_gtk_main_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_quit"));
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_get_current_event();
-		static d_gtk_get_current_event gtk_get_current_event = FuncLoader.LoadFunction<d_gtk_get_current_event>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_get_current_event"));
+        public static void Quit()
+        {
+            gtk_main_quit();
+        }
 
-		public static Gdk.Event CurrentEvent {
-			get {
-				return Gdk.Event.GetEvent (gtk_get_current_event ());
-			}
-		}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_get_current_event();
+        static readonly d_gtk_get_current_event gtk_get_current_event = FuncLoader.LoadFunction<d_gtk_get_current_event>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_get_current_event"));
 
-		internal class InvokeCB {
-			EventHandler d;
-			object sender;
-			EventArgs args;
-			
-			internal InvokeCB (EventHandler d)
-			{
-				this.d = d;
-				args = EventArgs.Empty;
-				sender = this;
-			}
-			
-			internal InvokeCB (EventHandler d, object sender, EventArgs args)
-			{
-				this.d = d;
-				this.args = args;
-				this.sender = sender;
-			}
-			
-			internal bool Invoke ()
-			{
-				d (sender, args);
-				return false;
-			}
-		}
-		
-		public static void Invoke (EventHandler d)
-		{
-			InvokeCB icb = new InvokeCB (d);
-			
-			GLib.Timeout.Add (0, new GLib.TimeoutHandler (icb.Invoke));
-		}
+        public static Gdk.Event CurrentEvent
+        {
+            get
+            {
+                return Gdk.Event.GetEvent(gtk_get_current_event());
+            }
+        }
 
-		public static void Invoke (object sender, EventArgs args, EventHandler d)
-		{
-			InvokeCB icb = new InvokeCB (d, sender, args);
-			
-			GLib.Timeout.Add (0, new GLib.TimeoutHandler (icb.Invoke));
-		}
-	}
+        internal class InvokeCB
+        {
+            readonly EventHandler d;
+            readonly object sender;
+            readonly EventArgs args;
+
+            internal InvokeCB(EventHandler d)
+            {
+                this.d = d;
+                args = EventArgs.Empty;
+                sender = this;
+            }
+
+            internal InvokeCB(EventHandler d, object sender, EventArgs args)
+            {
+                this.d = d;
+                this.args = args;
+                this.sender = sender;
+            }
+
+            internal bool Invoke()
+            {
+                d(sender, args);
+                return false;
+            }
+        }
+
+        public static void Invoke(EventHandler d)
+        {
+            InvokeCB icb = new InvokeCB(d);
+
+            GLib.Timeout.Add(0, new GLib.TimeoutHandler(icb.Invoke));
+        }
+
+        public static void Invoke(object sender, EventArgs args, EventHandler d)
+        {
+            InvokeCB icb = new InvokeCB(d, sender, args);
+
+            GLib.Timeout.Add(0, new GLib.TimeoutHandler(icb.Invoke));
+        }
+    }
 }
-

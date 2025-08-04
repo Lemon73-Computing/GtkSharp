@@ -19,131 +19,144 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
-	using System;
-	using System.Runtime.InteropServices;
-	using GLib;
-	
-	internal class ManagedValue {
+namespace GLib
+{
+    using System;
+    using System.Runtime.InteropServices;
 
-		GCHandle gch;
-		object instance;
-		int ref_count = 1;
-		
-		private ManagedValue (object instance)
-		{
-			this.instance = instance;
-			gch = GCHandle.Alloc (this);
-		}
+    using GLib;
 
-		IntPtr Handle {
-			get { return (IntPtr) gch; }
-		}
+    internal class ManagedValue
+    {
 
-		object Instance {
-			get { return instance; }
-		}
+        GCHandle gch;
+        object instance;
+        int ref_count = 1;
 
-		void Ref ()
-		{
-			ref_count++;
-		}
+        private ManagedValue(object instance)
+        {
+            this.instance = instance;
+            gch = GCHandle.Alloc(this);
+        }
 
-		void Unref ()
-		{
-			if (--ref_count == 0) {
-				instance = null;
-				gch.Free ();
-			}
-		}
+        IntPtr Handle
+        {
+            get { return (IntPtr)gch; }
+        }
 
-		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-		delegate IntPtr CopyFunc (IntPtr gch);
-		[UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-		delegate void FreeFunc (IntPtr gch);
-		
-		static CopyFunc copy;
-		static FreeFunc free;
-		static GType boxed_type = GType.Invalid;
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_boxed_type_register_static(IntPtr typename, CopyFunc copy_func, FreeFunc free_func);
-		static d_g_boxed_type_register_static g_boxed_type_register_static = FuncLoader.LoadFunction<d_g_boxed_type_register_static>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_boxed_type_register_static"));
-		
-		public static GType GType {
-			get {
-				if (boxed_type == GType.Invalid) {
-					copy = new CopyFunc (Copy);
-					free = new FreeFunc (Free);
-				
-					IntPtr name = Marshaller.StringToPtrGStrdup ("GtkSharpValue");
-					boxed_type = new GLib.GType (g_boxed_type_register_static (name, copy, free));
-					Marshaller.Free (name);
-				}
+        object Instance
+        {
+            get { return instance; }
+        }
 
-				return boxed_type;
-			}
-		}
-		
-		static ManagedValue FromHandle (IntPtr ptr)
-		{
-			GCHandle gch = (GCHandle) ptr;
-			ManagedValue val = gch.Target as ManagedValue;
-			if (val == null)
-				throw new Exception ("Unexpected GCHandle received.");
-			return val;
-		}
+        void Ref()
+        {
+            ref_count++;
+        }
 
-		static IntPtr Copy (IntPtr ptr)
-		{
-			try {
-				if (ptr == IntPtr.Zero)
-					return ptr;
-				ManagedValue val = FromHandle (ptr);
-				val.Ref ();
-				return ptr;
-			} catch (Exception e) {
-				ExceptionManager.RaiseUnhandledException (e, false);
-			}
+        void Unref()
+        {
+            if (--ref_count == 0)
+            {
+                instance = null;
+                gch.Free();
+            }
+        }
 
-			return IntPtr.Zero;
-		}
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr CopyFunc(IntPtr gch);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void FreeFunc(IntPtr gch);
 
-		static void Free (IntPtr ptr)
-		{
-			try {
-				if (ptr == IntPtr.Zero)
-					return;
-				ManagedValue val = FromHandle (ptr);
-				val.Unref ();
-			} catch (Exception e) {
-				ExceptionManager.RaiseUnhandledException (e, false);
-			}
-		}
+        static CopyFunc copy;
+        static FreeFunc free;
+        static GType boxed_type = GType.Invalid;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_boxed_type_register_static(IntPtr typename, CopyFunc copy_func, FreeFunc free_func);
+        static readonly d_g_boxed_type_register_static g_boxed_type_register_static = FuncLoader.LoadFunction<d_g_boxed_type_register_static>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_boxed_type_register_static"));
 
-		public static IntPtr WrapObject (object obj)
-		{
-			if (obj == null)
-				return IntPtr.Zero;
-			return new ManagedValue (obj).Handle;
-		}
+        public static GType GType
+        {
+            get
+            {
+                if (boxed_type == GType.Invalid)
+                {
+                    copy = new CopyFunc(Copy);
+                    free = new FreeFunc(Free);
 
-		public static object ObjectForWrapper (IntPtr ptr)
-		{
-			if (ptr == IntPtr.Zero)
-				return null;
-			ManagedValue val = FromHandle (ptr);
-			return val == null ? null : val.Instance;
-		}
+                    IntPtr name = Marshaller.StringToPtrGStrdup("GtkSharpValue");
+                    boxed_type = new GLib.GType(g_boxed_type_register_static(name, copy, free));
+                    Marshaller.Free(name);
+                }
 
-		public static void ReleaseWrapper (IntPtr ptr)
-		{
-			if (ptr == IntPtr.Zero)
-				return;
+                return boxed_type;
+            }
+        }
 
-			ManagedValue val = FromHandle (ptr);
-			val.Unref ();
-		}
-	}
+        static ManagedValue FromHandle(IntPtr ptr)
+        {
+            GCHandle gch = (GCHandle)ptr;
+            ManagedValue val = gch.Target as ManagedValue;
+            if (val == null)
+                throw new Exception("Unexpected GCHandle received.");
+            return val;
+        }
+
+        static IntPtr Copy(IntPtr ptr)
+        {
+            try
+            {
+                if (ptr == IntPtr.Zero)
+                    return ptr;
+                ManagedValue val = FromHandle(ptr);
+                val.Ref();
+                return ptr;
+            }
+            catch (Exception e)
+            {
+                ExceptionManager.RaiseUnhandledException(e, false);
+            }
+
+            return IntPtr.Zero;
+        }
+
+        static void Free(IntPtr ptr)
+        {
+            try
+            {
+                if (ptr == IntPtr.Zero)
+                    return;
+                ManagedValue val = FromHandle(ptr);
+                val.Unref();
+            }
+            catch (Exception e)
+            {
+                ExceptionManager.RaiseUnhandledException(e, false);
+            }
+        }
+
+        public static IntPtr WrapObject(object obj)
+        {
+            if (obj == null)
+                return IntPtr.Zero;
+            return new ManagedValue(obj).Handle;
+        }
+
+        public static object ObjectForWrapper(IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return null;
+            ManagedValue val = FromHandle(ptr);
+            return val == null ? null : val.Instance;
+        }
+
+        public static void ReleaseWrapper(IntPtr ptr)
+        {
+            if (ptr == IntPtr.Zero)
+                return;
+
+            ManagedValue val = FromHandle(ptr);
+            val.Unref();
+        }
+    }
 }
-
-

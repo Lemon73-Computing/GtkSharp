@@ -19,231 +19,250 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Collections;
-	using System.Collections.Generic;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
 
-	public class ValueArray : IDisposable, ICollection, ICloneable, IWrapper {
+    public class ValueArray : IDisposable, ICollection, ICloneable, IWrapper
+    {
 
-		private IntPtr handle = IntPtr.Zero;
+        private IntPtr handle = IntPtr.Zero;
 
-		static private IList<IntPtr> PendingFrees = new List<IntPtr> ();
-		static private bool idle_queued = false;
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_value_array_new(uint n_preallocs);
-		static d_g_value_array_new g_value_array_new = FuncLoader.LoadFunction<d_g_value_array_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_new"));
+        private static readonly IList<IntPtr> PendingFrees = new List<IntPtr>();
+        static private bool idle_queued = false;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_value_array_new(uint n_preallocs);
+        static readonly d_g_value_array_new g_value_array_new = FuncLoader.LoadFunction<d_g_value_array_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_new"));
 
-		public ValueArray (uint n_preallocs)
-		{
-			handle = g_value_array_new (n_preallocs);
-		}
+        public ValueArray(uint n_preallocs)
+        {
+            handle = g_value_array_new(n_preallocs);
+        }
 
-		public ValueArray (IntPtr raw)
-		{
-			handle = g_value_array_copy (raw);
-		}
-		
-		~ValueArray ()
-		{
-			Dispose (false);
-		}
-		
-		// IDisposable
-		public void Dispose ()
-		{
-			Dispose (true);
-			GC.SuppressFinalize (this);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_value_array_free(IntPtr raw);
-		static d_g_value_array_free g_value_array_free = FuncLoader.LoadFunction<d_g_value_array_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_free"));
+        public ValueArray(IntPtr raw)
+        {
+            handle = g_value_array_copy(raw);
+        }
 
-		void Dispose (bool disposing)
-		{
-			if (Handle == IntPtr.Zero)
-				return;
+        ~ValueArray()
+        {
+            Dispose(false);
+        }
 
-			lock (PendingFrees) {
-				PendingFrees.Add (handle);
+        // IDisposable
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_value_array_free(IntPtr raw);
+        static readonly d_g_value_array_free g_value_array_free = FuncLoader.LoadFunction<d_g_value_array_free>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_free"));
 
-				if (! idle_queued) {
-					Timeout.Add (50, new TimeoutHandler (PerformFrees));
-					idle_queued = true;
-				}
-			}
+        void Dispose(bool disposing)
+        {
+            if (Handle == IntPtr.Zero)
+                return;
 
-			handle = IntPtr.Zero;
-		}
+            lock (PendingFrees)
+            {
+                PendingFrees.Add(handle);
 
-		static bool PerformFrees ()
-		{
-			IntPtr[] handles;
+                if (!idle_queued)
+                {
+                    Timeout.Add(50, new TimeoutHandler(PerformFrees));
+                    idle_queued = true;
+                }
+            }
 
-			lock (PendingFrees) {
-				idle_queued = false;
+            handle = IntPtr.Zero;
+        }
 
-				handles = new IntPtr [PendingFrees.Count];
-				PendingFrees.CopyTo (handles, 0);
-				PendingFrees.Clear ();
-			}
+        static bool PerformFrees()
+        {
+            IntPtr[] handles;
 
-			foreach (IntPtr h in handles)
-				g_value_array_free (h);
+            lock (PendingFrees)
+            {
+                idle_queued = false;
 
-			return false;
-		}
-		
-		public IntPtr Handle {
-			get {
-				return handle;
-			}
-		}
+                handles = new IntPtr[PendingFrees.Count];
+                PendingFrees.CopyTo(handles, 0);
+                PendingFrees.Clear();
+            }
 
-		struct NativeStruct {
-			public uint n_values;
-			public IntPtr values;
-			public uint n_prealloced;
-		}
+            foreach (IntPtr h in handles)
+                g_value_array_free(h);
 
-		NativeStruct Native {
-			get { return (NativeStruct) Marshal.PtrToStructure (Handle, typeof(NativeStruct)); }
-		}
+            return false;
+        }
 
-		public IntPtr ArrayPtr {
-			get { return Native.values; }
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_value_array_append(IntPtr raw, ref GLib.Value val);
-		static d_g_value_array_append g_value_array_append = FuncLoader.LoadFunction<d_g_value_array_append>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_append"));
+        public IntPtr Handle
+        {
+            get
+            {
+                return handle;
+            }
+        }
 
-		public void Append (GLib.Value val)
-		{
-			g_value_array_append (Handle, ref val);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_value_array_insert(IntPtr raw, uint idx, ref GLib.Value val);
-		static d_g_value_array_insert g_value_array_insert = FuncLoader.LoadFunction<d_g_value_array_insert>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_insert"));
+        struct NativeStruct
+        {
+            public uint n_values;
+            public IntPtr values;
+            public uint n_prealloced;
+        }
 
-		public void Insert (uint idx, GLib.Value val)
-		{
-			g_value_array_insert (Handle, idx, ref val);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_value_array_prepend(IntPtr raw, ref GLib.Value val);
-		static d_g_value_array_prepend g_value_array_prepend = FuncLoader.LoadFunction<d_g_value_array_prepend>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_prepend"));
+        NativeStruct Native
+        {
+            get { return (NativeStruct)Marshal.PtrToStructure(Handle, typeof(NativeStruct)); }
+        }
 
-		public void Prepend (GLib.Value val)
-		{
-			g_value_array_prepend (Handle, ref val);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_value_array_remove(IntPtr raw, uint idx);
-		static d_g_value_array_remove g_value_array_remove = FuncLoader.LoadFunction<d_g_value_array_remove>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_remove"));
+        public IntPtr ArrayPtr
+        {
+            get { return Native.values; }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_value_array_append(IntPtr raw, ref GLib.Value val);
+        static readonly d_g_value_array_append g_value_array_append = FuncLoader.LoadFunction<d_g_value_array_append>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_append"));
 
-		public void Remove (uint idx)
-		{
-			g_value_array_remove (Handle, idx);
-		}
+        public void Append(GLib.Value val)
+        {
+            g_value_array_append(Handle, ref val);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_value_array_insert(IntPtr raw, uint idx, ref GLib.Value val);
+        static readonly d_g_value_array_insert g_value_array_insert = FuncLoader.LoadFunction<d_g_value_array_insert>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_insert"));
 
-		// ICollection
-		public int Count {
-			get { return (int) Native.n_values; }
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_value_array_get_nth(IntPtr raw, uint idx);
-		static d_g_value_array_get_nth g_value_array_get_nth = FuncLoader.LoadFunction<d_g_value_array_get_nth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_get_nth"));
+        public void Insert(uint idx, GLib.Value val)
+        {
+            g_value_array_insert(Handle, idx, ref val);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_value_array_prepend(IntPtr raw, ref GLib.Value val);
+        static readonly d_g_value_array_prepend g_value_array_prepend = FuncLoader.LoadFunction<d_g_value_array_prepend>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_prepend"));
 
-		public object this [int index] { 
-			get { 
-				IntPtr raw_val = g_value_array_get_nth (Handle, (uint) index);
-				return Marshal.PtrToStructure (raw_val, typeof (GLib.Value));
-			}
-		}
+        public void Prepend(GLib.Value val)
+        {
+            g_value_array_prepend(Handle, ref val);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_value_array_remove(IntPtr raw, uint idx);
+        static readonly d_g_value_array_remove g_value_array_remove = FuncLoader.LoadFunction<d_g_value_array_remove>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_remove"));
 
-		// Synchronization could be tricky here. Hmm.
-		public bool IsSynchronized {
-			get { return false; }
-		}
+        public void Remove(uint idx)
+        {
+            g_value_array_remove(Handle, idx);
+        }
 
-		public object SyncRoot {
-			get { return null; }
-		}
+        // ICollection
+        public int Count
+        {
+            get { return (int)Native.n_values; }
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_value_array_get_nth(IntPtr raw, uint idx);
+        static readonly d_g_value_array_get_nth g_value_array_get_nth = FuncLoader.LoadFunction<d_g_value_array_get_nth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_get_nth"));
 
-		public void CopyTo (Array array, int index)
-		{
-			if (array == null)
-				throw new ArgumentNullException ("Array can't be null.");
+        public object this[int index]
+        {
+            get
+            {
+                IntPtr raw_val = g_value_array_get_nth(Handle, (uint)index);
+                return Marshal.PtrToStructure(raw_val, typeof(GLib.Value));
+            }
+        }
 
-			if (index < 0)
-				throw new ArgumentOutOfRangeException ("Index must be greater than 0.");
+        // Synchronization could be tricky here. Hmm.
+        public bool IsSynchronized
+        {
+            get { return false; }
+        }
 
-			if (index + Count < array.Length)
-				throw new ArgumentException ("Array not large enough to copy into starting at index.");
-			
-			for (int i = 0; i < Count; i++)
-				((IList) array) [index + i] = this [i];
-		}
+        public object SyncRoot
+        {
+            get { return null; }
+        }
 
-		private class ListEnumerator : IEnumerator
-		{
-			private int current = -1;
-			private ValueArray vals;
+        public void CopyTo(Array array, int index)
+        {
+            if (array == null)
+                throw new ArgumentNullException("Array can't be null.");
 
-			public ListEnumerator (ValueArray vals)
-			{
-				this.vals = vals;
-			}
+            if (index < 0)
+                throw new ArgumentOutOfRangeException("Index must be greater than 0.");
 
-			public object Current {
-				get {
-					if (current == -1)
-						return null;
-					return vals [current];
-				}
-			}
+            if (index + Count < array.Length)
+                throw new ArgumentException("Array not large enough to copy into starting at index.");
 
-			public bool MoveNext ()
-			{
-				if (++current >= vals.Count) {
-					current = -1;
-					return false;
-				}
+            for (int i = 0; i < Count; i++)
+                ((IList)array)[index + i] = this[i];
+        }
 
-				return true;
-			}
+        private class ListEnumerator : IEnumerator
+        {
+            private int current = -1;
+            private readonly ValueArray vals;
 
-			public void Reset ()
-			{
-				current = -1;
-			}
-		}
-		
-		// IEnumerable
-		public IEnumerator GetEnumerator ()
-		{
-			return new ListEnumerator (this);
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_value_array_copy(IntPtr raw);
-		static d_g_value_array_copy g_value_array_copy = FuncLoader.LoadFunction<d_g_value_array_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_copy"));
+            public ListEnumerator(ValueArray vals)
+            {
+                this.vals = vals;
+            }
 
-		// ICloneable
-		public object Clone ()
-		{
-			return new ValueArray (g_value_array_copy (Handle));
-		}
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_g_value_array_get_type();
-		static d_g_value_array_get_type g_value_array_get_type = FuncLoader.LoadFunction<d_g_value_array_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_get_type"));
+            public object Current
+            {
+                get
+                {
+                    if (current == -1)
+                        return null;
+                    return vals[current];
+                }
+            }
 
-		public static GLib.GType GType {
-			get {
-				return new GLib.GType (g_value_array_get_type ());
-			}
-		}
-	}
+            public bool MoveNext()
+            {
+                if (++current >= vals.Count)
+                {
+                    current = -1;
+                    return false;
+                }
+
+                return true;
+            }
+
+            public void Reset()
+            {
+                current = -1;
+            }
+        }
+
+        // IEnumerable
+        public IEnumerator GetEnumerator()
+        {
+            return new ListEnumerator(this);
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_value_array_copy(IntPtr raw);
+        static readonly d_g_value_array_copy g_value_array_copy = FuncLoader.LoadFunction<d_g_value_array_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_copy"));
+
+        // ICloneable
+        public object Clone()
+        {
+            return new ValueArray(g_value_array_copy(Handle));
+        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_g_value_array_get_type();
+        static readonly d_g_value_array_get_type g_value_array_get_type = FuncLoader.LoadFunction<d_g_value_array_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_array_get_type"));
+
+        public static GLib.GType GType
+        {
+            get
+            {
+                return new GLib.GType(g_value_array_get_type());
+            }
+        }
+    }
 }
-

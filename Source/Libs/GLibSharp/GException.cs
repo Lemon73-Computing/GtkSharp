@@ -19,38 +19,40 @@
 // Boston, MA 02111-1307, USA.
 
 
-namespace GLib {
+namespace GLib
+{
 
-	using System;
-	using System.Runtime.InteropServices;
-	
-	public class GException : Exception
-	{
-		string msg;
+    using System;
+    using System.Runtime.InteropServices;
 
-		public GException (IntPtr errptr)
-		{
-			var err = (GError)Marshal.PtrToStructure(errptr, typeof(GError));
-			Domain = err.Domain;
-			Code = err.Code;
-			msg = Marshaller.Utf8PtrToString(err.Msg);
-			g_clear_error(ref errptr);
-		}
+    public class GException : Exception
+    {
+        readonly string msg;
 
-		struct GError {
-			public int Domain;
-			public int Code;
-			public IntPtr Msg;
-		}
+        public GException(IntPtr errptr)
+        {
+            var err = (GError)Marshal.PtrToStructure(errptr, typeof(GError));
+            Domain = err.Domain;
+            Code = err.Code;
+            msg = Marshaller.Utf8PtrToString(err.Msg);
+            g_clear_error(ref errptr);
+        }
 
-		public int Code { get; private set; }
+        struct GError
+        {
+            public int Domain;
+            public int Code;
+            public IntPtr Msg;
+        }
 
-		public int Domain { get; private set; }
+        public int Code { get; private set; }
 
-		public override string Message => msg;
+        public int Domain { get; private set; }
 
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_g_clear_error(ref IntPtr errptr);
-		static d_g_clear_error g_clear_error = FuncLoader.LoadFunction<d_g_clear_error>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_clear_error"));
-	}
+        public override string Message => msg;
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_g_clear_error(ref IntPtr errptr);
+        static readonly d_g_clear_error g_clear_error = FuncLoader.LoadFunction<d_g_clear_error>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_clear_error"));
+    }
 }

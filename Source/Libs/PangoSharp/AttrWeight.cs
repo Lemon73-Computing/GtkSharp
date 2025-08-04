@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrWeight : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_weight_new(Pango.Weight weight);
-		static d_pango_attr_weight_new pango_attr_weight_new = FuncLoader.LoadFunction<d_pango_attr_weight_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_weight_new"));
+    public class AttrWeight : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_weight_new(Pango.Weight weight);
+        static readonly d_pango_attr_weight_new pango_attr_weight_new = FuncLoader.LoadFunction<d_pango_attr_weight_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_weight_new"));
 
-		public AttrWeight (Pango.Weight weight) : this (pango_attr_weight_new (weight)) {}
+        public AttrWeight(Pango.Weight weight) : this(pango_attr_weight_new(weight)) { }
 
-		internal AttrWeight (IntPtr raw) : base (raw) {}
+        internal AttrWeight(IntPtr raw) : base(raw) { }
 
-		public Pango.Weight Weight {
-			get {
-				return (Pango.Weight) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Pango.Weight Weight
+        {
+            get
+            {
+                return (Pango.Weight)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-

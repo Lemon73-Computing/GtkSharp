@@ -19,7 +19,7 @@ namespace Samples
         {
             // initialize with a simple string list
             var combo = new ComboBox(
-                new string[] 
+                new string[]
                 {
                     "Combo Entry 1",
                     "Combo Entry 2",
@@ -29,7 +29,7 @@ namespace Samples
             );
 
             // event to notify for index changes in our combo
-            combo.Changed += (sender, e) => 
+            combo.Changed += (sender, e) =>
                 ApplicationOutput.WriteLine(sender, $"Index changed to:{((ComboBox)sender).Active}");
 
             // set the active selection to index 2 (Combo Entry 3)

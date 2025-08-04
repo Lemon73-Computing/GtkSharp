@@ -20,38 +20,42 @@
 
 namespace Gtk
 {
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public partial class RadioAction
-	{
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_gtk_radio_action_get_group(IntPtr raw);
-		static d_gtk_radio_action_get_group gtk_radio_action_get_group = FuncLoader.LoadFunction<d_gtk_radio_action_get_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_action_get_group"));
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate void d_gtk_radio_action_set_group(IntPtr raw, IntPtr list);
-		static d_gtk_radio_action_set_group gtk_radio_action_set_group = FuncLoader.LoadFunction<d_gtk_radio_action_set_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_action_set_group"));
+    public partial class RadioAction
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_gtk_radio_action_get_group(IntPtr raw);
+        static readonly d_gtk_radio_action_get_group gtk_radio_action_get_group = FuncLoader.LoadFunction<d_gtk_radio_action_get_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_action_get_group"));
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate void d_gtk_radio_action_set_group(IntPtr raw, IntPtr list);
+        static readonly d_gtk_radio_action_set_group gtk_radio_action_set_group = FuncLoader.LoadFunction<d_gtk_radio_action_set_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_action_set_group"));
 
-		[Obsolete]
-		[GLib.Property ("group")]
-		public RadioAction[] Group {
-			get  {
-				IntPtr raw_ret = gtk_radio_action_get_group(Handle);
-				RadioAction[] ret = (RadioAction[]) GLib.Marshaller.ListPtrToArray (raw_ret, typeof(GLib.SList), false, false, typeof(RadioAction));
-				return ret;
-			}
-			set {
-				IntPtr native_group = IntPtr.Zero;
-				if (value != null) {
-					GLib.List list = new GLib.List(IntPtr.Zero);
-					foreach (RadioAction item in value) {
-						list.Append (item.Handle);
-					}
-					native_group = list.Handle;
-				}
-				gtk_radio_action_set_group(Handle, native_group);
-			}
-		}
-	}
+        [Obsolete]
+        [GLib.Property("group")]
+        public RadioAction[] Group
+        {
+            get
+            {
+                IntPtr raw_ret = gtk_radio_action_get_group(Handle);
+                RadioAction[] ret = (RadioAction[])GLib.Marshaller.ListPtrToArray(raw_ret, typeof(GLib.SList), false, false, typeof(RadioAction));
+                return ret;
+            }
+            set
+            {
+                IntPtr native_group = IntPtr.Zero;
+                if (value != null)
+                {
+                    GLib.List list = new GLib.List(IntPtr.Zero);
+                    foreach (RadioAction item in value)
+                    {
+                        list.Append(item.Handle);
+                    }
+                    native_group = list.Handle;
+                }
+                gtk_radio_action_set_group(Handle, native_group);
+            }
+        }
+    }
 }
-

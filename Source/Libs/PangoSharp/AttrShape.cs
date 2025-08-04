@@ -16,42 +16,48 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrShape : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_shape_new(ref Pango.Rectangle ink_rect, ref Pango.Rectangle logical_rect);
-		static d_pango_attr_shape_new pango_attr_shape_new = FuncLoader.LoadFunction<d_pango_attr_shape_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_shape_new"));
+    public class AttrShape : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_shape_new(ref Pango.Rectangle ink_rect, ref Pango.Rectangle logical_rect);
+        static readonly d_pango_attr_shape_new pango_attr_shape_new = FuncLoader.LoadFunction<d_pango_attr_shape_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_shape_new"));
 
-		public AttrShape (Pango.Rectangle ink_rect, Pango.Rectangle logical_rect) : this (pango_attr_shape_new (ref ink_rect, ref logical_rect)) {}
+        public AttrShape(Pango.Rectangle ink_rect, Pango.Rectangle logical_rect) : this(pango_attr_shape_new(ref ink_rect, ref logical_rect)) { }
 
-		internal AttrShape (IntPtr raw) : base (raw) {}
+        internal AttrShape(IntPtr raw) : base(raw) { }
 
-		new struct NativeStruct {
-			Attribute.NativeStruct attr;
-			public Rectangle ink_rect;
-			public Rectangle logical_rect;
-			IntPtr data;
-			IntPtr copy_func;
-			IntPtr destroy_func;
-		}
+        new struct NativeStruct
+        {
+            Attribute.NativeStruct attr;
+            public Rectangle ink_rect;
+            public Rectangle logical_rect;
+            readonly IntPtr data;
+            readonly IntPtr copy_func;
+            readonly IntPtr destroy_func;
+        }
 
-		public Pango.Rectangle InkRect {
-			get {
-				NativeStruct native = (NativeStruct) Marshal.PtrToStructure (Handle, typeof (NativeStruct));
-				return native.ink_rect;
-			}
-		}
+        public Pango.Rectangle InkRect
+        {
+            get
+            {
+                NativeStruct native = (NativeStruct)Marshal.PtrToStructure(Handle, typeof(NativeStruct));
+                return native.ink_rect;
+            }
+        }
 
-		public Pango.Rectangle LogicalRect {
-			get {
-				NativeStruct native = (NativeStruct) Marshal.PtrToStructure (Handle, typeof (NativeStruct));
-				return native.logical_rect;
-			}
-		}
-	}
+        public Pango.Rectangle LogicalRect
+        {
+            get
+            {
+                NativeStruct native = (NativeStruct)Marshal.PtrToStructure(Handle, typeof(NativeStruct));
+                return native.logical_rect;
+            }
+        }
+    }
 }
-

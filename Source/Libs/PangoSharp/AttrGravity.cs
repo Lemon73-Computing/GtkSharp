@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrGravity : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_gravity_new(int gravity);
-		static d_pango_attr_gravity_new pango_attr_gravity_new = FuncLoader.LoadFunction<d_pango_attr_gravity_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_new"));
+    public class AttrGravity : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_gravity_new(int gravity);
+        static readonly d_pango_attr_gravity_new pango_attr_gravity_new = FuncLoader.LoadFunction<d_pango_attr_gravity_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_new"));
 
-		public AttrGravity (Gravity gravity) : this (pango_attr_gravity_new ((int) gravity)) {}
+        public AttrGravity(Gravity gravity) : this(pango_attr_gravity_new((int)gravity)) { }
 
-		internal AttrGravity (IntPtr raw) : base (raw) {}
+        internal AttrGravity(IntPtr raw) : base(raw) { }
 
-		public Gravity Gravity {
-			get {
-				return (Gravity) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Gravity Gravity
+        {
+            get
+            {
+                return (Gravity)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-

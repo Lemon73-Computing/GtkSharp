@@ -16,25 +16,28 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 
-namespace Pango {
+namespace Pango
+{
 
-	using System;
-	using System.Runtime.InteropServices;
+    using System;
+    using System.Runtime.InteropServices;
 
-	public class AttrVariant : Attribute {
-		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		delegate IntPtr d_pango_attr_variant_new(Pango.Variant variant);
-		static d_pango_attr_variant_new pango_attr_variant_new = FuncLoader.LoadFunction<d_pango_attr_variant_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_variant_new"));
+    public class AttrVariant : Attribute
+    {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        delegate IntPtr d_pango_attr_variant_new(Pango.Variant variant);
+        static readonly d_pango_attr_variant_new pango_attr_variant_new = FuncLoader.LoadFunction<d_pango_attr_variant_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_variant_new"));
 
-		public AttrVariant (Pango.Variant variant) : this (pango_attr_variant_new (variant)) {}
+        public AttrVariant(Pango.Variant variant) : this(pango_attr_variant_new(variant)) { }
 
-		internal AttrVariant (IntPtr raw) : base (raw) {}
+        internal AttrVariant(IntPtr raw) : base(raw) { }
 
-		public Pango.Variant Variant {
-			get {
-				return (Pango.Variant) (AttrInt.New (Handle).Value);
-			}
-		}
-	}
+        public Pango.Variant Variant
+        {
+            get
+            {
+                return (Pango.Variant)(AttrInt.New(Handle).Value);
+            }
+        }
+    }
 }
-
