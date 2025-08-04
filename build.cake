@@ -14,7 +14,20 @@ var configuration = Argument("Configuration", "Release");
 
 var msbuildsettings = new DotNetMSBuildSettings();
 var list = new List<GAssembly>();
-var supportedVersionBands = new List<string>() {"6.0.100", "6.0.200", "6.0.300", "6.0.400", "7.0.400", "8.0.100", "8.0.200"};
+var supportedVersionBands = new List<string>() {
+    "6.0.100",
+    "6.0.200",
+    "6.0.300",
+    "6.0.400",
+    "7.0.400",
+    "8.0.100",
+    "8.0.200",
+    "8.0.300",
+    "8.0.400",
+    "9.0.100",
+    "9.0.200",
+    "9.0.300",
+};
 
 // TASKS
 
@@ -25,7 +38,7 @@ Task("Init")
     {
         Settings.Version = "3.24.24." + EnvironmentVariable("GITHUB_RUN_NUMBER");
 
-        if (EnvironmentVariable("GITHUB_REF") != "refs/heads/master")
+        if (EnvironmentVariable("GITHUB_REF") != "refs/heads/main")
             Settings.Version += "-develop";
     }
 
