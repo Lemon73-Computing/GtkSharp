@@ -89,12 +89,5 @@ namespace Gdk
         {
             return ((pt_a.X != pt_b.X) || (pt_a.Y != pt_b.Y));
         }
-
-        // Error: CS0111
-        // public override bool Equals(object obj)
-        // {
-        //     throw new NotImplementedException();
-        // }
     }
 }
-

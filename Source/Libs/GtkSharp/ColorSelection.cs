@@ -26,7 +26,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_color_selection_palette_to_string(Gdk.Color[] colors, int n_colors);
-        static d_gtk_color_selection_palette_to_string gtk_color_selection_palette_to_string = FuncLoader.LoadFunction<d_gtk_color_selection_palette_to_string>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_palette_to_string"));
+        static readonly d_gtk_color_selection_palette_to_string gtk_color_selection_palette_to_string = FuncLoader.LoadFunction<d_gtk_color_selection_palette_to_string>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_palette_to_string"));
 
         /// <summary> PaletteToString Method </summary>
         public static string PaletteToString(Gdk.Color[] colors)
@@ -39,7 +39,7 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_color_selection_palette_from_string(IntPtr str, out IntPtr colors, out int n_colors);
-        static d_gtk_color_selection_palette_from_string gtk_color_selection_palette_from_string = FuncLoader.LoadFunction<d_gtk_color_selection_palette_from_string>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_palette_from_string"));
+        static readonly d_gtk_color_selection_palette_from_string gtk_color_selection_palette_from_string = FuncLoader.LoadFunction<d_gtk_color_selection_palette_from_string>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_palette_from_string"));
 
         public static Gdk.Color[] PaletteFromString(string str)
         {
@@ -65,10 +65,10 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_color_selection_set_previous_color(IntPtr raw, ref Gdk.Color color);
-        static d_gtk_color_selection_set_previous_color gtk_color_selection_set_previous_color = FuncLoader.LoadFunction<d_gtk_color_selection_set_previous_color>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_set_previous_color"));
+        static readonly d_gtk_color_selection_set_previous_color gtk_color_selection_set_previous_color = FuncLoader.LoadFunction<d_gtk_color_selection_set_previous_color>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_set_previous_color"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_color_selection_get_previous_color(IntPtr raw, out Gdk.Color color);
-        static d_gtk_color_selection_get_previous_color gtk_color_selection_get_previous_color = FuncLoader.LoadFunction<d_gtk_color_selection_get_previous_color>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_get_previous_color"));
+        static readonly d_gtk_color_selection_get_previous_color gtk_color_selection_get_previous_color = FuncLoader.LoadFunction<d_gtk_color_selection_get_previous_color>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_color_selection_get_previous_color"));
 
         // Create Gtk# property to replace two Gtk+ functions
         public Gdk.Color PreviousColor
@@ -86,4 +86,3 @@ namespace Gtk
         }
     }
 }
-

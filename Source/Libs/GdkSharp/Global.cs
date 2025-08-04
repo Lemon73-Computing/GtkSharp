@@ -29,7 +29,7 @@ namespace Gdk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_list_visuals();
-        static d_gdk_list_visuals gdk_list_visuals = FuncLoader.LoadFunction<d_gdk_list_visuals>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_list_visuals"));
+        static readonly d_gdk_list_visuals gdk_list_visuals = FuncLoader.LoadFunction<d_gdk_list_visuals>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_list_visuals"));
 
         public static Visual[] ListVisuals()
         {
@@ -116,7 +116,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gdk_init_check(ref int argc, ref IntPtr argv);
-        static d_gdk_init_check gdk_init_check = FuncLoader.LoadFunction<d_gdk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_init_check"));
+        static readonly d_gdk_init_check gdk_init_check = FuncLoader.LoadFunction<d_gdk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_init_check"));
 
         public static bool InitCheck(ref string[] argv)
         {
@@ -130,7 +130,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_parse_args(ref int argc, ref IntPtr argv);
-        static d_gdk_parse_args gdk_parse_args = FuncLoader.LoadFunction<d_gdk_parse_args>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_parse_args"));
+        static readonly d_gdk_parse_args gdk_parse_args = FuncLoader.LoadFunction<d_gdk_parse_args>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_parse_args"));
 
         public static void ParseArgs(ref string[] argv)
         {
@@ -143,7 +143,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_query_depths(out IntPtr depths, out int n_depths);
-        static d_gdk_query_depths gdk_query_depths = FuncLoader.LoadFunction<d_gdk_query_depths>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_query_depths"));
+        static readonly d_gdk_query_depths gdk_query_depths = FuncLoader.LoadFunction<d_gdk_query_depths>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_query_depths"));
 
         public static int[] QueryDepths()
         {
@@ -156,7 +156,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_query_visual_types(out IntPtr types, out int n_types);
-        static d_gdk_query_visual_types gdk_query_visual_types = FuncLoader.LoadFunction<d_gdk_query_visual_types>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_query_visual_types"));
+        static readonly d_gdk_query_visual_types gdk_query_visual_types = FuncLoader.LoadFunction<d_gdk_query_visual_types>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_query_visual_types"));
 
         public static VisualType[] QueryVisualTypes()
         {
@@ -175,5 +175,3 @@ namespace Gdk
 
     }
 }
-
-

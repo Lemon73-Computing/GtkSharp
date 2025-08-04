@@ -28,7 +28,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_radio_button_new_with_mnemonic(IntPtr group, IntPtr label);
-        static d_gtk_radio_button_new_with_mnemonic gtk_radio_button_new_with_mnemonic = FuncLoader.LoadFunction<d_gtk_radio_button_new_with_mnemonic>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_new_with_mnemonic"));
+        static readonly d_gtk_radio_button_new_with_mnemonic gtk_radio_button_new_with_mnemonic = FuncLoader.LoadFunction<d_gtk_radio_button_new_with_mnemonic>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_new_with_mnemonic"));
 
         // creates a new group for this RadioButton
         public RadioButton(string label)
@@ -39,10 +39,10 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_radio_button_get_group(IntPtr raw);
-        static d_gtk_radio_button_get_group gtk_radio_button_get_group = FuncLoader.LoadFunction<d_gtk_radio_button_get_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_get_group"));
+        static readonly d_gtk_radio_button_get_group gtk_radio_button_get_group = FuncLoader.LoadFunction<d_gtk_radio_button_get_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_get_group"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_radio_button_set_group(IntPtr raw, IntPtr list);
-        static d_gtk_radio_button_set_group gtk_radio_button_set_group = FuncLoader.LoadFunction<d_gtk_radio_button_set_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_set_group"));
+        static readonly d_gtk_radio_button_set_group gtk_radio_button_set_group = FuncLoader.LoadFunction<d_gtk_radio_button_set_group>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_radio_button_set_group"));
 
         [GLib.Property("group")]
         public RadioButton[] Group
@@ -70,4 +70,3 @@ namespace Gtk
         }
     }
 }
-

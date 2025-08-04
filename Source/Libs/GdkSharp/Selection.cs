@@ -35,4 +35,3 @@ namespace Gdk
         public static Atom Clipboard = new Atom(new IntPtr(69));
     }
 }
-

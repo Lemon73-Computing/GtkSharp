@@ -1,5 +1,6 @@
-using Gtk;
 using System;
+
+using Gtk;
 namespace Samples
 {
 

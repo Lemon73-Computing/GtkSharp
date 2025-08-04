@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_strikethrough_new(bool strikethrough);
-        static d_pango_attr_strikethrough_new pango_attr_strikethrough_new = FuncLoader.LoadFunction<d_pango_attr_strikethrough_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_strikethrough_new"));
+        static readonly d_pango_attr_strikethrough_new pango_attr_strikethrough_new = FuncLoader.LoadFunction<d_pango_attr_strikethrough_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_strikethrough_new"));
 
         public AttrStrikethrough(bool strikethrough) : this(pango_attr_strikethrough_new(strikethrough)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

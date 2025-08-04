@@ -43,7 +43,7 @@ namespace GLib
 
         class Enumerator : IEnumerator<FileInfo>
         {
-            FileEnumerator file_enumerator;
+            readonly FileEnumerator file_enumerator;
 
             public Enumerator(FileEnumerator file_enumerator)
             {

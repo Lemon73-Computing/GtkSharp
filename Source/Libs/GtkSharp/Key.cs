@@ -28,10 +28,10 @@ namespace Gtk
     public class Key
     {
 
-        static Hashtable wrappers = new Hashtable();
+        static readonly Hashtable wrappers = new Hashtable();
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate uint d_gtk_key_snooper_install(GtkSharp.KeySnoopFuncNative snooper, IntPtr func_data);
-        static d_gtk_key_snooper_install gtk_key_snooper_install = FuncLoader.LoadFunction<d_gtk_key_snooper_install>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_key_snooper_install"));
+        static readonly d_gtk_key_snooper_install gtk_key_snooper_install = FuncLoader.LoadFunction<d_gtk_key_snooper_install>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_key_snooper_install"));
 
         public static uint SnooperInstall(Gtk.KeySnoopFunc snooper)
         {
@@ -42,7 +42,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_key_snooper_remove(uint snooper_handler_id);
-        static d_gtk_key_snooper_remove gtk_key_snooper_remove = FuncLoader.LoadFunction<d_gtk_key_snooper_remove>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_key_snooper_remove"));
+        static readonly d_gtk_key_snooper_remove gtk_key_snooper_remove = FuncLoader.LoadFunction<d_gtk_key_snooper_remove>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_key_snooper_remove"));
 
         public static void SnooperRemove(uint snooper_handler_id)
         {
@@ -51,4 +51,3 @@ namespace Gtk
         }
     }
 }
-

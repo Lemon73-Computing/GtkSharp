@@ -29,7 +29,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_tree_model_iter_children2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent);
-        static d_gtk_tree_model_iter_children2 gtk_tree_model_iter_children2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_children2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_children"));
+        static readonly d_gtk_tree_model_iter_children2 gtk_tree_model_iter_children2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_children2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_children"));
         public bool IterChildren(out Gtk.TreeIter iter)
         {
             bool raw_ret = gtk_tree_model_iter_children2(Handle, out iter, IntPtr.Zero);
@@ -45,7 +45,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_tree_model_iter_nth_child2(IntPtr raw, out Gtk.TreeIter iter, IntPtr parent, int n);
-        static d_gtk_tree_model_iter_nth_child2 gtk_tree_model_iter_nth_child2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_nth_child2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_nth_child"));
+        static readonly d_gtk_tree_model_iter_nth_child2 gtk_tree_model_iter_nth_child2 = FuncLoader.LoadFunction<d_gtk_tree_model_iter_nth_child2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_model_iter_nth_child"));
         public bool IterNthChild(out Gtk.TreeIter iter, int n)
         {
             bool raw_ret = gtk_tree_model_iter_nth_child2(Handle, out iter, IntPtr.Zero, n);
@@ -124,7 +124,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_list_store_insert_with_valuesv2(IntPtr raw, out TreeIter iter, int position, int[] columns, GLib.Value[] values, int n_values);
-        static d_gtk_list_store_insert_with_valuesv2 gtk_list_store_insert_with_valuesv2 = FuncLoader.LoadFunction<d_gtk_list_store_insert_with_valuesv2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_list_store_insert_with_valuesv"));
+        static readonly d_gtk_list_store_insert_with_valuesv2 gtk_list_store_insert_with_valuesv2 = FuncLoader.LoadFunction<d_gtk_list_store_insert_with_valuesv2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_list_store_insert_with_valuesv"));
 
         public TreeIter InsertWithValues(int position, params object[] values)
         {
@@ -152,7 +152,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_list_store_set_valuesv(IntPtr raw, ref TreeIter iter, int[] columns, GLib.Value[] values, int n_values);
-        static d_gtk_list_store_set_valuesv gtk_list_store_set_valuesv = FuncLoader.LoadFunction<d_gtk_list_store_set_valuesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_list_store_set_valuesv"));
+        static readonly d_gtk_list_store_set_valuesv gtk_list_store_set_valuesv = FuncLoader.LoadFunction<d_gtk_list_store_set_valuesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_list_store_set_valuesv"));
 
         public void SetValues(TreeIter iter, params object[] values)
         {
@@ -309,4 +309,3 @@ namespace Gtk
         }
     }
 }
-

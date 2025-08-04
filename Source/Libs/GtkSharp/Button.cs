@@ -28,7 +28,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_button_new_from_stock(IntPtr stock_id);
-        static d_gtk_button_new_from_stock gtk_button_new_from_stock = FuncLoader.LoadFunction<d_gtk_button_new_from_stock>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_button_new_from_stock"));
+        static readonly d_gtk_button_new_from_stock gtk_button_new_from_stock = FuncLoader.LoadFunction<d_gtk_button_new_from_stock>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_button_new_from_stock"));
 
         public Button(string stock_id) : base(IntPtr.Zero)
         {
@@ -54,4 +54,3 @@ namespace Gtk
         }
     }
 }
-

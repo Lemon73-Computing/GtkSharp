@@ -5,10 +5,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Gtk;
-using Gdk;
 using System.Runtime.InteropServices;
+
 using Cairo;
+
+using Gdk;
+
+using Gtk;
+
 using Rectangle = Gdk.Rectangle;
 
 namespace Samples

@@ -3,9 +3,11 @@
 
 // Ported from https://developer.gnome.org/gtkmm-tutorial/3.24/gtkmm-tutorial.html
 
-using Cairo;
-using Gtk;
 using System;
+
+using Cairo;
+
+using Gtk;
 
 namespace Samples
 {

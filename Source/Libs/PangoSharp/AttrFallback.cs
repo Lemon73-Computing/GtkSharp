@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_fallback_new(bool fallback);
-        static d_pango_attr_fallback_new pango_attr_fallback_new = FuncLoader.LoadFunction<d_pango_attr_fallback_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_fallback_new"));
+        static readonly d_pango_attr_fallback_new pango_attr_fallback_new = FuncLoader.LoadFunction<d_pango_attr_fallback_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_fallback_new"));
 
         public AttrFallback(bool fallback) : this(pango_attr_fallback_new(fallback)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

@@ -26,12 +26,12 @@ namespace GLib
 {
 
     using System;
+    using System.CodeDom.Compiler;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
-    using System.Linq;
-    using System.Collections.Specialized;
-    using System.CodeDom.Compiler;
 
     public class AbiStruct
     {

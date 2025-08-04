@@ -14,7 +14,7 @@ namespace GLib
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_get_type();
-        static d_g_date_time_get_type g_date_time_get_type = FuncLoader.LoadFunction<d_g_date_time_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_type"));
+        static readonly d_g_date_time_get_type g_date_time_get_type = FuncLoader.LoadFunction<d_g_date_time_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_type"));
 
         public static GLib.GType GType
         {
@@ -27,7 +27,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add(IntPtr raw, long timespan);
-        static d_g_date_time_add g_date_time_add = FuncLoader.LoadFunction<d_g_date_time_add>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add"));
+        static readonly d_g_date_time_add g_date_time_add = FuncLoader.LoadFunction<d_g_date_time_add>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add"));
 
         public GLib.DateTime Add(long timespan)
         {
@@ -37,7 +37,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_days(IntPtr raw, int days);
-        static d_g_date_time_add_days g_date_time_add_days = FuncLoader.LoadFunction<d_g_date_time_add_days>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_days"));
+        static readonly d_g_date_time_add_days g_date_time_add_days = FuncLoader.LoadFunction<d_g_date_time_add_days>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_days"));
 
         public GLib.DateTime AddDays(int days)
         {
@@ -47,7 +47,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_full(IntPtr raw, int years, int months, int days, int hours, int minutes, double seconds);
-        static d_g_date_time_add_full g_date_time_add_full = FuncLoader.LoadFunction<d_g_date_time_add_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_full"));
+        static readonly d_g_date_time_add_full g_date_time_add_full = FuncLoader.LoadFunction<d_g_date_time_add_full>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_full"));
 
         public GLib.DateTime AddFull(int years, int months, int days, int hours, int minutes, double seconds)
         {
@@ -57,7 +57,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_hours(IntPtr raw, int hours);
-        static d_g_date_time_add_hours g_date_time_add_hours = FuncLoader.LoadFunction<d_g_date_time_add_hours>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_hours"));
+        static readonly d_g_date_time_add_hours g_date_time_add_hours = FuncLoader.LoadFunction<d_g_date_time_add_hours>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_hours"));
 
         public GLib.DateTime AddHours(int hours)
         {
@@ -67,7 +67,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_minutes(IntPtr raw, int minutes);
-        static d_g_date_time_add_minutes g_date_time_add_minutes = FuncLoader.LoadFunction<d_g_date_time_add_minutes>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_minutes"));
+        static readonly d_g_date_time_add_minutes g_date_time_add_minutes = FuncLoader.LoadFunction<d_g_date_time_add_minutes>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_minutes"));
 
         public GLib.DateTime AddMinutes(int minutes)
         {
@@ -77,7 +77,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_months(IntPtr raw, int months);
-        static d_g_date_time_add_months g_date_time_add_months = FuncLoader.LoadFunction<d_g_date_time_add_months>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_months"));
+        static readonly d_g_date_time_add_months g_date_time_add_months = FuncLoader.LoadFunction<d_g_date_time_add_months>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_months"));
 
         public GLib.DateTime AddMonths(int months)
         {
@@ -87,7 +87,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_seconds(IntPtr raw, double seconds);
-        static d_g_date_time_add_seconds g_date_time_add_seconds = FuncLoader.LoadFunction<d_g_date_time_add_seconds>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_seconds"));
+        static readonly d_g_date_time_add_seconds g_date_time_add_seconds = FuncLoader.LoadFunction<d_g_date_time_add_seconds>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_seconds"));
 
         public GLib.DateTime AddSeconds(double seconds)
         {
@@ -97,7 +97,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_weeks(IntPtr raw, int weeks);
-        static d_g_date_time_add_weeks g_date_time_add_weeks = FuncLoader.LoadFunction<d_g_date_time_add_weeks>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_weeks"));
+        static readonly d_g_date_time_add_weeks g_date_time_add_weeks = FuncLoader.LoadFunction<d_g_date_time_add_weeks>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_weeks"));
 
         public GLib.DateTime AddWeeks(int weeks)
         {
@@ -107,7 +107,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_add_years(IntPtr raw, int years);
-        static d_g_date_time_add_years g_date_time_add_years = FuncLoader.LoadFunction<d_g_date_time_add_years>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_years"));
+        static readonly d_g_date_time_add_years g_date_time_add_years = FuncLoader.LoadFunction<d_g_date_time_add_years>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_add_years"));
 
         public GLib.DateTime AddYears(int years)
         {
@@ -117,7 +117,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate long d_g_date_time_difference(IntPtr raw, IntPtr begin);
-        static d_g_date_time_difference g_date_time_difference = FuncLoader.LoadFunction<d_g_date_time_difference>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_difference"));
+        static readonly d_g_date_time_difference g_date_time_difference = FuncLoader.LoadFunction<d_g_date_time_difference>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_difference"));
 
         public long Difference(GLib.DateTime begin)
         {
@@ -127,7 +127,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_format(IntPtr raw, IntPtr format);
-        static d_g_date_time_format g_date_time_format = FuncLoader.LoadFunction<d_g_date_time_format>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_format"));
+        static readonly d_g_date_time_format g_date_time_format = FuncLoader.LoadFunction<d_g_date_time_format>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_format"));
 
         public string Format(string format)
         {
@@ -139,7 +139,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_day_of_month(IntPtr raw);
-        static d_g_date_time_get_day_of_month g_date_time_get_day_of_month = FuncLoader.LoadFunction<d_g_date_time_get_day_of_month>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_month"));
+        static readonly d_g_date_time_get_day_of_month g_date_time_get_day_of_month = FuncLoader.LoadFunction<d_g_date_time_get_day_of_month>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_month"));
 
         public int DayOfMonth
         {
@@ -152,7 +152,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_day_of_week(IntPtr raw);
-        static d_g_date_time_get_day_of_week g_date_time_get_day_of_week = FuncLoader.LoadFunction<d_g_date_time_get_day_of_week>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_week"));
+        static readonly d_g_date_time_get_day_of_week g_date_time_get_day_of_week = FuncLoader.LoadFunction<d_g_date_time_get_day_of_week>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_week"));
 
         public int DayOfWeek
         {
@@ -165,7 +165,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_day_of_year(IntPtr raw);
-        static d_g_date_time_get_day_of_year g_date_time_get_day_of_year = FuncLoader.LoadFunction<d_g_date_time_get_day_of_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_year"));
+        static readonly d_g_date_time_get_day_of_year g_date_time_get_day_of_year = FuncLoader.LoadFunction<d_g_date_time_get_day_of_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_day_of_year"));
 
         public int DayOfYear
         {
@@ -178,7 +178,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_hour(IntPtr raw);
-        static d_g_date_time_get_hour g_date_time_get_hour = FuncLoader.LoadFunction<d_g_date_time_get_hour>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_hour"));
+        static readonly d_g_date_time_get_hour g_date_time_get_hour = FuncLoader.LoadFunction<d_g_date_time_get_hour>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_hour"));
 
         public int Hour
         {
@@ -191,7 +191,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_microsecond(IntPtr raw);
-        static d_g_date_time_get_microsecond g_date_time_get_microsecond = FuncLoader.LoadFunction<d_g_date_time_get_microsecond>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_microsecond"));
+        static readonly d_g_date_time_get_microsecond g_date_time_get_microsecond = FuncLoader.LoadFunction<d_g_date_time_get_microsecond>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_microsecond"));
 
         public int Microsecond
         {
@@ -204,7 +204,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_minute(IntPtr raw);
-        static d_g_date_time_get_minute g_date_time_get_minute = FuncLoader.LoadFunction<d_g_date_time_get_minute>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_minute"));
+        static readonly d_g_date_time_get_minute g_date_time_get_minute = FuncLoader.LoadFunction<d_g_date_time_get_minute>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_minute"));
 
         public int Minute
         {
@@ -217,7 +217,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_month(IntPtr raw);
-        static d_g_date_time_get_month g_date_time_get_month = FuncLoader.LoadFunction<d_g_date_time_get_month>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_month"));
+        static readonly d_g_date_time_get_month g_date_time_get_month = FuncLoader.LoadFunction<d_g_date_time_get_month>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_month"));
 
         public int Month
         {
@@ -230,7 +230,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_second(IntPtr raw);
-        static d_g_date_time_get_second g_date_time_get_second = FuncLoader.LoadFunction<d_g_date_time_get_second>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_second"));
+        static readonly d_g_date_time_get_second g_date_time_get_second = FuncLoader.LoadFunction<d_g_date_time_get_second>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_second"));
 
         public int Second
         {
@@ -243,7 +243,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate double d_g_date_time_get_seconds(IntPtr raw);
-        static d_g_date_time_get_seconds g_date_time_get_seconds = FuncLoader.LoadFunction<d_g_date_time_get_seconds>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_seconds"));
+        static readonly d_g_date_time_get_seconds g_date_time_get_seconds = FuncLoader.LoadFunction<d_g_date_time_get_seconds>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_seconds"));
 
         public double Seconds
         {
@@ -256,7 +256,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_get_timezone_abbreviation(IntPtr raw);
-        static d_g_date_time_get_timezone_abbreviation g_date_time_get_timezone_abbreviation = FuncLoader.LoadFunction<d_g_date_time_get_timezone_abbreviation>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_timezone_abbreviation"));
+        static readonly d_g_date_time_get_timezone_abbreviation g_date_time_get_timezone_abbreviation = FuncLoader.LoadFunction<d_g_date_time_get_timezone_abbreviation>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_timezone_abbreviation"));
 
         public string TimezoneAbbreviation
         {
@@ -269,7 +269,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate long d_g_date_time_get_utc_offset(IntPtr raw);
-        static d_g_date_time_get_utc_offset g_date_time_get_utc_offset = FuncLoader.LoadFunction<d_g_date_time_get_utc_offset>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_utc_offset"));
+        static readonly d_g_date_time_get_utc_offset g_date_time_get_utc_offset = FuncLoader.LoadFunction<d_g_date_time_get_utc_offset>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_utc_offset"));
 
         public long UtcOffset
         {
@@ -282,7 +282,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_week_numbering_year(IntPtr raw);
-        static d_g_date_time_get_week_numbering_year g_date_time_get_week_numbering_year = FuncLoader.LoadFunction<d_g_date_time_get_week_numbering_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_week_numbering_year"));
+        static readonly d_g_date_time_get_week_numbering_year g_date_time_get_week_numbering_year = FuncLoader.LoadFunction<d_g_date_time_get_week_numbering_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_week_numbering_year"));
 
         public int WeekNumberingYear
         {
@@ -295,7 +295,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_week_of_year(IntPtr raw);
-        static d_g_date_time_get_week_of_year g_date_time_get_week_of_year = FuncLoader.LoadFunction<d_g_date_time_get_week_of_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_week_of_year"));
+        static readonly d_g_date_time_get_week_of_year g_date_time_get_week_of_year = FuncLoader.LoadFunction<d_g_date_time_get_week_of_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_week_of_year"));
 
         public int WeekOfYear
         {
@@ -308,7 +308,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_get_year(IntPtr raw);
-        static d_g_date_time_get_year g_date_time_get_year = FuncLoader.LoadFunction<d_g_date_time_get_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_year"));
+        static readonly d_g_date_time_get_year g_date_time_get_year = FuncLoader.LoadFunction<d_g_date_time_get_year>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_year"));
 
         public int Year
         {
@@ -321,7 +321,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_g_date_time_get_ymd(IntPtr raw, out int year, out int month, out int day);
-        static d_g_date_time_get_ymd g_date_time_get_ymd = FuncLoader.LoadFunction<d_g_date_time_get_ymd>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_ymd"));
+        static readonly d_g_date_time_get_ymd g_date_time_get_ymd = FuncLoader.LoadFunction<d_g_date_time_get_ymd>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_get_ymd"));
 
         public void GetYmd(out int year, out int month, out int day)
         {
@@ -329,7 +329,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_g_date_time_is_daylight_savings(IntPtr raw);
-        static d_g_date_time_is_daylight_savings g_date_time_is_daylight_savings = FuncLoader.LoadFunction<d_g_date_time_is_daylight_savings>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_is_daylight_savings"));
+        static readonly d_g_date_time_is_daylight_savings g_date_time_is_daylight_savings = FuncLoader.LoadFunction<d_g_date_time_is_daylight_savings>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_is_daylight_savings"));
 
         public bool IsDaylightSavings
         {
@@ -342,7 +342,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_to_local(IntPtr raw);
-        static d_g_date_time_to_local g_date_time_to_local = FuncLoader.LoadFunction<d_g_date_time_to_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_local"));
+        static readonly d_g_date_time_to_local g_date_time_to_local = FuncLoader.LoadFunction<d_g_date_time_to_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_local"));
 
         public GLib.DateTime ToLocal()
         {
@@ -352,7 +352,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_g_date_time_to_timeval(IntPtr raw, IntPtr tv);
-        static d_g_date_time_to_timeval g_date_time_to_timeval = FuncLoader.LoadFunction<d_g_date_time_to_timeval>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_timeval"));
+        static readonly d_g_date_time_to_timeval g_date_time_to_timeval = FuncLoader.LoadFunction<d_g_date_time_to_timeval>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_timeval"));
 
         public bool ToTimeval(GLib.TimeVal tv)
         {
@@ -365,7 +365,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_to_timezone(IntPtr raw, IntPtr tz);
-        static d_g_date_time_to_timezone g_date_time_to_timezone = FuncLoader.LoadFunction<d_g_date_time_to_timezone>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_timezone"));
+        static readonly d_g_date_time_to_timezone g_date_time_to_timezone = FuncLoader.LoadFunction<d_g_date_time_to_timezone>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_timezone"));
 
         public GLib.DateTime ToTimezone(GLib.TimeZone tz)
         {
@@ -375,7 +375,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate long d_g_date_time_to_unix(IntPtr raw);
-        static d_g_date_time_to_unix g_date_time_to_unix = FuncLoader.LoadFunction<d_g_date_time_to_unix>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_unix"));
+        static readonly d_g_date_time_to_unix g_date_time_to_unix = FuncLoader.LoadFunction<d_g_date_time_to_unix>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_unix"));
 
         public long ToUnix()
         {
@@ -385,7 +385,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_to_utc(IntPtr raw);
-        static d_g_date_time_to_utc g_date_time_to_utc = FuncLoader.LoadFunction<d_g_date_time_to_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_utc"));
+        static readonly d_g_date_time_to_utc g_date_time_to_utc = FuncLoader.LoadFunction<d_g_date_time_to_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_to_utc"));
 
         public GLib.DateTime ToUtc()
         {
@@ -395,7 +395,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate int d_g_date_time_compare(IntPtr dt1, IntPtr dt2);
-        static d_g_date_time_compare g_date_time_compare = FuncLoader.LoadFunction<d_g_date_time_compare>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_compare"));
+        static readonly d_g_date_time_compare g_date_time_compare = FuncLoader.LoadFunction<d_g_date_time_compare>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_compare"));
 
         public static int Compare(IntPtr dt1, IntPtr dt2)
         {
@@ -405,7 +405,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_g_date_time_equal(IntPtr dt1, IntPtr dt2);
-        static d_g_date_time_equal g_date_time_equal = FuncLoader.LoadFunction<d_g_date_time_equal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_equal"));
+        static readonly d_g_date_time_equal g_date_time_equal = FuncLoader.LoadFunction<d_g_date_time_equal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_equal"));
 
         public static bool Equal(IntPtr dt1, IntPtr dt2)
         {
@@ -415,7 +415,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate uint d_g_date_time_hash(IntPtr datetime);
-        static d_g_date_time_hash g_date_time_hash = FuncLoader.LoadFunction<d_g_date_time_hash>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_hash"));
+        static readonly d_g_date_time_hash g_date_time_hash = FuncLoader.LoadFunction<d_g_date_time_hash>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_hash"));
 
         public static uint Hash(IntPtr datetime)
         {
@@ -427,7 +427,7 @@ namespace GLib
         public DateTime(IntPtr raw) : base(raw) { }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new(IntPtr tz, int year, int month, int day, int hour, int minute, double seconds);
-        static d_g_date_time_new g_date_time_new = FuncLoader.LoadFunction<d_g_date_time_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new"));
+        static readonly d_g_date_time_new g_date_time_new = FuncLoader.LoadFunction<d_g_date_time_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new"));
 
         public DateTime(GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds)
         {
@@ -435,7 +435,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_from_timeval_local(IntPtr tv);
-        static d_g_date_time_new_from_timeval_local g_date_time_new_from_timeval_local = FuncLoader.LoadFunction<d_g_date_time_new_from_timeval_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_timeval_local"));
+        static readonly d_g_date_time_new_from_timeval_local g_date_time_new_from_timeval_local = FuncLoader.LoadFunction<d_g_date_time_new_from_timeval_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_timeval_local"));
 
         public DateTime(GLib.TimeVal tv)
         {
@@ -446,7 +446,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_from_timeval_utc(IntPtr tv);
-        static d_g_date_time_new_from_timeval_utc g_date_time_new_from_timeval_utc = FuncLoader.LoadFunction<d_g_date_time_new_from_timeval_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_timeval_utc"));
+        static readonly d_g_date_time_new_from_timeval_utc g_date_time_new_from_timeval_utc = FuncLoader.LoadFunction<d_g_date_time_new_from_timeval_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_timeval_utc"));
 
         public static DateTime NewFromTimevalUtc(GLib.TimeVal tv)
         {
@@ -458,7 +458,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_from_unix_local(long t);
-        static d_g_date_time_new_from_unix_local g_date_time_new_from_unix_local = FuncLoader.LoadFunction<d_g_date_time_new_from_unix_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_unix_local"));
+        static readonly d_g_date_time_new_from_unix_local g_date_time_new_from_unix_local = FuncLoader.LoadFunction<d_g_date_time_new_from_unix_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_unix_local"));
 
         public DateTime(long t)
         {
@@ -466,7 +466,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_from_unix_utc(long t);
-        static d_g_date_time_new_from_unix_utc g_date_time_new_from_unix_utc = FuncLoader.LoadFunction<d_g_date_time_new_from_unix_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_unix_utc"));
+        static readonly d_g_date_time_new_from_unix_utc g_date_time_new_from_unix_utc = FuncLoader.LoadFunction<d_g_date_time_new_from_unix_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_from_unix_utc"));
 
         public static DateTime NewFromUnixUtc(long t)
         {
@@ -475,7 +475,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_local(int year, int month, int day, int hour, int minute, double seconds);
-        static d_g_date_time_new_local g_date_time_new_local = FuncLoader.LoadFunction<d_g_date_time_new_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_local"));
+        static readonly d_g_date_time_new_local g_date_time_new_local = FuncLoader.LoadFunction<d_g_date_time_new_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_local"));
 
         public DateTime(int year, int month, int day, int hour, int minute, double seconds)
         {
@@ -483,7 +483,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_now(IntPtr tz);
-        static d_g_date_time_new_now g_date_time_new_now = FuncLoader.LoadFunction<d_g_date_time_new_now>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now"));
+        static readonly d_g_date_time_new_now g_date_time_new_now = FuncLoader.LoadFunction<d_g_date_time_new_now>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now"));
 
         public DateTime(GLib.TimeZone tz)
         {
@@ -491,7 +491,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_now_local();
-        static d_g_date_time_new_now_local g_date_time_new_now_local = FuncLoader.LoadFunction<d_g_date_time_new_now_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now_local"));
+        static readonly d_g_date_time_new_now_local g_date_time_new_now_local = FuncLoader.LoadFunction<d_g_date_time_new_now_local>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now_local"));
 
         public DateTime()
         {
@@ -499,7 +499,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_now_utc();
-        static d_g_date_time_new_now_utc g_date_time_new_now_utc = FuncLoader.LoadFunction<d_g_date_time_new_now_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now_utc"));
+        static readonly d_g_date_time_new_now_utc g_date_time_new_now_utc = FuncLoader.LoadFunction<d_g_date_time_new_now_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_now_utc"));
 
         public static DateTime NewNowUtc()
         {
@@ -508,7 +508,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_new_utc(int year, int month, int day, int hour, int minute, double seconds);
-        static d_g_date_time_new_utc g_date_time_new_utc = FuncLoader.LoadFunction<d_g_date_time_new_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_utc"));
+        static readonly d_g_date_time_new_utc g_date_time_new_utc = FuncLoader.LoadFunction<d_g_date_time_new_utc>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_new_utc"));
 
         public static DateTime NewUtc(int year, int month, int day, int hour, int minute, double seconds)
         {
@@ -517,7 +517,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_date_time_ref(IntPtr raw);
-        static d_g_date_time_ref g_date_time_ref = FuncLoader.LoadFunction<d_g_date_time_ref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_ref"));
+        static readonly d_g_date_time_ref g_date_time_ref = FuncLoader.LoadFunction<d_g_date_time_ref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_ref"));
 
         protected override void Ref(IntPtr raw)
         {
@@ -529,7 +529,7 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_g_date_time_unref(IntPtr raw);
-        static d_g_date_time_unref g_date_time_unref = FuncLoader.LoadFunction<d_g_date_time_unref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_unref"));
+        static readonly d_g_date_time_unref g_date_time_unref = FuncLoader.LoadFunction<d_g_date_time_unref>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_date_time_unref"));
 
         protected override void Unref(IntPtr raw)
         {
@@ -542,7 +542,7 @@ namespace GLib
 
         class FinalizerInfo
         {
-            IntPtr handle;
+            readonly IntPtr handle;
 
             public FinalizerInfo(IntPtr handle)
             {
@@ -567,4 +567,3 @@ namespace GLib
         #endregion
     }
 }
-

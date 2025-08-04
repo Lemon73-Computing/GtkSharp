@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_weight_new(Pango.Weight weight);
-        static d_pango_attr_weight_new pango_attr_weight_new = FuncLoader.LoadFunction<d_pango_attr_weight_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_weight_new"));
+        static readonly d_pango_attr_weight_new pango_attr_weight_new = FuncLoader.LoadFunction<d_pango_attr_weight_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_weight_new"));
 
         public AttrWeight(Pango.Weight weight) : this(pango_attr_weight_new(weight)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

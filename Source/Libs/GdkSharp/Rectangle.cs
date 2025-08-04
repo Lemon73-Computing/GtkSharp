@@ -270,4 +270,3 @@ namespace Gdk
         public static Rectangle Zero;
     }
 }
-

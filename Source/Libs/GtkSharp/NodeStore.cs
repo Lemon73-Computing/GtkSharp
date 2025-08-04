@@ -32,7 +32,7 @@ namespace Gtk
     public class NodeStore : GLib.Object, IEnumerable
     {
 
-        NodeStoreImplementor implementor;
+        readonly NodeStoreImplementor implementor;
 
         public NodeStore(Type node_type)
         {
@@ -86,12 +86,12 @@ namespace Gtk
 
         internal class NodeStoreImplementor : GLib.Object, ITreeModelImplementor, IEnumerable
         {
-            TreeModelAdapter model_adapter;
+            readonly TreeModelAdapter model_adapter;
             GLib.GType[] ctypes;
             MemberInfo[] getters;
             int n_cols;
             bool list_only = false;
-            ArrayList nodes = new ArrayList();
+            readonly ArrayList nodes = new ArrayList();
 
             public readonly int Stamp;
 
@@ -212,7 +212,7 @@ namespace Gtk
             #endregion
 
             #region Gtk.TreeIter handling
-            IList<GCHandle> gc_handles = new List<GCHandle>();
+            readonly IList<GCHandle> gc_handles = new List<GCHandle>();
 
             protected override void Dispose(bool disposing)
             {

@@ -14,11 +14,11 @@ namespace GLib
     public partial struct MarkupParser : IEquatable<MarkupParser>
     {
 
-        private IntPtr _start_element;
-        private IntPtr _end_element;
-        private IntPtr _text;
-        private IntPtr _passthrough;
-        private IntPtr _error;
+        private readonly IntPtr _start_element;
+        private readonly IntPtr _end_element;
+        private readonly IntPtr _text;
+        private readonly IntPtr _passthrough;
+        private readonly IntPtr _error;
 
         public static GLib.MarkupParser Zero = new GLib.MarkupParser();
 
@@ -51,4 +51,3 @@ namespace GLib
         #endregion
     }
 }
-

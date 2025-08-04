@@ -28,7 +28,7 @@ namespace Gdk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_screen_get_toplevel_windows(IntPtr raw);
-        static d_gdk_screen_get_toplevel_windows gdk_screen_get_toplevel_windows = FuncLoader.LoadFunction<d_gdk_screen_get_toplevel_windows>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_get_toplevel_windows"));
+        static readonly d_gdk_screen_get_toplevel_windows gdk_screen_get_toplevel_windows = FuncLoader.LoadFunction<d_gdk_screen_get_toplevel_windows>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_get_toplevel_windows"));
 
         public Window[] ToplevelWindows
         {
@@ -46,7 +46,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_screen_list_visuals(IntPtr raw);
-        static d_gdk_screen_list_visuals gdk_screen_list_visuals = FuncLoader.LoadFunction<d_gdk_screen_list_visuals>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_list_visuals"));
+        static readonly d_gdk_screen_list_visuals gdk_screen_list_visuals = FuncLoader.LoadFunction<d_gdk_screen_list_visuals>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_list_visuals"));
 
         public Visual[] ListVisuals()
         {
@@ -61,10 +61,10 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_screen_get_font_options(IntPtr raw);
-        static d_gdk_screen_get_font_options gdk_screen_get_font_options = FuncLoader.LoadFunction<d_gdk_screen_get_font_options>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_get_font_options"));
+        static readonly d_gdk_screen_get_font_options gdk_screen_get_font_options = FuncLoader.LoadFunction<d_gdk_screen_get_font_options>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_get_font_options"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_screen_set_font_options(IntPtr raw, IntPtr options);
-        static d_gdk_screen_set_font_options gdk_screen_set_font_options = FuncLoader.LoadFunction<d_gdk_screen_set_font_options>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_set_font_options"));
+        static readonly d_gdk_screen_set_font_options gdk_screen_set_font_options = FuncLoader.LoadFunction<d_gdk_screen_set_font_options>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_screen_set_font_options"));
 
         [GLib.Property("font-options")]
         public Cairo.FontOptions FontOptions
@@ -84,5 +84,3 @@ namespace Gdk
         }
     }
 }
-
-

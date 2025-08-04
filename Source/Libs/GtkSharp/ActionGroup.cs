@@ -88,7 +88,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_action_group_list_actions(IntPtr raw);
-        static d_gtk_action_group_list_actions gtk_action_group_list_actions = FuncLoader.LoadFunction<d_gtk_action_group_list_actions>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_action_group_list_actions"));
+        static readonly d_gtk_action_group_list_actions gtk_action_group_list_actions = FuncLoader.LoadFunction<d_gtk_action_group_list_actions>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_action_group_list_actions"));
 
         public Gtk.Action[] ListActions()
         {
@@ -101,4 +101,3 @@ namespace Gtk
         }
     }
 }
-

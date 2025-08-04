@@ -817,4 +817,3 @@ namespace GLib
         static d_g_value_get_variant g_value_get_variant = FuncLoader.LoadFunction<d_g_value_get_variant>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_value_get_variant"));
     }
 }
-

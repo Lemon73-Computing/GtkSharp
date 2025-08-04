@@ -6,10 +6,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+
 using Atk;
+
 using Gdk;
+
 using Gtk;
+
 using WebKit;
+
 using IAsyncResult = GLib.IAsyncResult;
 using Object = GLib.Object;
 
@@ -110,7 +115,7 @@ namespace Samples
 
             };
 
-            void HandleJavaScriptResult(object source_object, IAsyncResult res)
+            static void HandleJavaScriptResult(object source_object, IAsyncResult res)
             {
                 if (source_object is not WebView view) return;
 

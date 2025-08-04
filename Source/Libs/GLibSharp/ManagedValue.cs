@@ -23,6 +23,7 @@ namespace GLib
 {
     using System;
     using System.Runtime.InteropServices;
+
     using GLib;
 
     internal class ManagedValue
@@ -72,7 +73,7 @@ namespace GLib
         static GType boxed_type = GType.Invalid;
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_boxed_type_register_static(IntPtr typename, CopyFunc copy_func, FreeFunc free_func);
-        static d_g_boxed_type_register_static g_boxed_type_register_static = FuncLoader.LoadFunction<d_g_boxed_type_register_static>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_boxed_type_register_static"));
+        static readonly d_g_boxed_type_register_static g_boxed_type_register_static = FuncLoader.LoadFunction<d_g_boxed_type_register_static>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_boxed_type_register_static"));
 
         public static GType GType
         {
@@ -159,5 +160,3 @@ namespace GLib
         }
     }
 }
-
-

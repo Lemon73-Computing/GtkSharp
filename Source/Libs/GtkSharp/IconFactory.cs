@@ -23,7 +23,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_icon_size_lookup(IconSize size, out int width, out int height);
-        static d_gtk_icon_size_lookup gtk_icon_size_lookup = FuncLoader.LoadFunction<d_gtk_icon_size_lookup>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_icon_size_lookup"));
+        static readonly d_gtk_icon_size_lookup gtk_icon_size_lookup = FuncLoader.LoadFunction<d_gtk_icon_size_lookup>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_icon_size_lookup"));
 
         /// <summary> Query icon dimensions </summary>
         /// <remarks> Queries dimensions for icons of the specified size. </remarks>
@@ -33,4 +33,3 @@ namespace Gtk
         }
     }
 }
-

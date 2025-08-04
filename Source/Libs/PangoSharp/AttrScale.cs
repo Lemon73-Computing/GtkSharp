@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_scale_new(double scale);
-        static d_pango_attr_scale_new pango_attr_scale_new = FuncLoader.LoadFunction<d_pango_attr_scale_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_scale_new"));
+        static readonly d_pango_attr_scale_new pango_attr_scale_new = FuncLoader.LoadFunction<d_pango_attr_scale_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_scale_new"));
 
         public AttrScale(double scale) : this(pango_attr_scale_new(scale)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

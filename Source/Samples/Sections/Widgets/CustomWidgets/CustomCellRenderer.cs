@@ -8,9 +8,12 @@
 // adopted from: https://github.com/mono/gtk-sharp/commits/2.99.3/sample/CustomCellRenderer.cs
 
 using System;
-using Gtk;
+
 using Gdk;
+
 using GLib;
+
+using Gtk;
 
 namespace Samples
 {

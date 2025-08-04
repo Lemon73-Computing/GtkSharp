@@ -28,7 +28,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_text_child_anchor_get_widgets(IntPtr raw);
-        static d_gtk_text_child_anchor_get_widgets gtk_text_child_anchor_get_widgets = FuncLoader.LoadFunction<d_gtk_text_child_anchor_get_widgets>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_text_child_anchor_get_widgets"));
+        static readonly d_gtk_text_child_anchor_get_widgets gtk_text_child_anchor_get_widgets = FuncLoader.LoadFunction<d_gtk_text_child_anchor_get_widgets>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_text_child_anchor_get_widgets"));
 
         public Widget[] Widgets
         {
@@ -46,4 +46,3 @@ namespace Gtk
         }
     }
 }
-

@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_rise_new(int rise);
-        static d_pango_attr_rise_new pango_attr_rise_new = FuncLoader.LoadFunction<d_pango_attr_rise_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_rise_new"));
+        static readonly d_pango_attr_rise_new pango_attr_rise_new = FuncLoader.LoadFunction<d_pango_attr_rise_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_rise_new"));
 
         public AttrRise(int rise) : this(pango_attr_rise_new(rise)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

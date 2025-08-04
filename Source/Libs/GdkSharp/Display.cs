@@ -29,7 +29,7 @@ namespace Gdk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_display_get_pointer(IntPtr raw, IntPtr screen, out int x, out int y, out int mask);
-        static d_gdk_display_get_pointer gdk_display_get_pointer = FuncLoader.LoadFunction<d_gdk_display_get_pointer>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_get_pointer"));
+        static readonly d_gdk_display_get_pointer gdk_display_get_pointer = FuncLoader.LoadFunction<d_gdk_display_get_pointer>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_get_pointer"));
 
         [Obsolete]
         public void GetPointer(Gdk.Screen screen, out int x, out int y, out Gdk.ModifierType mask)
@@ -40,7 +40,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gdk_display_get_pointer2(IntPtr raw, out IntPtr screen, out int x, out int y, out int mask);
-        static d_gdk_display_get_pointer2 gdk_display_get_pointer2 = FuncLoader.LoadFunction<d_gdk_display_get_pointer2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_get_pointer"));
+        static readonly d_gdk_display_get_pointer2 gdk_display_get_pointer2 = FuncLoader.LoadFunction<d_gdk_display_get_pointer2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_get_pointer"));
 
         public void GetPointer(out Gdk.Screen screen, out int x, out int y, out Gdk.ModifierType mask)
         {
@@ -71,7 +71,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_display_list_devices(IntPtr raw);
-        static d_gdk_display_list_devices gdk_display_list_devices = FuncLoader.LoadFunction<d_gdk_display_list_devices>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_list_devices"));
+        static readonly d_gdk_display_list_devices gdk_display_list_devices = FuncLoader.LoadFunction<d_gdk_display_list_devices>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_display_list_devices"));
 
         public Device[] ListDevices()
         {
@@ -86,5 +86,3 @@ namespace Gdk
         }
     }
 }
-
-

@@ -26,7 +26,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attr_gravity_new(int gravity);
-        static d_pango_attr_gravity_new pango_attr_gravity_new = FuncLoader.LoadFunction<d_pango_attr_gravity_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_new"));
+        static readonly d_pango_attr_gravity_new pango_attr_gravity_new = FuncLoader.LoadFunction<d_pango_attr_gravity_new>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_gravity_new"));
 
         public AttrGravity(Gravity gravity) : this(pango_attr_gravity_new((int)gravity)) { }
 
@@ -41,4 +41,3 @@ namespace Pango
         }
     }
 }
-

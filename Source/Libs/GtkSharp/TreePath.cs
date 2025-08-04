@@ -24,7 +24,7 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_tree_path_get_indices_with_depth(IntPtr raw, out int depth);
-        static d_gtk_tree_path_get_indices_with_depth gtk_tree_path_get_indices_with_depth = FuncLoader.LoadFunction<d_gtk_tree_path_get_indices_with_depth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_get_indices_with_depth"));
+        static readonly d_gtk_tree_path_get_indices_with_depth gtk_tree_path_get_indices_with_depth = FuncLoader.LoadFunction<d_gtk_tree_path_get_indices_with_depth>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_get_indices_with_depth"));
 
         public int[] Indices
         {
@@ -40,7 +40,7 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_tree_path_new_from_indicesv(int[] indices, UIntPtr length);
-        static d_gtk_tree_path_new_from_indicesv gtk_tree_path_new_from_indicesv = FuncLoader.LoadFunction<d_gtk_tree_path_new_from_indicesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_new_from_indicesv"));
+        static readonly d_gtk_tree_path_new_from_indicesv gtk_tree_path_new_from_indicesv = FuncLoader.LoadFunction<d_gtk_tree_path_new_from_indicesv>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_path_new_from_indicesv"));
 
         public TreePath(int[] indices)
         {
@@ -61,4 +61,3 @@ namespace Gtk
         }
     }
 }
-

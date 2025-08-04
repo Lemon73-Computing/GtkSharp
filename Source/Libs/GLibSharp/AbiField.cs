@@ -26,12 +26,12 @@ namespace GLib
 {
 
     using System;
+    using System.CodeDom.Compiler;
     using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Linq;
     using System.Reflection;
     using System.Runtime.InteropServices;
-    using System.Linq;
-    using System.Collections.Specialized;
-    using System.CodeDom.Compiler;
 
     public class AbiField
     {
@@ -43,7 +43,7 @@ namespace GLib
         public uint Natural_size;
         public AbiStruct container;
         public OrderedDictionary Parent_fields; // field_name<string> -> AbiField<> dictionary.
-        List<List<string>> Union_fields;
+        readonly List<List<string>> Union_fields;
 
         long End;
         long Size;

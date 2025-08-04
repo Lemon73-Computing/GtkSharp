@@ -24,13 +24,13 @@ namespace GLib
 {
 
     using System;
-    using System.Runtime.InteropServices;
     using System.Reflection;
+    using System.Runtime.InteropServices;
 
     public static class ObjectManager
     {
 
-        static BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.CreateInstance;
+        static readonly BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.CreateInstance;
 
         public static GLib.Object CreateObject(IntPtr raw)
         {
@@ -90,7 +90,6 @@ namespace GLib
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_g_type_parent(IntPtr typ);
-        static d_g_type_parent g_type_parent = FuncLoader.LoadFunction<d_g_type_parent>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_type_parent"));
+        static readonly d_g_type_parent g_type_parent = FuncLoader.LoadFunction<d_g_type_parent>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GObject), "g_type_parent"));
     }
 }
-

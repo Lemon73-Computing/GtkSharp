@@ -28,10 +28,10 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_selection_data_get_text(IntPtr selection_data);
-        static d_gtk_selection_data_get_text gtk_selection_data_get_text = FuncLoader.LoadFunction<d_gtk_selection_data_get_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_text"));
+        static readonly d_gtk_selection_data_get_text gtk_selection_data_get_text = FuncLoader.LoadFunction<d_gtk_selection_data_get_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_text"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_selection_data_set_text(IntPtr selection_data, IntPtr str, int len);
-        static d_gtk_selection_data_set_text gtk_selection_data_set_text = FuncLoader.LoadFunction<d_gtk_selection_data_set_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_set_text"));
+        static readonly d_gtk_selection_data_set_text gtk_selection_data_set_text = FuncLoader.LoadFunction<d_gtk_selection_data_set_text>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_set_text"));
 
         public string Text
         {
@@ -51,7 +51,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_selection_data_get_data(IntPtr selection_data);
-        static d_gtk_selection_data_get_data gtk_selection_data_get_data = FuncLoader.LoadFunction<d_gtk_selection_data_get_data>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_data"));
+        static readonly d_gtk_selection_data_get_data gtk_selection_data_get_data = FuncLoader.LoadFunction<d_gtk_selection_data_get_data>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_data"));
 
         public byte[] Data
         {
@@ -70,7 +70,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_selection_data_get_targets(IntPtr raw, out IntPtr targets, out int n_atoms);
-        static d_gtk_selection_data_get_targets gtk_selection_data_get_targets = FuncLoader.LoadFunction<d_gtk_selection_data_get_targets>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_targets"));
+        static readonly d_gtk_selection_data_get_targets gtk_selection_data_get_targets = FuncLoader.LoadFunction<d_gtk_selection_data_get_targets>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_selection_data_get_targets"));
 
         public Gdk.Atom[] Targets
         {
@@ -95,4 +95,3 @@ namespace Gtk
         }
     }
 }
-

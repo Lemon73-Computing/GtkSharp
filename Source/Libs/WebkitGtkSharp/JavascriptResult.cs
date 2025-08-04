@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+
 using JavaScript;
 
 namespace WebKit
@@ -9,7 +10,7 @@ namespace WebKit
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_webkit_javascript_result_get_js_value(IntPtr raw);
-        static d_webkit_javascript_result_get_js_value webkit_javascript_result_get_js_value = FuncLoader.LoadFunction<d_webkit_javascript_result_get_js_value>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Webkit), "webkit_javascript_result_get_js_value"));
+        static readonly d_webkit_javascript_result_get_js_value webkit_javascript_result_get_js_value = FuncLoader.LoadFunction<d_webkit_javascript_result_get_js_value>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Webkit), "webkit_javascript_result_get_js_value"));
 
         public Value JsValue
         {
@@ -21,7 +22,7 @@ namespace WebKit
             }
         }
 
-        static bool initialized = false;
+        static readonly bool initialized = false;
         static JavascriptResult()
         {
             GtkSharp.WebkitGtkSharp.ObjectManager.Initialize();

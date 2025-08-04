@@ -28,7 +28,7 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_pango_tab_array_get_tabs(IntPtr raw, out IntPtr alignments, out IntPtr locations);
-        static d_pango_tab_array_get_tabs pango_tab_array_get_tabs = FuncLoader.LoadFunction<d_pango_tab_array_get_tabs>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_tab_array_get_tabs"));
+        static readonly d_pango_tab_array_get_tabs pango_tab_array_get_tabs = FuncLoader.LoadFunction<d_pango_tab_array_get_tabs>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_tab_array_get_tabs"));
 
         public void GetTabs(out TabAlign[] alignments, out int[] locations)
         {
@@ -49,4 +49,3 @@ namespace Pango
         }
     }
 }
-

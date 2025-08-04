@@ -97,7 +97,7 @@ namespace Pango
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_pango_attribute_destroy(IntPtr raw);
-        static d_pango_attribute_destroy pango_attribute_destroy = FuncLoader.LoadFunction<d_pango_attribute_destroy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_destroy"));
+        static readonly d_pango_attribute_destroy pango_attribute_destroy = FuncLoader.LoadFunction<d_pango_attribute_destroy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_destroy"));
 
         public void Dispose()
         {
@@ -132,7 +132,7 @@ namespace Pango
 
         internal struct NativeStruct
         {
-            IntPtr klass;
+            readonly IntPtr klass;
             public uint start_index;
             public uint end_index;
         }
@@ -165,7 +165,7 @@ namespace Pango
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attribute_copy(IntPtr raw);
-        static d_pango_attribute_copy pango_attribute_copy = FuncLoader.LoadFunction<d_pango_attribute_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_copy"));
+        static readonly d_pango_attribute_copy pango_attribute_copy = FuncLoader.LoadFunction<d_pango_attribute_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_copy"));
 
         public Pango.Attribute Copy()
         {
@@ -173,7 +173,7 @@ namespace Pango
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_pango_attribute_equal(IntPtr raw1, IntPtr raw2);
-        static d_pango_attribute_equal pango_attribute_equal = FuncLoader.LoadFunction<d_pango_attribute_equal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_equal"));
+        static readonly d_pango_attribute_equal pango_attribute_equal = FuncLoader.LoadFunction<d_pango_attribute_equal>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_equal"));
 
         public bool Equal(Pango.Attribute attr2)
         {
@@ -181,4 +181,3 @@ namespace Pango
         }
     }
 }
-

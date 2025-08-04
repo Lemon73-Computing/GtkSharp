@@ -34,8 +34,8 @@ namespace Gdk
         struct NativeStruct
         {
             EventType type;
-            IntPtr window;
-            sbyte send_event;
+            readonly IntPtr window;
+            readonly sbyte send_event;
             public uint time;
             public double x;
             public double y;
@@ -163,4 +163,3 @@ namespace Gdk
         }
     }
 }
-

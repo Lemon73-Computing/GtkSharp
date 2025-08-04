@@ -27,7 +27,7 @@ namespace GLib
 
     public class GException : Exception
     {
-        string msg;
+        readonly string msg;
 
         public GException(IntPtr errptr)
         {
@@ -53,6 +53,6 @@ namespace GLib
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_g_clear_error(ref IntPtr errptr);
-        static d_g_clear_error g_clear_error = FuncLoader.LoadFunction<d_g_clear_error>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_clear_error"));
+        static readonly d_g_clear_error g_clear_error = FuncLoader.LoadFunction<d_g_clear_error>(FuncLoader.GetProcAddress(GLibrary.Load(Library.GLib), "g_clear_error"));
     }
 }

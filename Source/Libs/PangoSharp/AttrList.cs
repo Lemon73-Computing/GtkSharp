@@ -28,11 +28,11 @@ namespace Pango
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_pango_attribute_copy(IntPtr raw);
-        static d_pango_attribute_copy pango_attribute_copy = FuncLoader.LoadFunction<d_pango_attribute_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_copy"));
+        static readonly d_pango_attribute_copy pango_attribute_copy = FuncLoader.LoadFunction<d_pango_attribute_copy>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attribute_copy"));
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_pango_attr_list_change(IntPtr raw, IntPtr attr);
-        static d_pango_attr_list_change pango_attr_list_change = FuncLoader.LoadFunction<d_pango_attr_list_change>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_change"));
+        static readonly d_pango_attr_list_change pango_attr_list_change = FuncLoader.LoadFunction<d_pango_attr_list_change>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_change"));
 
         public void Change(Pango.Attribute attr)
         {
@@ -41,7 +41,7 @@ namespace Pango
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_pango_attr_list_insert(IntPtr raw, IntPtr attr);
-        static d_pango_attr_list_insert pango_attr_list_insert = FuncLoader.LoadFunction<d_pango_attr_list_insert>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_insert"));
+        static readonly d_pango_attr_list_insert pango_attr_list_insert = FuncLoader.LoadFunction<d_pango_attr_list_insert>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_insert"));
 
         public void Insert(Pango.Attribute attr)
         {
@@ -50,7 +50,7 @@ namespace Pango
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_pango_attr_list_insert_before(IntPtr raw, IntPtr attr);
-        static d_pango_attr_list_insert_before pango_attr_list_insert_before = FuncLoader.LoadFunction<d_pango_attr_list_insert_before>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_insert_before"));
+        static readonly d_pango_attr_list_insert_before pango_attr_list_insert_before = FuncLoader.LoadFunction<d_pango_attr_list_insert_before>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Pango), "pango_attr_list_insert_before"));
 
         public void InsertBefore(Pango.Attribute attr)
         {

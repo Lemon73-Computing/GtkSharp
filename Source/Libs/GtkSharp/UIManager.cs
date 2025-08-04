@@ -43,7 +43,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate uint d_gtk_ui_manager_new_merge_id(IntPtr raw);
-        static d_gtk_ui_manager_new_merge_id gtk_ui_manager_new_merge_id = FuncLoader.LoadFunction<d_gtk_ui_manager_new_merge_id>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_new_merge_id"));
+        static readonly d_gtk_ui_manager_new_merge_id gtk_ui_manager_new_merge_id = FuncLoader.LoadFunction<d_gtk_ui_manager_new_merge_id>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_new_merge_id"));
 
         [Obsolete]
         public uint NewMergeId()
@@ -52,7 +52,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_ui_manager_get_toplevels(IntPtr raw, int types);
-        static d_gtk_ui_manager_get_toplevels gtk_ui_manager_get_toplevels = FuncLoader.LoadFunction<d_gtk_ui_manager_get_toplevels>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_get_toplevels"));
+        static readonly d_gtk_ui_manager_get_toplevels gtk_ui_manager_get_toplevels = FuncLoader.LoadFunction<d_gtk_ui_manager_get_toplevels>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_get_toplevels"));
 
         [Obsolete]
         public Widget[] GetToplevels(Gtk.UIManagerItemType types)
@@ -67,7 +67,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_ui_manager_get_action_groups(IntPtr raw);
-        static d_gtk_ui_manager_get_action_groups gtk_ui_manager_get_action_groups = FuncLoader.LoadFunction<d_gtk_ui_manager_get_action_groups>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_get_action_groups"));
+        static readonly d_gtk_ui_manager_get_action_groups gtk_ui_manager_get_action_groups = FuncLoader.LoadFunction<d_gtk_ui_manager_get_action_groups>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_ui_manager_get_action_groups"));
 
         [Obsolete]
         public ActionGroup[] ActionGroups
@@ -85,4 +85,3 @@ namespace Gtk
         }
     }
 }
-

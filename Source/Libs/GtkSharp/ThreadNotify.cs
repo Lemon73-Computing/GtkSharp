@@ -25,9 +25,9 @@
 
 namespace Gtk
 {
+    using System;
     using System.Runtime.InteropServices;
     using System.Threading;
-    using System;
 
     // <summary>
     //    This delegate will be invoked on the main Gtk thread.
@@ -42,8 +42,8 @@ namespace Gtk
     public class ThreadNotify : IDisposable
     {
         bool disposed;
-        ReadyEvent re;
-        GLib.IdleHandler idle;
+        readonly ReadyEvent re;
+        readonly GLib.IdleHandler idle;
         bool notified;
 
         /// <summary>
@@ -111,4 +111,3 @@ namespace Gtk
         }
     }
 }
-

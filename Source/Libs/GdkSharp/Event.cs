@@ -30,7 +30,7 @@ namespace Gdk
     public class Event : GLib.IWrapper
     {
 
-        IntPtr raw;
+        readonly IntPtr raw;
 
         public Event(IntPtr raw)
         {
@@ -43,7 +43,7 @@ namespace Gdk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gdk_event_get_type();
-        static d_gdk_event_get_type gdk_event_get_type = FuncLoader.LoadFunction<d_gdk_event_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_event_get_type"));
+        static readonly d_gdk_event_get_type gdk_event_get_type = FuncLoader.LoadFunction<d_gdk_event_get_type>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gdk), "gdk_event_get_type"));
 
         public static GLib.GType GType
         {
@@ -166,5 +166,3 @@ namespace Gdk
         }
     }
 }
-
-

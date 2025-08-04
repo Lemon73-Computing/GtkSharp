@@ -1296,4 +1296,3 @@ namespace Cairo
         internal static d_cairo_xlib_surface_set_size cairo_xlib_surface_set_size = FuncLoader.LoadFunction<d_cairo_xlib_surface_set_size>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Cairo), "cairo_xlib_surface_set_size"));
     }
 }
-

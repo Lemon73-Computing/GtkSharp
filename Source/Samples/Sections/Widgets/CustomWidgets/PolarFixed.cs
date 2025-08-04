@@ -3,14 +3,16 @@
 
 using System;
 using System.Collections.Generic;
-using Gtk;
+
 using Gdk;
+
+using Gtk;
 
 namespace Samples
 {
     class PolarFixed : Container
     {
-        IList<PolarFixedChild> children;
+        readonly IList<PolarFixedChild> children;
 
         public PolarFixed()
         {

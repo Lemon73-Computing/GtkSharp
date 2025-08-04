@@ -28,7 +28,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_tree_selection_get_selected_rows2(IntPtr raw, IntPtr model);
-        static d_gtk_tree_selection_get_selected_rows2 gtk_tree_selection_get_selected_rows2 = FuncLoader.LoadFunction<d_gtk_tree_selection_get_selected_rows2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_selection_get_selected_rows"));
+        static readonly d_gtk_tree_selection_get_selected_rows2 gtk_tree_selection_get_selected_rows2 = FuncLoader.LoadFunction<d_gtk_tree_selection_get_selected_rows2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_selection_get_selected_rows"));
 
         public TreePath[] GetSelectedRows()
         {
@@ -41,7 +41,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_tree_selection_get_selected2(IntPtr raw, IntPtr model, out Gtk.TreeIter iter);
-        static d_gtk_tree_selection_get_selected2 gtk_tree_selection_get_selected2 = FuncLoader.LoadFunction<d_gtk_tree_selection_get_selected2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_selection_get_selected"));
+        static readonly d_gtk_tree_selection_get_selected2 gtk_tree_selection_get_selected2 = FuncLoader.LoadFunction<d_gtk_tree_selection_get_selected2>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_tree_selection_get_selected"));
 
         public bool GetSelected(out Gtk.TreeIter iter)
         {
@@ -49,4 +49,3 @@ namespace Gtk
         }
     }
 }
-

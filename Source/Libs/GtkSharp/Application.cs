@@ -25,6 +25,7 @@ namespace Gtk
     using System.Reflection;
     using System.Runtime.InteropServices;
     using System.Threading;
+
     using Gdk;
 
     public partial class Application
@@ -41,10 +42,10 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_init(ref int argc, ref IntPtr argv);
-        static d_gtk_init gtk_init = FuncLoader.LoadFunction<d_gtk_init>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init"));
+        static readonly d_gtk_init gtk_init = FuncLoader.LoadFunction<d_gtk_init>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_init_check(ref int argc, ref IntPtr argv);
-        static d_gtk_init_check gtk_init_check = FuncLoader.LoadFunction<d_gtk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init_check"));
+        static readonly d_gtk_init_check gtk_init_check = FuncLoader.LoadFunction<d_gtk_init_check>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_init_check"));
 
         static void SetPrgname()
         {
@@ -111,7 +112,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_main();
-        static d_gtk_main gtk_main = FuncLoader.LoadFunction<d_gtk_main>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main"));
+        static readonly d_gtk_main gtk_main = FuncLoader.LoadFunction<d_gtk_main>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main"));
 
         public static void Run()
         {
@@ -119,7 +120,7 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_events_pending();
-        static d_gtk_events_pending gtk_events_pending = FuncLoader.LoadFunction<d_gtk_events_pending>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_events_pending"));
+        static readonly d_gtk_events_pending gtk_events_pending = FuncLoader.LoadFunction<d_gtk_events_pending>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_events_pending"));
 
 
         public static bool EventsPending()
@@ -128,10 +129,10 @@ namespace Gtk
         }
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_main_iteration();
-        static d_gtk_main_iteration gtk_main_iteration = FuncLoader.LoadFunction<d_gtk_main_iteration>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration"));
+        static readonly d_gtk_main_iteration gtk_main_iteration = FuncLoader.LoadFunction<d_gtk_main_iteration>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration"));
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate bool d_gtk_main_iteration_do(bool blocking);
-        static d_gtk_main_iteration_do gtk_main_iteration_do = FuncLoader.LoadFunction<d_gtk_main_iteration_do>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration_do"));
+        static readonly d_gtk_main_iteration_do gtk_main_iteration_do = FuncLoader.LoadFunction<d_gtk_main_iteration_do>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_iteration_do"));
 
         public static void RunIteration()
         {
@@ -145,7 +146,7 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate void d_gtk_main_quit();
-        static d_gtk_main_quit gtk_main_quit = FuncLoader.LoadFunction<d_gtk_main_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_quit"));
+        static readonly d_gtk_main_quit gtk_main_quit = FuncLoader.LoadFunction<d_gtk_main_quit>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_main_quit"));
 
         public static void Quit()
         {
@@ -154,7 +155,7 @@ namespace Gtk
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_get_current_event();
-        static d_gtk_get_current_event gtk_get_current_event = FuncLoader.LoadFunction<d_gtk_get_current_event>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_get_current_event"));
+        static readonly d_gtk_get_current_event gtk_get_current_event = FuncLoader.LoadFunction<d_gtk_get_current_event>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_get_current_event"));
 
         public static Gdk.Event CurrentEvent
         {
@@ -166,9 +167,9 @@ namespace Gtk
 
         internal class InvokeCB
         {
-            EventHandler d;
-            object sender;
-            EventArgs args;
+            readonly EventHandler d;
+            readonly object sender;
+            readonly EventArgs args;
 
             internal InvokeCB(EventHandler d)
             {
@@ -206,4 +207,3 @@ namespace Gtk
         }
     }
 }
-

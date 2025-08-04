@@ -28,7 +28,7 @@ namespace Gtk
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         delegate IntPtr d_gtk_bin_get_child(IntPtr raw);
-        static d_gtk_bin_get_child gtk_bin_get_child = FuncLoader.LoadFunction<d_gtk_bin_get_child>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_bin_get_child"));
+        static readonly d_gtk_bin_get_child gtk_bin_get_child = FuncLoader.LoadFunction<d_gtk_bin_get_child>(FuncLoader.GetProcAddress(GLibrary.Load(Library.Gtk), "gtk_bin_get_child"));
 
         public new Gtk.Widget Child
         {
@@ -51,4 +51,3 @@ namespace Gtk
         }
     }
 }
-
