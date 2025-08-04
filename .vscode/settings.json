@@ -1,5 +1,5 @@
 {
-    "files.exclude": {
-        "**/obj/": true
-    }
+  "files.exclude": {
+    "**/obj/": true
+  }
 }
